@@ -3,10 +3,11 @@ import axios from 'axios';
 
 const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed }) => {
   const { isFetching, characterArray } = store.characters;
+  console.log(characterArray);
 
   const handleFetchData = () => {
     requestData();  // axios.get()を呼ぶ前にisFetchingをtrueにしておく
-    axios.get('/api/characters')
+    axios.get('/api/share')
       .then(response => {  // データ受け取りに成功した場合
         const _characterArray = response.data;
         receiveDataSuccess(_characterArray);    // データをstoreに保存するとともにisFetchingをfalseに
@@ -27,7 +28,7 @@ const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed })
             <ul>
               {characterArray.map(character => (
                 <li key={character._id}>
-                  {`${character.name} (${character.age})`}
+                  {`${character.productName} ${character.companyName} ${character.name} ${character.mailAddress} ${character.companyAddress} ${character.comment}`}
                 </li>
               ))}
             </ul>

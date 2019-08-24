@@ -1,21 +1,48 @@
 import React from 'react';
 import axios from 'axios';
 
-const SharePage = ({ store, changeName, changeAge, initializeForm }) => {
-  const { name, age } = store.form;
+const SharePage = ({
+  store,
+  changeProductName,
+  changeCompanyName,
+  changeName,
+  changeMailAddress,
+  changeCompanyAddress,
+  changeComment,
+  initializeForm,
+  requestData,
+  receiveDataSuccess,
+  receiveDataFailed,
+}) => {
+
+  const {
+    productName,
+    companyName,
+    name,
+    mailAddress,
+    companyAddress,
+    comment
+  } = store.shareForm;
 
   const handleSubmit = e => {
     e.preventDefault()    // フォームsubmit時のデフォルトの動作を抑制
 
-    axios.post('/api/characters', {
+    axios.post('/api/share', {
+      productName,
+      companyName,
       name,
-      age,
-    })  // キャラクターの名前、年齢からなるオブジェクトをサーバーにPOST
+      mailAddress,
+      companyAddress,
+      comment
+    })                    // オブジェクトをサーバーにPOST
       .then(response => {
-        console.log(response)  // 後で行う動作確認のためのコンソール出力
-        initializeForm() // submit後はフォームを初期化
+        initializeForm(); // submit後はフォームを初期化
+        console.log(response);
+        /*const characterArray = response.data;
+        receiveDataSuccess(characterArray);*/
       })
       .catch(err => {
+        receiveDataFailed();
         console.error(new Error(err))
       })
   }
@@ -23,14 +50,33 @@ const SharePage = ({ store, changeName, changeAge, initializeForm }) => {
   return (
     <div>
       <form onSubmit={e => handleSubmit(e)}>
+
+
+        <label>
+          シェアリングしたい商品:
+          <input value={productName} onChange={e => changeProductName(e.target.value)} />
+        </label>
+        <label>
+          会社名:
+          <input value={companyName} onChange={e => changeCompanyName(e.target.value)} />
+        </label>
         <label>
           名前:
           <input value={name} onChange={e => changeName(e.target.value)} />
         </label>
         <label>
-          年齢:
-          <input value={age} onChange={e => changeAge(e.target.value)} />
+          メールアドレス:
+          <input value={mailAddress} onChange={e => changeMailAddress(e.target.value)} />
         </label>
+        <label>
+          住所:
+          <input value={companyAddress} onChange={e => changeCompanyAddress(e.target.value)} />
+        </label>
+        <label>
+          コメント:
+          <input value={comment} onChange={e => changeComment(e.target.value)} />
+        </label>
+
         <button type="submit">submit</button>
       </form>
     </div>
