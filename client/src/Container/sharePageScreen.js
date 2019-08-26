@@ -1,6 +1,17 @@
 import { connect } from 'react-redux';
 import SharePage from '../Component/sharePageScreen/index';
-import { changeName, changeAge, initializeForm } from '../Action/index';
+import {
+  changeProductName,
+  changeCompanyName,
+  changeName,
+  changeMailAddress,
+  changeCompanyAddress,
+  changeComment,
+  initializeForm,
+  requestData,
+  receiveDataSuccess,
+  receiveDataFailed,
+} from '../Action/index';
 
 const mapStateToProps = (state) => {
   console.log(state);
@@ -10,14 +21,35 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  changeName(nameText) {
-    dispatch(changeName(nameText));
+  changeProductName(productName) {
+    dispatch(changeProductName(productName));
   },
-  changeAge(ageText) {
-    dispatch(changeAge(ageText));
+  changeCompanyName(companyName) {
+    dispatch(changeCompanyName(companyName));
+  },
+  changeName(name) {
+    dispatch(changeName(name));
+  },
+  changeMailAddress(mailAddress) {
+    dispatch(changeMailAddress(mailAddress));
+  },
+  changeCompanyAddress(companyAddress) {
+    dispatch(changeCompanyAddress(companyAddress));
+  },
+  changeComment(comment) {
+    dispatch(changeComment(comment));
   },
   initializeForm() {
     dispatch(initializeForm());
+  },
+  requestData() {
+    dispatch(requestData());
+  },
+  receiveDataSuccess(characterArray) {
+    dispatch(receiveDataSuccess(characterArray));
+  },
+  receiveDataFailed() {
+    dispatch(receiveDataFailed());
   },
 });
 

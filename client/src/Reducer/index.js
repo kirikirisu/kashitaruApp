@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import formReducer from './formReducer';
+import shareFormReducer from './shareFormReducer';
 import charactersReducer from './charactersReducer';
 
 const rootReducer = combineReducers({
-    form: formReducer,
+    shareForm: shareFormReducer,
     characters: charactersReducer,
 });
 

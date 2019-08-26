@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
+import Grid from '@material-ui/core/Grid';
+import Card from '../cardComponent/index';
 
 const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed }) => {
   const { isFetching, characterArray } = store.characters;
+  console.log(characterArray);
 
   const handleFetchData = () => {
     requestData();  // axios.get()を呼ぶ前にisFetchingをtrueにしておく
-    axios.get('/api/characters')
+    axios.get('/api/share')
       .then(response => {  // データ受け取りに成功した場合
         const _characterArray = response.data;
         receiveDataSuccess(_characterArray);    // データをstoreに保存するとともにisFetchingをfalseに
@@ -17,20 +20,26 @@ const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed })
       })
   }
 
+  useEffect(() => {
+    handleFetchData();
+  }, []);
+
   return (
     <div>
       {
         isFetching  // isFetchingの値で分岐
           ? <h2>Now Loading...</h2>  // データをFetch中ならばローディングアイコンを表示
           : <div>
-            <button onClick={() => handleFetchData()}>fetch data</button>
-            <ul>
-              {characterArray.map(character => (
-                <li key={character._id}>
-                  {`${character.name} (${character.age})`}
-                </li>
-              ))}
-            </ul>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={2}>
+                {characterArray.map(character => (
+                  <Grid key={character._id} item>
+                    <Card />
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+
           </div>
       }
     </div>

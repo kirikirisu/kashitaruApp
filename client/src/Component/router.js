@@ -1,8 +1,21 @@
 import React from 'react';
-import TopPage from './topPageScreen/index';
-import RentPage from '../Container/rentPageScreen';
-import SharePage from '../Container/sharePageScreen';
-import { BrowserRouter, Route } from 'react-router-dom'
+import Drawer from './persistentDrawerLeftComponent/index';
+import TopPageScreen from './topPageScreen/index';
+import SharePageScreen from '../Container/sharePageScreen';
+import RentPageScreen from '../Container/rentPageScreen';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+const TopPage = () => (
+  <Drawer screen={<TopPageScreen />} />
+);
+
+const SharePage = () => (
+  <Drawer screen={<SharePageScreen />} />
+);
+
+const RentPage = () => (
+  <Drawer screen={<RentPageScreen />} />
+);
 
 const Router = () => (
   <BrowserRouter>
