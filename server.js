@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-// import Character from './character';
 import shareInformation from './shareInformation';
 
 const app = express();
@@ -39,18 +38,10 @@ mongoose.connect(dbUrl, dbErr => {
 			response.status(200).send(`successfully!!`);
 		});
 
-		/*let Char = new Character({ name: name, age: age });
-		Char.save((err, char) => {
-			if (err) return console.error(err);
-			Character.find({}, (findErr, characterArray) => {
-				if (findErr) response.status(500).send();
-				response.status(200).send(characterArray);
-			});
-		});*/
 	});
 
-	app.get('/api/characters', (request, response) => {
-		Character.find({}, (err, characterArray) => {  // 取得したドキュメントをクライアント側と同じくcharacterArrayと命名
+	app.get('/api/share', (request, response) => {
+		shareInformation.find({}, (err, characterArray) => {  // 取得したドキュメントをクライアント側と同じくcharacterArrayと命名
 			if (err) response.status(500).send();
 			console.log(characterArray);
 			response.status(200).send(characterArray);  // characterArrayをレスポンスとして送り返す
