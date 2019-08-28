@@ -4,8 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '../cardComponent/index';
 
 const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed }) => {
-  const { isFetching, characterArray } = store.characters;
-  console.log(characterArray);
+  const { isFetching, shareInformationsArray } = store.shareInformations;
 
   const handleFetchData = () => {
     requestData();  // axios.get()を呼ぶ前にisFetchingをtrueにしておく
@@ -32,14 +31,13 @@ const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed })
           : <div>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={2}>
-                {characterArray.map(character => (
+                {shareInformationsArray.map(character => (
                   <Grid key={character._id} item>
-                    <Card />
+                    <Card id={character._id} productName={character.productName} companyName={character.companyName} comment={character.comment} />
                   </Grid>
                 ))}
               </Grid>
             </Grid>
-
           </div>
       }
     </div>
