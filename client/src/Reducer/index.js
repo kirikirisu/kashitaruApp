@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import shareFormReducer from './shareFormReducer';
-import charactersReducer from './charactersReducer';
+import shareInformatiosReducer from './shareInformatiosReducer';
 
 const rootReducer = combineReducers({
     shareForm: shareFormReducer,
-    characters: charactersReducer,
+    shareInformations: shareInformatiosReducer,
 });
 
 export default rootReducer;

@@ -1,31 +1,28 @@
 import React from 'react';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import './style.css';
 
-const SharePage = ({
-  store,
-  changeProductName,
-  changeCompanyName,
-  changeName,
-  changeMailAddress,
-  changeCompanyAddress,
-  changeComment,
-  initializeForm,
-  requestData,
-  receiveDataSuccess,
-  receiveDataFailed,
-}) => {
+class ShareForm extends React.Component {
 
-  const {
-    productName,
-    companyName,
-    name,
-    mailAddress,
-    companyAddress,
-    comment
-  } = store.shareForm;
-
-  const handleSubmit = e => {
+  handleSubmit = e => {
     e.preventDefault()    // フォームsubmit時のデフォルトの動作を抑制
+
+    const {
+      store,
+      initializeForm,
+      receiveDataFailed,
+    } = this.props;
+
+    const {
+      productName,
+      companyName,
+      name,
+      mailAddress,
+      companyAddress,
+      comment
+    } = store.shareForm;
 
     axios.post('/api/share', {
       productName,
@@ -47,40 +44,85 @@ const SharePage = ({
       })
   }
 
-  return (
-    <div>
-      <form onSubmit={e => handleSubmit(e)}>
+  render() {
+    const {
+      store,
+      changeProductName,
+      changeCompanyName,
+      changeName,
+      changeMailAddress,
+      changeCompanyAddress,
+      changeComment,
+    } = this.props;
 
+    const {
+      productName,
+      companyName,
+      name,
+      mailAddress,
+      companyAddress,
+      comment
+    } = store.shareForm;
 
-        <label>
-          シェアリングしたい商品:
-          <input value={productName} onChange={e => changeProductName(e.target.value)} />
-        </label>
-        <label>
-          会社名:
-          <input value={companyName} onChange={e => changeCompanyName(e.target.value)} />
-        </label>
-        <label>
-          名前:
-          <input value={name} onChange={e => changeName(e.target.value)} />
-        </label>
-        <label>
-          メールアドレス:
-          <input value={mailAddress} onChange={e => changeMailAddress(e.target.value)} />
-        </label>
-        <label>
-          住所:
-          <input value={companyAddress} onChange={e => changeCompanyAddress(e.target.value)} />
-        </label>
-        <label>
-          コメント:
-          <input value={comment} onChange={e => changeComment(e.target.value)} />
-        </label>
-
-        <button type="submit">submit</button>
-      </form>
-    </div>
-  )
+    return (
+      <div className="container">
+        <ValidatorForm
+          ref="form"
+          onSubmit={this.handleSubmit}
+          onError={errors => console.log(errors)}
+        >
+          <div className="inputs">
+            <TextValidator
+              label="シェアリングしたい商品"
+              onChange={e => changeProductName(e.target.value)}
+              value={productName}
+              validators={['required', 'isString']}
+              errorMessages={['入力してください', 'string is not valid']}
+            />
+            <TextValidator
+              label="会社名"
+              onChange={e => changeCompanyName(e.target.value)}
+              value={companyName}
+              validators={['required', 'isString']}
+              errorMessages={['入力してください', 'string is not valid']}
+            />
+            <TextValidator
+              label="名前"
+              onChange={e => changeName(e.target.value)}
+              value={name}
+              validators={['required', 'isString']}
+              errorMessages={['入力してください', 'string is not valid']}
+            />
+            <TextValidator
+              label="メールアドレス"
+              onChange={e => changeMailAddress(e.target.value)}
+              value={mailAddress}
+              validators={['required', 'isEmail']}
+              errorMessages={['入力してください', 'メールアドレスを入力してください']}
+            />
+            <TextValidator
+              label="住所"
+              onChange={e => changeCompanyAddress(e.target.value)}
+              value={companyAddress}
+              validators={['required', 'isString']}
+              errorMessages={['入力してください', 'string is not valid']}
+            />
+            <TextValidator
+              label="コメント"
+              onChange={e => changeComment(e.target.value)}
+              value={comment}
+              validators={['required', 'isString']}
+              errorMessages={['入力してください', 'string is not valid']}
+            />
+            <br />
+            <Button variant="outlined" type='submit'>
+              送信
+            </Button>
+          </div>
+        </ValidatorForm>
+      </div>
+    );
+  }
 }
 
-export default SharePage;
+export default ShareForm;
