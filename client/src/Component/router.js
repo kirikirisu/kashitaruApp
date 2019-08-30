@@ -3,7 +3,7 @@ import Drawer from './persistentDrawerLeftComponent/index';
 import TopPageScreen from './topPageScreen/index';
 import SharePageScreen from '../Container/sharePageScreen';
 import RentPageScreen from '../Container/rentPageScreen';
-import RentFormComponent from '../Component/rentFormComponent';
+import RentFormComponent from '../Component/ChatAppComponent';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 const TopPage = () => (
