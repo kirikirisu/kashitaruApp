@@ -1,11 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import shareInformation from './shareInformation';
 import Chatkit from '@pusher/chatkit-server';
 import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
+
+import shareInformation from './shareInformation';
+import userInformation from './userInformation';
 
 const app = express();
 const port = process.env.PORT;
@@ -58,6 +60,43 @@ mongoose.connect(dbUrl, dbErr => {
 			console.log(characterArray);
 			response.status(200).send(characterArray);  // characterArrayをレスポンスとして送り返す
 		});
+	});
+
+	app.post('/api/signUp', (request, response) => {
+		const {
+			name,
+			mailAddress,
+		} = request.body;
+
+		let User = new userInformation({
+			name: name,
+			mailAddress: mailAddress,
+		});
+
+		User.save((err, user) => {
+			if (err) return console.error(err);
+			response.status(200).send(`successfully!!`);
+		});
+	});
+
+	app.post('/api/signIn', (request, response) => {
+		const {
+			signInName,
+			signInMailAddress,
+		} = request.body;
+
+		let query = { "name": signInName, "mailAddress": signInMailAddress };
+		userInformation.find(query, (err, user) => {
+			if (err) return console.log(err);
+			// response.status(200).send({ isSignIn: user });
+
+			if (user.length === 0) {
+				response.status(200).send({ name: '', mailAddress: '' }); // false
+			} else {
+				response.status(200).send({ name: signInName, mailAddress: signInMailAddress }); // true
+			}
+		});
+
 	});
 
 	app.post('/users', (req, res) => {

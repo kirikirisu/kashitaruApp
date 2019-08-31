@@ -1,10 +1,12 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Drawer from './persistentDrawerLeftComponent/index';
-import TopPageScreen from './topPageScreen/index';
+import TopPageScreen from '../Component/topPageScreen/index';
 import SharePageScreen from '../Container/sharePageScreen';
 import RentPageScreen from '../Container/rentPageScreen';
 import RentFormComponent from '../Component/ChatAppComponent';
-import { BrowserRouter, Route } from 'react-router-dom';
+import SignUpPageScreen from '../Container/signUpPageScreen';
+import SignInPageScreen from '../Container/signInPageScreen';
 
 const TopPage = () => (
   <Drawer screen={<TopPageScreen />} />
@@ -22,13 +24,23 @@ const RentFormPage = () => (
   <Drawer screen={<RentFormComponent />} />
 );
 
+const SignUpPage = () => (
+  <Drawer screen={<SignUpPageScreen />} />
+);
+
+const SignInPage = () => (
+  <Drawer screen={<SignInPageScreen />} />
+);
+
 const Router = () => (
   <BrowserRouter>
     <div>
       <Route exact path='/' component={TopPage} />
-      <Route path='/share' component={SharePage} />
-      <Route path='/rent' component={RentPage} />
-      <Route path='/rentForm' component={RentFormPage} />
+      <Route exact path='/share' component={SharePage} />
+      <Route exact path='/rent' component={RentPage} />
+      <Route exact path='/rentForm' component={RentFormPage} />
+      <Route exact path='/signUp' component={SignUpPage} />
+      <Route exact path='/signIn' component={SignInPage} />
     </div>
   </BrowserRouter>
 );

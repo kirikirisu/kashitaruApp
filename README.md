@@ -54,3 +54,6 @@ const chatkit = new Chatkit.default({
 #### methods.js/connectToRoom()
 connectToChatkit()が実行されるとconnectToRoom()も実行される。これは作成された部屋にユーザーを入れる。
 #### methods.js/
+
+## ログイン認証
+ログインの際にmongooseのfind()メソッドを使用して、値があったらtrue返し、値がなかったらfalseを返すようにしたが、find()メソッドで返ってくるものは配列のためuser.lengthで値があるかないか判断しなければならない。 if(user === "") や if(user === [])はだめ。

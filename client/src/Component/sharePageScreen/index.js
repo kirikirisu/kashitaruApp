@@ -34,7 +34,7 @@ class ShareForm extends React.Component {
     })                    // オブジェクトをサーバーにPOST
       .then(response => {
         initializeForm(); // submit後はフォームを初期化
-        console.log(response);
+        // console.log(response);
         /*const characterArray = response.data;
         receiveDataSuccess(characterArray);*/
       })

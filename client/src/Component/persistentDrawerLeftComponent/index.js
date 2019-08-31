@@ -12,14 +12,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import PanTool from '@material-ui/icons/PanTool';
 import Gavel from '@material-ui/icons/Gavel';
-import Help from '@material-ui/icons/Help';
+import PersonAdd from '@material-ui/icons/PersonAdd';
 import Home from '@material-ui/icons/Home';
-import MailIcon from '@material-ui/icons/Mail';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import ListItemLink from './listItem';
 
 const drawerWidth = 240;
@@ -139,14 +136,8 @@ const PersistentDrawerLeft = ({ screen }) => {
         </List>
         <Divider />
         <List component="nav">
-          <ListItem button>
-            <ListItemIcon><Help /></ListItemIcon>
-            <ListItemText primary="ヘルプ" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><MailIcon /></ListItemIcon>
-            <ListItemText primary="メール" />
-          </ListItem>
+          <ListItemLink to="/signUp" primary="アカウントを作る" icon={<PersonAdd />} />
+          <ListItemLink to="/signIn" primary="ログイン" icon={<ExitToApp />} />
         </List>
       </Drawer>
       <main
