@@ -3,7 +3,7 @@ import SignInForm from '../Component/signInPageScreen';
 import { changeSignInName, changeSignInMailAddress, initializeSignInForm, signInDidSuccess } from '../Action/index';
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  //console.log(state);
   return {
     store: state,
   };

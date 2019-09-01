@@ -12,8 +12,8 @@ const userInformationsReducer = (state = initialState.userInformations, action) 
     case SIGNIN_DID_SUCCESS:
       return {
         ...state,
-        isLogin: true,
-        userInfor: action.userInformations,
+        isLogin: action.isLogin,
+        userInfor: action.userInfor,
       };
     default:
       return state

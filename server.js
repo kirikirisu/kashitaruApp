@@ -91,9 +91,9 @@ mongoose.connect(dbUrl, dbErr => {
 			// response.status(200).send({ isSignIn: user });
 
 			if (user.length === 0) {
-				response.status(200).send({ name: '', mailAddress: '' }); // false
+				response.status(200).send({ name: '', mailAddress: '', isLogin: false }); // false
 			} else {
-				response.status(200).send({ name: signInName, mailAddress: signInMailAddress }); // true
+				response.status(200).send({ name: signInName, mailAddress: signInMailAddress, isLogin: true }); // true
 			}
 		});
 

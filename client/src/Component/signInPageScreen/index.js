@@ -1,11 +1,22 @@
 import React from 'react';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import './style.css';
+import AlreadySignInScreen from '../alreadySignInScreen/index';
 
-const SignInForm = ({ store, changeSignInName, changeSignInMailAddress, initializeSignInForm, signInDidSuccess }) => {
-  const { signInName, signInMailAddress } = store.signInForm;
+class SignInForm extends React.Component {
 
-  const handleSubmit = e => {
-    e.preventDefault()    // フォームsubmit時のデフォルトの動作を抑制
+  handleSubmit = e => {
+    e.preventDefault();    // フォームsubmit時のデフォルトの動作を抑制
+
+    const {
+      store,
+      initializeSignInForm,
+      signInDidSuccess
+    } = this.props;
+
+    const { signInName, signInMailAddress } = store.signInForm;
 
     axios.post('/api/signIn', {
       signInName,
@@ -13,8 +24,8 @@ const SignInForm = ({ store, changeSignInName, changeSignInMailAddress, initiali
     })
       .then(response => {
         const userInformations = response.data
-        console.log(userInformations);
-        signInDidSuccess(userInformations);
+        // console.log(userInformations);
+        signInDidSuccess(userInformations); // ログインしたユーザー情報とログイン情報をstateにセットする
         initializeSignInForm();
       })
       .catch(err => {
@@ -22,21 +33,48 @@ const SignInForm = ({ store, changeSignInName, changeSignInMailAddress, initiali
       })
   }
 
-  return (
-    <div>
-      <form onSubmit={e => handleSubmit(e)}>
-        <label>
-          名前:
-          <input value={signInName} onChange={e => changeSignInName(e.target.value)} />
-        </label>
-        <label>
-          メールアドレス:
-          <input value={signInMailAddress} onChange={e => changeSignInMailAddress(e.target.value)} />
-        </label>
-        <button type="submit">submit</button>
-      </form>
-    </div>
-  )
-}
+  render() {
+
+    const { store, changeSignInName, changeSignInMailAddress } = this.props;
+    const isLogin = store.userInformations.isLogin;
+    const { signInName, signInMailAddress } = store.signInForm;
+
+    return (
+      <div>
+        {isLogin              // isLoginで分岐
+          ? <AlreadySignInScreen />
+          : <div className="container">
+            <ValidatorForm
+              ref="form"
+              onSubmit={this.handleSubmit}
+              onError={errors => console.log(errors)}
+            >
+              <div className="inputs">
+                <TextValidator
+                  label="名前"
+                  onChange={e => changeSignInName(e.target.value)}
+                  value={signInName}
+                  validators={['required', 'isString']}
+                  errorMessages={['入力してください', 'string is not valid']}
+                />
+                <TextValidator
+                  label="メールアドレス"
+                  onChange={e => changeSignInMailAddress(e.target.value)}
+                  value={signInMailAddress}
+                  validators={['required', 'isEmail']}
+                  errorMessages={['メールアドレスを入力してください', 'string is not valid']}
+                />
+                <br />
+                <Button variant="outlined" type='submit'>
+                  ログイン
+              </Button>
+              </div>
+            </ValidatorForm>
+          </div>
+        }
+      </div>
+    );
+  }
+};
 
 export default SignInForm;

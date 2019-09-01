@@ -23,6 +23,7 @@ const SimpleCard = ({
   companyName,
   comment
 }) => {
+
   const classes = useStyles();
 
   return (
