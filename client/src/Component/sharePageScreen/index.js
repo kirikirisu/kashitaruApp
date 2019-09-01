@@ -62,7 +62,7 @@ class ShareForm extends React.Component {
 
     return (
       <div>
-        {isLogin
+        {isLogin                                // trueだったらシェアページを返す
           ? <div className="container">
             <ValidatorForm
               ref="form"
@@ -110,7 +110,7 @@ class ShareForm extends React.Component {
               </div>
             </ValidatorForm>
           </div>
-          : <PromptSignInScreen />
+          : <PromptSignInScreen />　　　　　　　　// isLoginがnullかfalseだったら
         }
       </div>
     );

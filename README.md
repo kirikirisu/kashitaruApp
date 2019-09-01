@@ -57,3 +57,6 @@ connectToChatkit()が実行されるとconnectToRoom()も実行される。こ�
 
 ## ログイン認証
 ログインの際にmongooseのfind()メソッドを使用して、値があったらtrue返し、値がなかったらfalseを返すようにしたが、find()メソッドで返ってくるものは配列のためuser.lengthで値があるかないか判断しなければならない。 if(user === "") や if(user === [])はだめ。
+
+## 複雑なif文の省略
+[ここを](https://qiita.com/Slowh/items/5a95943824802221f2da)参考

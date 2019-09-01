@@ -42,8 +42,12 @@ class SignInForm extends React.Component {
     return (
       <div>
         {isLogin              // isLoginで分岐
-          ? <AlreadySignInScreen />
+          ? <AlreadySignInScreen />　　　　　　　　　// isLoginがtrueだったらAlreadyページ
           : <div className="container">
+            {(isLogin === null)                   // true以外でnullだったら
+              ? <p>ログインしましょう</p>
+              : <p>ログイン失敗</p>　　　　　　　　　　// trueでもnullでもない
+            }
             <ValidatorForm
               ref="form"
               onSubmit={this.handleSubmit}

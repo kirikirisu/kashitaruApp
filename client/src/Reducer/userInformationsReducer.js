@@ -2,7 +2,7 @@ import { SIGNIN_DID_SUCCESS } from '../Action/index';
 
 const initialState = {
   userInformations: {
-    isLogin: false,
+    isLogin: null,
     userInfor: {},
   },
 }

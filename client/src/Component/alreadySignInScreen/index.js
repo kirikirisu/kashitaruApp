@@ -15,7 +15,7 @@ const AlreadySignInScreen = () => {
 
   return (
     <div>
-      <p>ログインしています！！</p>
+      <p>ログインしました!!</p>
       <Button size="small" component={RouterLink} to="/" className={classes.button}>
         戻る
       </Button>

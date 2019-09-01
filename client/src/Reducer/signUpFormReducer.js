@@ -1,13 +1,15 @@
 import {
   CHANGE_NAME,
   CHANGE_MAILADDRESS,
-  INITIALIZE_SIGNUP_FORM
+  INITIALIZE_SIGNUP_FORM,
+  SAME_USER_EXIST,
 } from '../Action/index';
 
 const initialState = {
   signUpForm: {
     name: '',
     mailAddress: '',
+    isExistUser: null,
   },
 }
 
@@ -22,6 +24,11 @@ const signUpFormReducer = (state = initialState.signUpForm, action) => {
       return {
         ...state,
         mailAddress: action.mailAddress,
+      }
+    case SAME_USER_EXIST:
+      return {
+        ...state,
+        isExistUser: action.isExistUser,
       }
     case INITIALIZE_SIGNUP_FORM:
       return initialState.signUpForm  // 初期状態を返す

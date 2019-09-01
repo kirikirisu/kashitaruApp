@@ -9,7 +9,7 @@ class SignUpForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();    // フォームsubmit時のデフォルトの動作を抑制
 
-    const { store, initializeSignUpForm } = this.props;
+    const { store, initializeSignUpForm, sameUserExist } = this.props;
     const { name, mailAddress } = store.signUpForm;
 
     axios.post('/api/signUp', {
@@ -17,8 +17,10 @@ class SignUpForm extends React.Component {
       mailAddress,
     })
       .then(response => {
-        console.log(response);
-        initializeSignUpForm();
+        const { isExistUser } = response.data;
+        // console.log(isExistUser);
+        initializeSignUpForm();      // これを先しないとstateのisExisUserも初期化される
+        sameUserExist(isExistUser);   // フォームを初期化した後、isExisUserを変更
         // return <Redirect from='/signIn' to='/' /> このタイミングでログインページにリダイレクトさせたい
       })
       .catch(err => {
@@ -29,10 +31,17 @@ class SignUpForm extends React.Component {
   render() {
 
     const { store, changeName, changeMailAddress } = this.props;
-    const { name, mailAddress } = store.signUpForm;
+    const { name, mailAddress, isExistUser } = store.signUpForm;
 
     return (
       <div className="container">
+        {
+          (isExistUser === null)                    // nullの場合
+            ? <p>アカウントを作る</p>
+            : (isExistUser)                         // trueの場合
+              ? <p>すでに存在しているアカウントです</p>
+              : <p>アカウントを作りました！！</p>       // それ以外の場合(falseの場合)
+        }
         <ValidatorForm
           ref="form"
           onSubmit={this.handleSubmit}
