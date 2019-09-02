@@ -3,7 +3,7 @@ import RentPage from '../Component/rentPageScreen/index';
 import { requestData, receiveDataSuccess, receiveDataFailed } from '../Action/index';
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return {
     store: state,
   };

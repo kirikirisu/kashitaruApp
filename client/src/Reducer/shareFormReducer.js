@@ -1,9 +1,6 @@
 import {
   CHANGE_PRODUCTNAME,
   CHANGE_COMPANYNAME,
-  CHANGE_NAME,
-  CHANGE_MAILADDRESS,
-  CHANGE_COMPANYADDRESS,
   CHANGE_COMMNT,
   INITIALIZE_FORM
 } from '../Action/index';
@@ -12,9 +9,6 @@ const initialState = {
   shareForm: {
     productName: '',
     companyName: '',
-    name: '',
-    mailAddress: '',
-    companyAddress: '',
     comment: '',
   },
 }
@@ -30,21 +24,6 @@ const shareFormReducer = (state = initialState.shareForm, action) => {
       return {
         ...state,
         companyName: action.companyName,
-      }
-    case CHANGE_NAME:
-      return {
-        ...state,
-        name: action.name,
-      }
-    case CHANGE_MAILADDRESS:
-      return {
-        ...state,
-        mailAddress: action.mailAddress,
-      }
-    case CHANGE_COMPANYADDRESS:
-      return {
-        ...state,
-        companyAddress: action.companyAddress,
       }
     case CHANGE_COMMNT:
       return {

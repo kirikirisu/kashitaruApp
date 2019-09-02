@@ -18,22 +18,22 @@ const useStyles = makeStyles({
 });
 
 const SimpleCard = ({
-  id,
   productName,
-  companyName,
+  name,
   comment
 }) => {
+
   const classes = useStyles();
 
   return (
-    <div value={id}>
+    <div>
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h5" component="h2">
             {productName}
           </Typography>
           <Typography variant="h6" component="h2">
-            {companyName}
+            {name}
           </Typography>
           <br />
           <Typography paragraph component="h2">
@@ -41,7 +41,7 @@ const SimpleCard = ({
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" component={RouterLink} to="rentForm" className={classes.button}>借りる</Button>
+          <Button size="small" component={RouterLink} to="chat" className={classes.button}>借りる</Button>
         </CardActions>
       </Card>
     </div>
