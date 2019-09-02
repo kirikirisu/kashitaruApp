@@ -18,6 +18,7 @@ import PersonAdd from '@material-ui/icons/PersonAdd';
 import Home from '@material-ui/icons/Home';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import ListItemLink from './listItem';
+import AccountBox from '@material-ui/icons/AccountBox';
 
 const drawerWidth = 240;
 
@@ -131,6 +132,7 @@ const PersistentDrawerLeft = ({ screen }) => {
         <Divider />
         <List component="nav">
           <ListItemLink to="/" primary="ホーム" icon={<Home />} />
+          <ListItemLink to="/profile" primary="プロフィール" icon={<AccountBox />} />
           <ListItemLink to="/share" primary="工具をシェアする" icon={<Gavel />} />
           <ListItemLink to="/rent" primary="工具を借りる" icon={<PanTool />} />
         </List>

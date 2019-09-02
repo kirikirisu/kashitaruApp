@@ -7,6 +7,7 @@ import RentPageScreen from '../Container/rentPageScreen';
 import RentFormComponent from '../Component/ChatAppComponent';
 import SignUpPageScreen from '../Container/signUpPageScreen';
 import SignInPageScreen from '../Container/signInPageScreen';
+import ProfilePageScreen from '../Container/profilePageScreen';
 
 const TopPage = () => (
   <Drawer screen={<TopPageScreen />} />
@@ -32,6 +33,10 @@ const SignInPage = () => (
   <Drawer screen={<SignInPageScreen />} />
 );
 
+const ProfilePage = () => (
+  <Drawer screen={<ProfilePageScreen />} />
+);
+
 const Router = () => (
   <BrowserRouter>
     <div>
@@ -41,6 +46,7 @@ const Router = () => (
       <Route exact path='/rentForm' component={RentFormPage} />
       <Route exact path='/signUp' component={SignUpPage} />
       <Route exact path='/signIn' component={SignInPage} />
+      <Route exact path='/profile' component={ProfilePage} />
     </div>
   </BrowserRouter>
 );
