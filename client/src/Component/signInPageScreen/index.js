@@ -16,14 +16,14 @@ class SignInForm extends React.Component {
       signInDidSuccess
     } = this.props;
 
-    const { signInName, signInMailAddress } = store.signInForm;
+    const { signInName, signInPassword } = store.signInForm;
 
     axios.post('/api/signIn', {
       signInName,
-      signInMailAddress,
+      signInPassword,
     })
       .then(response => {
-        const userInformations = response.data
+        const userInformations = response.data;
         // console.log(userInformations);
         signInDidSuccess(userInformations); // ログインしたユーザー情報とログイン情報をstateにセットする
         initializeSignInForm();
@@ -35,9 +35,9 @@ class SignInForm extends React.Component {
 
   render() {
 
-    const { store, changeSignInName, changeSignInMailAddress } = this.props;
+    const { store, changeSignInName, changeSignInPassword } = this.props;
     const isLogin = store.userInformations.isLogin;
-    const { signInName, signInMailAddress } = store.signInForm;
+    const { signInName, signInPassword } = store.signInForm;
 
     return (
       <div>
@@ -62,11 +62,11 @@ class SignInForm extends React.Component {
                   errorMessages={['入力してください', 'string is not valid']}
                 />
                 <TextValidator
-                  label="メールアドレス"
-                  onChange={e => changeSignInMailAddress(e.target.value)}
-                  value={signInMailAddress}
-                  validators={['required', 'isEmail']}
-                  errorMessages={['メールアドレスを入力してください', 'string is not valid']}
+                  label="パスワード"
+                  onChange={e => changeSignInPassword(e.target.value)}
+                  value={signInPassword}
+                  validators={['required', 'isString']}
+                  errorMessages={['入力してください', 'string is not valid']}
                 />
                 <br />
                 <Button variant="outlined" type='submit'>

@@ -4,7 +4,7 @@ mongoose.Promise = global.Promise;
 
 const userInformationSchema = new mongoose.Schema({
   name: String,
-  mailAddress: String,
+  password: String,
 });
 
 const User = mongoose.model('User', userInformationSchema);

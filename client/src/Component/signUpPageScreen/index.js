@@ -10,11 +10,11 @@ class SignUpForm extends React.Component {
     e.preventDefault();    // フォームsubmit時のデフォルトの動作を抑制
 
     const { store, initializeSignUpForm, sameUserExist } = this.props;
-    const { name, mailAddress } = store.signUpForm;
+    const { name, password } = store.signUpForm;
 
     axios.post('/api/signUp', {
       name,
-      mailAddress,
+      password,
     })
       .then(response => {
         const { isExistUser } = response.data;
@@ -30,8 +30,8 @@ class SignUpForm extends React.Component {
 
   render() {
 
-    const { store, changeName, changeMailAddress } = this.props;
-    const { name, mailAddress, isExistUser } = store.signUpForm;
+    const { store, changeName, changePassword } = this.props;
+    const { name, password, isExistUser } = store.signUpForm;
 
     return (
       <div className="container">
@@ -56,11 +56,11 @@ class SignUpForm extends React.Component {
               errorMessages={['入力してください', 'string is not valid']}
             />
             <TextValidator
-              label="メールアドレス"
-              onChange={e => changeMailAddress(e.target.value)}
-              value={mailAddress}
-              validators={['required', 'isEmail']}
-              errorMessages={['メールアドレスを入力してください', 'string is not valid']}
+              label="パスワード"
+              onChange={e => changePassword(e.target.value)}
+              value={password}
+              validators={['required', 'isString']}
+              errorMessages={['入力してください', 'string is not valid']}
             />
             <br />
             <Button variant="outlined" type='submit'>

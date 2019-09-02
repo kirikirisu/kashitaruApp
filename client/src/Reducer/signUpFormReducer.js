@@ -1,6 +1,6 @@
 import {
   CHANGE_NAME,
-  CHANGE_MAILADDRESS,
+  CHANGE_PASSWORD,
   INITIALIZE_SIGNUP_FORM,
   SAME_USER_EXIST,
 } from '../Action/index';
@@ -8,7 +8,7 @@ import {
 const initialState = {
   signUpForm: {
     name: '',
-    mailAddress: '',
+    password: '',
     isExistUser: null,
   },
 }
@@ -20,10 +20,10 @@ const signUpFormReducer = (state = initialState.signUpForm, action) => {
         ...state,
         name: action.name,
       }
-    case CHANGE_MAILADDRESS:
+    case CHANGE_PASSWORD:
       return {
         ...state,
-        mailAddress: action.mailAddress,
+        password: action.password,
       }
     case SAME_USER_EXIST:
       return {

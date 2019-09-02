@@ -19,18 +19,15 @@ class ShareForm extends React.Component {
     const {
       productName,
       companyName,
-      companyAddress,
       comment
     } = store.shareForm;
 
-    const { name, mailAddress } = store.userInformations.userInfor;
+    const { name } = store.userInformations.userInfor;
 
     axios.post('/api/share', {
       productName,
       companyName,
       name,
-      mailAddress,
-      companyAddress,
       comment
     })                    // オブジェクトをサーバーにPOST
       .then(response => {
@@ -56,7 +53,7 @@ class ShareForm extends React.Component {
       comment
     } = store.shareForm;
 
-    const { name, mailAddress } = store.userInformations.userInfor;
+    const { name } = store.userInformations.userInfor;
 
     const isLogin = store.userInformations.isLogin;
 
@@ -89,12 +86,6 @@ class ShareForm extends React.Component {
                   value={name}
                   validators={['required', 'isString']}
                   errorMessages={['入力してください', 'string is not valid']}
-                />
-                <TextValidator
-                  label="メールアドレス"
-                  value={mailAddress}
-                  validators={['required', 'isString']}
-                  errorMessages={['入力してください', 'メールアドレスを入力してください']}
                 />
                 <TextValidator
                   label="コメント"

@@ -31,9 +31,9 @@ const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed })
           : <div>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={2}>
-                {shareInformationsArray.map(character => (
-                  <Grid key={character._id} item>
-                    <Card id={character._id} productName={character.productName} companyName={character.companyName} comment={character.comment} />
+                {shareInformationsArray.map(share => (
+                  <Grid key={share._id} item>
+                    <Card productName={share.productName} name={share.name} comment={share.comment} />
                   </Grid>
                 ))}
               </Grid>

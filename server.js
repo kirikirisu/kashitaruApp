@@ -33,17 +33,13 @@ mongoose.connect(dbUrl, dbErr => {
       productName,
       companyName,
       name,
-      mailAddress,
-      companyAddress,
       comment
     } = request.body;
 
     let Share = new shareInformation({
       productName: productName,
       companyName: companyName,
-      Name: name,
-      mailAddress: mailAddress,
-      companyAddress: companyAddress,
+      name: name,
       comment: comment,
     });
 
@@ -65,15 +61,15 @@ mongoose.connect(dbUrl, dbErr => {
   app.post('/api/signUp', (request, response) => {
     const {
       name,
-      mailAddress,
+      password,
     } = request.body;
 
-    let query = { "name": name, "mailAddress": mailAddress };
+    let query = { "name": name, "password": password };
     userInformation.find(query, (err, user) => {      // 同じアカウントがないか調べる
       if (user.length === 0) {                        // なかったら保存して、falseを返す
         let User = new userInformation({
           name: name,
-          mailAddress: mailAddress,
+          password: password,
         });
 
         User.save((err, user) => {
@@ -91,18 +87,18 @@ mongoose.connect(dbUrl, dbErr => {
   app.post('/api/signIn', (request, response) => {
     const {
       signInName,
-      signInMailAddress,
+      signInPassword,
     } = request.body;
 
-    let query = { "name": signInName, "mailAddress": signInMailAddress };
+    let query = { "name": signInName, "password": signInPassword };
     userInformation.find(query, (err, user) => {
       if (err) return console.log(err);
       // response.status(200).send({ isSignIn: user });
 
       if (user.length === 0) {
-        response.status(200).send({ name: '', mailAddress: '', isLogin: false }); // false
+        response.status(200).send({ name: '', password: '', isLogin: false }); // false
       } else {
-        response.status(200).send({ name: signInName, mailAddress: signInMailAddress, isLogin: true }); // true
+        response.status(200).send({ name: signInName, password: signInPassword, isLogin: true }); // true
       }
     });
 

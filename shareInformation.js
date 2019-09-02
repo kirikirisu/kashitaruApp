@@ -5,9 +5,7 @@ mongoose.Promise = global.Promise;
 const shareInformationSchema = new mongoose.Schema({
   productName: String,
   companyName: String,
-  Name: String,
-  mailAddress: String,
-  companyAddress: String,
+  name: String,
   comment: String,
 });
 

@@ -10,13 +10,13 @@ export const RECEIVE_DATA_SUCCESS = 'RECEIVE_DATA_SUCCESS';
 export const RECEIVE_DATA_FAILED = 'RECEIVE_DATA_FAILED';
 // サインアップフォーム
 export const CHANGE_NAME = 'CHANGE_NAME';
-export const CHANGE_MAILADDRESS = 'CHANGE_MAILADDRESS';
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const INITIALIZE_SIGNUP_FORM = 'INITIALIZE_SIGNUP_FORM';
 // サインアップで同じアカウントが存在
 export const SAME_USER_EXIST = 'SAME_USER_EXIST';
 // サインインフォーム
 export const CHANGE_SIGNIN_NAME = 'CHANGE_SIGNIN_NAME';
-export const CHANGE_SIGNIN_MAILADDRESS = 'CHANGE_SIGNIN_MAILADDRESS';
+export const CHANGE_SIGNIN_PASSWORD = 'CHANGE_SIGNIN_PASSWORD';
 export const INITIALIZE_SIGNIN_FORM = 'INITIALIZE_SIGNIN_FORM';
 // サインイン成功
 export const SIGNIN_DID_SUCCESS = 'SIGNIN_DID_SUCCESS';
@@ -55,9 +55,9 @@ export const changeName = name => ({
   type: CHANGE_NAME,
   name,
 });
-export const changeMailAddress = mailAddress => ({
-  type: CHANGE_MAILADDRESS,
-  mailAddress,
+export const changePassword = password => ({
+  type: CHANGE_PASSWORD,
+  password,
 });
 export const initializeSignUpForm = () => ({
   type: INITIALIZE_SIGNUP_FORM,
@@ -72,9 +72,9 @@ export const changeSignInName = signInName => ({
   type: CHANGE_SIGNIN_NAME,
   signInName,
 });
-export const changeSignInMailAddress = signInMailAddress => ({
-  type: CHANGE_SIGNIN_MAILADDRESS,
-  signInMailAddress,
+export const changeSignInPassword = signInPassword => ({
+  type: CHANGE_SIGNIN_PASSWORD,
+  signInPassword,
 });
 export const initializeSignInForm = () => ({
   type: INITIALIZE_SIGNIN_FORM,
@@ -82,10 +82,10 @@ export const initializeSignInForm = () => ({
 
 
 export const signInDidSuccess = userInformations => {
-  const { isLogin, name, mailAddress } = userInformations;
+  const { isLogin, name, password } = userInformations;
   let userInfor = {};
   userInfor.name = name;
-  userInfor.mailAddress = mailAddress;
+  userInfor.password = password;
   return {
     type: SIGNIN_DID_SUCCESS,
     isLogin,
