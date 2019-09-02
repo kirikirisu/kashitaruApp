@@ -82,7 +82,7 @@ export const initializeSignInForm = () => ({
 
 
 export const signInDidSuccess = userInformations => {
-  const { isLogin, name, password } = userInformations;
+  const { isLogin, name, password, share } = userInformations;
   let userInfor = {};
   userInfor.name = name;
   userInfor.password = password;
@@ -90,5 +90,6 @@ export const signInDidSuccess = userInformations => {
     type: SIGNIN_DID_SUCCESS,
     isLogin,
     userInfor,
+    share,
   };
 };

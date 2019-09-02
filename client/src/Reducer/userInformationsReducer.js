@@ -4,6 +4,7 @@ const initialState = {
   userInformations: {
     isLogin: null,
     userInfor: {},
+    share: [],
   },
 }
 
@@ -14,6 +15,7 @@ const userInformationsReducer = (state = initialState.userInformations, action) 
         ...state,
         isLogin: action.isLogin,
         userInfor: action.userInfor,
+        share: action.share,
       };
     default:
       return state

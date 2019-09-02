@@ -22,12 +22,13 @@ class ShareForm extends React.Component {
       comment
     } = store.shareForm;
 
-    const { name } = store.userInformations.userInfor;
+    const { name, password } = store.userInformations.userInfor;
 
     axios.post('/api/share', {
       productName,
       companyName,
       name,
+      password,           // プロダクト情報にここでパスワードを入れる
       comment
     })                    // オブジェクトをサーバーにPOST
       .then(response => {

@@ -33,6 +33,7 @@ mongoose.connect(dbUrl, dbErr => {
       productName,
       companyName,
       name,
+      password,
       comment
     } = request.body;
 
@@ -40,6 +41,7 @@ mongoose.connect(dbUrl, dbErr => {
       productName: productName,
       companyName: companyName,
       name: name,
+      password: password,
       comment: comment,
     });
 
@@ -91,14 +93,16 @@ mongoose.connect(dbUrl, dbErr => {
     } = request.body;
 
     let query = { "name": signInName, "password": signInPassword };
-    userInformation.find(query, (err, user) => {
+    userInformation.find(query, (err, user) => {　　　　　　　　　　　　　　　　// まずユーザーがいるか探す
       if (err) return console.log(err);
       // response.status(200).send({ isSignIn: user });
 
       if (user.length === 0) {
-        response.status(200).send({ name: '', password: '', isLogin: false }); // false
+        response.status(200).send({ name: '', password: '', isLogin: false, share: [] }); // いなかった場合falseを返す
       } else {
-        response.status(200).send({ name: signInName, password: signInPassword, isLogin: true }); // true
+        shareInformation.find(query, (err, share) => {                     // いたらそのユーザのシェアしている物を探す。なくても空の配列がはいる。
+          response.status(200).send({ name: signInName, password: signInPassword, isLogin: true, share: share }); // true 
+        });
       }
     });
 

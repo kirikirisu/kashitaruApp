@@ -41,7 +41,7 @@ const SimpleCard = ({
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" component={RouterLink} to="rentForm" className={classes.button}>借りる</Button>
+          <Button size="small" component={RouterLink} to="chat" className={classes.button}>借りる</Button>
         </CardActions>
       </Card>
     </div>

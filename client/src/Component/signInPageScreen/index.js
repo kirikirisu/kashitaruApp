@@ -8,7 +8,7 @@ import AlreadySignInScreen from '../alreadySignInScreen/index';
 class SignInForm extends React.Component {
 
   handleSubmit = e => {
-    e.preventDefault();    // フォームsubmit時のデフォルトの動作を抑制
+    e.preventDefault();     // フォームsubmit時のデフォルトの動作を抑制
 
     const {
       store,
@@ -24,7 +24,8 @@ class SignInForm extends React.Component {
     })
       .then(response => {
         const userInformations = response.data;
-        // console.log(userInformations);
+        // const { share } = userInformations;
+        // console.log(share);
         signInDidSuccess(userInformations); // ログインしたユーザー情報とログイン情報をstateにセットする
         initializeSignInForm();
       })

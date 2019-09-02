@@ -6,6 +6,7 @@ const shareInformationSchema = new mongoose.Schema({
   productName: String,
   companyName: String,
   name: String,
+  password: String,
   comment: String,
 });
 
