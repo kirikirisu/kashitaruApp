@@ -20,7 +20,7 @@ export const CHANGE_SIGNIN_MAILADDRESS = 'CHANGE_SIGNIN_MAILADDRESS';
 export const CHANGE_SIGNIN_PASSWORD = 'CHANGE_SIGNIN_PASSWORD';
 export const INITIALIZE_SIGNIN_FORM = 'INITIALIZE_SIGNIN_FORM';
 // サインイン成功
-export const SIGNIN_DID_SUCCESS = 'SIGNIN_DID_SUCCESS';
+export const GET_USER_INFORMATION = 'GET_USER_INFORMATION';
 export const TOGGLE_ISSIGNIN = 'TOGGLE_ISSIGNIN';
 
 // action creaters
@@ -87,9 +87,9 @@ export const initializeSignInForm = () => ({
 });
 
 
-export const signInDidSuccess = userInformations => {
+export const getUserInformation = userInformations => {
   return {
-    type: SIGNIN_DID_SUCCESS,
+    type: GET_USER_INFORMATION,
     userInformations,
   };
 };

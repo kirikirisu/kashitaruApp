@@ -15,7 +15,7 @@ class SignUpForm extends React.Component {
       .then((userCredentials) => {　　　　　　　　　// アカウント作成が成功すると自動でそのアカウントはログイン状態になる　　　　　　　　　　　　　　　   
         userCredentials.user.getIdToken(true)    // アクセストークンを入手　trueで自動でキャッシュを削除してくれる(forceRefresh)
           .then((idToken) => {                   // アクセストークンをサーバーにリクエスト
-            axios.post('/api/signUp', {
+            axios.post('/api/setUid', {
               idToken,                           // サーバ側でアクセストークンを元にログインしたユーザのユニークキーを入手し保存
             })
               .then(response => {

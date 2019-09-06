@@ -67,43 +67,36 @@ app.get('/api/share', (request, response) => {
   });
 });
 
-app.post('/api/signUp', (request, response) => {
+app.post('/api/setUid', (request, response) => {
   const { idToken } = request.body;
-  // console.log(idToken)
-  admin.auth().verifyIdToken(idToken)     // アクセストークンを受け取りユニークキーであるuidを受け取る
-    .then(function (decodedToken) {
-      let uid = decodedToken.uid;
-      // console.log(uid);
 
-      connection.query('INSERT INTO user set ?', { uid: `${uid}` }, (error, results, fields) => {
-        console.log('loginSuccsee');
-      })
-      response.status(200).send({ msg: 'success!!' });
+  admin.auth().verifyIdToken(idToken)     // アクセストークンを受け取りユニークキーであるuidを受け取る。これが今までのnameとmailAddressになる
+    .then((decodedToken) => {
+      let uid = decodedToken.uid;
+
+      connection.query('INSERT INTO user set ?', { uid: `${uid}` }, (error, results, fields) => {     // サインアップでは単純に新規ユーザーを登録するだけ。
+        // console.log('set Succsee!!');                                                                  // プロフィール設定は行わない。
+      });
+      response.status(200).send('signUp success!!');
     }).catch(function (error) {
       console.log(error);
     });
 
 });
 
-app.post('/api/signIn', (request, response) => {
-  const {
-    signInName,
-    signInPassword,
-  } = request.body;
+app.post('/api/getUserInformation', (request, response) => {
+  const { idToken } = request.body;
 
-  let query = { "name": signInName, "password": signInPassword };
-  userInformation.find(query, (err, user) => {　　　　　　　　　　　　　　　　// まずユーザーがいるか探す
-    if (err) return console.log(err);
-    // response.status(200).send({ isSignIn: user });
+  admin.auth().verifyIdToken(idToken)
+    .then((decodedToken) => {
+      let gotUid = decodedToken.uid;
 
-    if (user.length === 0) {
-      response.status(200).send({ name: '', password: '', isLogin: false, share: [] }); // いなかった場合falseを返す
-    } else {
-      shareInformation.find(query, (err, share) => {                     // いたらそのユーザのシェアしている物を探す。なくても空の配列がはいる。
-        response.status(200).send({ name: signInName, password: signInPassword, isLogin: true, share: share }); // true 
+      connection.query('SELECT * FROM `user` WHERE `uid` = ?', [`${gotUid}`], (error, results, fields) => {
+        const rslt = results[0]
+        delete rslt.uid;                        // uidの削除
+        response.status(200).send(rslt);
       });
-    }
-  });
+    });
 
 });
 

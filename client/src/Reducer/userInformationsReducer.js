@@ -1,4 +1,4 @@
-import { SIGNIN_DID_SUCCESS, TOGGLE_ISSIGNIN } from '../Action/index';
+import { GET_USER_INFORMATION, TOGGLE_ISSIGNIN } from '../Action/index';
 
 const initialState = {
   userInformations: {
@@ -9,7 +9,7 @@ const initialState = {
 
 const userInformationsReducer = (state = initialState.userInformations, action) => {
   switch (action.type) {
-    case SIGNIN_DID_SUCCESS:
+    case GET_USER_INFORMATION:
       return {
         ...state,
         userInfor: action.userInformations,
