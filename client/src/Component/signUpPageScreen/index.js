@@ -1,73 +1,81 @@
 import React from 'react';
-import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import firebase from '../../firebaseWithConfig';
+import axios from 'axios';
 import './style.css';
 
 class SignUpForm extends React.Component {
 
-  handleSubmit = e => {
-    e.preventDefault();    // フォームsubmit時のデフォルトの動作を抑制
+  createUserForLoginWithEmailAndPassword = () => {
+    const { store, initializeSignUpForm, signUpFailed } = this.props;
+    const { password, mailAddress } = store.signUpForm;
 
-    const { store, initializeSignUpForm, sameUserExist } = this.props;
-    const { name, password } = store.signUpForm;
+    firebase.auth().createUserWithEmailAndPassword(mailAddress, password)    // 入力されたメールとパスワードでfirebaseにアカウントを作る
+      .then((userCredentials) => {　　　　　　　　　// アカウント作成が成功すると自動でそのアカウントはログイン状態になる　　　　　　　　　　　　　　　   
+        userCredentials.user.getIdToken(true)    // アクセストークンを入手　trueで自動でキャッシュを削除してくれる(forceRefresh)
+          .then((idToken) => {                   // アクセストークンをサーバーにリクエスト
+            axios.post('/api/signUp', {
+              idToken,                           // サーバ側でアクセストークンを元にログインしたユーザのユニークキーを入手し保存
+            })
+              .then(response => {
+                console.log(response);
+                initializeSignUpForm();
+              })
+              .catch(err => {
+                console.error(new Error(err))
+              })
+          }).catch(function (error) {
+            console.log(error)
+          });
+      })
+      .catch(function (error) {
+        let errorMessage = error.message;
+        signUpFailed(errorMessage);
+      });
+  }
 
-    axios.post('/api/signUp', {
-      name,
-      password,
-    })
-      .then(response => {
-        const { isExistUser } = response.data;
-        // console.log(isExistUser);
-        initializeSignUpForm();      // これを先しないとstateのisExisUserも初期化される
-        sameUserExist(isExistUser);   // フォームを初期化した後、isExisUserを変更
-        // return <Redirect from='/signIn' to='/' /> このタイミングでログインページにリダイレクトさせたい
-      })
-      .catch(err => {
-        console.error(new Error(err))
-      })
+  logout = () => {
+    firebase.auth().signOut()
   }
 
   render() {
 
-    const { store, changeName, changePassword } = this.props;
-    const { name, password, isExistUser } = store.signUpForm;
+    const { store, changePassword, changeMailAddress } = this.props;
+    const { password, mailAddress } = store.signUpForm;
+    const { errorMessage } = store.signUpForm;
 
     return (
-      <div className="container">
-        {
-          (isExistUser === null)                    // nullの場合
-            ? <p>アカウントを作る</p>
-            : (isExistUser)                         // trueの場合
-              ? <p>すでに存在しているアカウントです</p>
-              : <p>アカウントを作りました！！</p>       // それ以外の場合(falseの場合)
-        }
-        <ValidatorForm
-          ref="form"
-          onSubmit={this.handleSubmit}
-          onError={errors => console.log(errors)}
-        >
-          <div className="inputs">
-            <TextValidator
-              label="名前"
-              onChange={e => changeName(e.target.value)}
-              value={name}
-              validators={['required', 'isString']}
-              errorMessages={['入力してください', 'string is not valid']}
-            />
-            <TextValidator
-              label="パスワード"
-              onChange={e => changePassword(e.target.value)}
-              value={password}
-              validators={['required', 'isString']}
-              errorMessages={['入力してください', 'string is not valid']}
-            />
-            <br />
-            <Button variant="outlined" type='submit'>
-              アカウントを作る
+      <div>
+        <div>{errorMessage}</div>
+        < div className="container">
+          <ValidatorForm
+            ref="form"
+            onSubmit={this.createUserForLoginWithEmailAndPassword}
+            onError={errors => console.log(errors)}
+          >
+            <div className="inputs">
+              <TextValidator
+                label="メール"
+                onChange={e => changeMailAddress(e.target.value)}
+                value={mailAddress}
+                validators={['required', 'isString']}
+                errorMessages={['入力してください', 'string is not valid']}
+              />
+              <TextValidator
+                label="パスワード"
+                onChange={e => changePassword(e.target.value)}
+                value={password}
+                validators={['required', 'isString']}
+                errorMessages={['入力してください', 'string is not valid']}
+              />
+              <br />
+              <Button variant="outlined" type='submit'>
+                アカウントを作る
             </Button>
-          </div>
-        </ValidatorForm>
+            </div>
+          </ValidatorForm>
+        </div>
       </div>
     );
   }

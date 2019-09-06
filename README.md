@@ -13,9 +13,18 @@ exit                          // mongodbのシェルを閉じる
 brew services stop mongodb    // mongodbを停止
 ```
 
+.envファイルを作成し、以下のフォーマットでCHATKITのキーとインスタンスロケータを入力する。
+
+```
+PORT = hoge
+CHATKIT_INSTANCE_LOCATOR = hoge
+CHATKIT_SECRET_KEY = huga
+```
+
 フロント側とサーバ側二つを起動
 
 ```
+npm install
 cd kashitaruApp
 npm start                     // サーバ側起動
 
@@ -32,7 +41,7 @@ npm start                     // フロント側起動
 rentPageでuseEffectを使用しているが、useEffect内で非同期処理をする場合、二つ目の引数に空の配列を渡す必要がある。そうしないと無限ループしてしまう。
 
 ## @pusher/chatkit-serverについて
-server.jsをbabel.jsによってES6出かけるようにしているが、ES6で@pusher/chatkit-serverを使う場合、
+server.jsをbabel.jsによってES6でかけるようにしているが、ES6で@pusher/chatkit-serverを使う場合、
 
 ```
 const Chatkit = require('@pusher/chatkit-server')
@@ -60,3 +69,34 @@ connectToChatkit()が実行されるとconnectToRoom()も実行される。こ�
 
 ## 複雑なif文の省略
 [ここを](https://qiita.com/Slowh/items/5a95943824802221f2da)参考
+
+## signUpで使っていたcreateUserForLoginWithEmailAndPasswordメソッド
+
+```
+  createUserForLoginWithEmailAndPassword = () => {
+    const { store, signInDidSuccess, initializeSignUpForm } = this.props;
+    const { name, password, mailAddress } = store.signUpForm;
+
+    firebase.auth().createUserWithEmailAndPassword(mailAddress, password)    // 入力されたメールとパスワードでfirebaseにアカウントを作る
+      .then((userCredentials) => {　　　　　　　　　// アカウント作成が成功すると自動でそのアカウントはログイン状態になる　　　　　　　　　　　　　　　   
+        if (userCredentials.user) {　　　　　　　　　// アカウントがログインしているか判断　　　
+          userCredentials.user.updateProfile({    // firebaseにメールとパスワードと一緒に保存される名前はデフォルトでnull
+            displayName: name,                 // そのため、入力された名前をログインしているアカウントに登録する
+          })
+        }
+      }).then(() => {                              　　　　　　　　　　　　　　
+          firebase.auth().onAuthStateChanged(userInformations => {  // 名前を登録したらログインしているアカウント情報を取得　　　
+          console.log(userInformations);        // displayNameの変更に少し時間がかかる？ここのコンソールでdisplayNameが保存されていても、stateのdisplayNameが保存されていない場合があり意味わからない。。
+          signInDidSuccess(userInformations);      // そしてステートに保存
+          initializeSignUpForm(); 
+        }) 
+      })
+      .catch(function (error) {
+        let errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  }
+```
+
+## uidの使い道
+firebase認証にしていなかった時は名前とメールアドレスの二つによってログインしているユーザを判断していたが、それがuid一つで済むようになる。uidの管理がセキュリティに気をつける必要があり、クライアントではuidはぜったに発行せず、アクセストークンを発行しそれを元にサーバーでfirebaseからuidを入手しなければならない。

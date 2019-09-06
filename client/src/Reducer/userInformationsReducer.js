@@ -1,10 +1,9 @@
-import { SIGNIN_DID_SUCCESS } from '../Action/index';
+import { SIGNIN_DID_SUCCESS, TOGGLE_ISSIGNIN } from '../Action/index';
 
 const initialState = {
   userInformations: {
-    isLogin: null,
+    isLogin: false,
     userInfor: {},
-    share: [],
   },
 }
 
@@ -13,9 +12,12 @@ const userInformationsReducer = (state = initialState.userInformations, action) 
     case SIGNIN_DID_SUCCESS:
       return {
         ...state,
-        isLogin: action.isLogin,
-        userInfor: action.userInfor,
-        share: action.share,
+        userInfor: action.userInformations,
+      };
+    case TOGGLE_ISSIGNIN:
+      return {
+        ...state,
+        isLogin: !state.isLogin,
       };
     default:
       return state

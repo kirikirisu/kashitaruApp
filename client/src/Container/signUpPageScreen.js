@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SignUpForm from '../Component/signUpPageScreen/index';
-import { changeName, changePassword, initializeSignUpForm, sameUserExist } from '../Action/index';
+import { changePassword, changeMailAddress, initializeSignUpForm, signUpFailed } from '../Action/index';
 
 const mapStateToProps = (state) => {
   return {
@@ -9,17 +9,17 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  changeName(name) {
-    dispatch(changeName(name));
-  },
   changePassword(password) {
     dispatch(changePassword(password));
+  },
+  changeMailAddress(mailAddress) {
+    dispatch(changeMailAddress(mailAddress));
   },
   initializeSignUpForm() {
     dispatch(initializeSignUpForm());
   },
-  sameUserExist(isExistUser) {
-    dispatch(sameUserExist(isExistUser));
+  signUpFailed(errorMessage) {
+    dispatch(signUpFailed(errorMessage));
   },
 });
 

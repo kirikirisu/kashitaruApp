@@ -1,18 +1,18 @@
-import { CHANGE_SIGNIN_NAME, CHANGE_SIGNIN_PASSWORD, INITIALIZE_SIGNIN_FORM } from '../Action/index';
+import { CHANGE_SIGNIN_MAILADDRESS, CHANGE_SIGNIN_PASSWORD, INITIALIZE_SIGNIN_FORM } from '../Action/index';
 
 const initialState = {
   signInForm: {
-    signInName: '',
+    signInMailAddress: '',
     signInPassword: '',
   },
 };
 
 const signInFormReducer = (state = initialState.signInForm, action) => {
   switch (action.type) {
-    case CHANGE_SIGNIN_NAME:
+    case CHANGE_SIGNIN_MAILADDRESS:
       return {
         ...state,
-        signInName: action.signInName,
+        signInMailAddress: action.signInMailAddress,
       }
     case CHANGE_SIGNIN_PASSWORD:
       return {

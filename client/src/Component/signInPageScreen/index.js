@@ -1,82 +1,61 @@
 import React from 'react';
-import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './style.css';
-import AlreadySignInScreen from '../alreadySignInScreen/index';
+import firebase from '../../firebaseWithConfig';
+
+// import AlreadySignInScreen from '../alreadySignInScreen/index';
 
 class SignInForm extends React.Component {
 
-  handleSubmit = e => {
-    e.preventDefault();     // フォームsubmit時のデフォルトの動作を抑制
+  signInWithEmailAndPassword = () => {
+    const { store, toggleSignIn, initializeSignInForm } = this.props;
+    const { signInMailAddress, signInPassword } = store.signInForm;
 
-    const {
-      store,
-      initializeSignInForm,
-      signInDidSuccess
-    } = this.props;
-
-    const { signInName, signInPassword } = store.signInForm;
-
-    axios.post('/api/signIn', {
-      signInName,
-      signInPassword,
-    })
-      .then(response => {
-        const userInformations = response.data;
-        // const { share } = userInformations;
-        // console.log(share);
-        signInDidSuccess(userInformations); // ログインしたユーザー情報とログイン情報をstateにセットする
+    firebase.auth().signInWithEmailAndPassword(signInMailAddress, signInPassword)
+      .then(() => {
+        toggleSignIn();
         initializeSignInForm();
       })
-      .catch(err => {
-        console.error(new Error(err))
-      })
+      .catch(function (error) {
+        console.log(error)
+        initializeSignInForm();
+      });
   }
 
   render() {
 
-    const { store, changeSignInName, changeSignInPassword } = this.props;
-    const isLogin = store.userInformations.isLogin;
-    const { signInName, signInPassword } = store.signInForm;
+    const { store, changeSignInMailAddress, changeSignInPassword } = this.props;
+    const { signInMailAddress, signInPassword } = store.signInForm;
 
     return (
-      <div>
-        {isLogin              // isLoginで分岐
-          ? <AlreadySignInScreen />　　　　　　　　　// isLoginがtrueだったらAlreadyページ
-          : <div className="container">
-            {(isLogin === null)                   // true以外でnullだったら
-              ? <p>ログインしましょう</p>
-              : <p>ログイン失敗</p>　　　　　　　　　　// trueでもnullでもない
-            }
-            <ValidatorForm
-              ref="form"
-              onSubmit={this.handleSubmit}
-              onError={errors => console.log(errors)}
-            >
-              <div className="inputs">
-                <TextValidator
-                  label="名前"
-                  onChange={e => changeSignInName(e.target.value)}
-                  value={signInName}
-                  validators={['required', 'isString']}
-                  errorMessages={['入力してください', 'string is not valid']}
-                />
-                <TextValidator
-                  label="パスワード"
-                  onChange={e => changeSignInPassword(e.target.value)}
-                  value={signInPassword}
-                  validators={['required', 'isString']}
-                  errorMessages={['入力してください', 'string is not valid']}
-                />
-                <br />
-                <Button variant="outlined" type='submit'>
-                  ログイン
+      <div className="container">
+        <ValidatorForm
+          ref="form"
+          onSubmit={this.signInWithEmailAndPassword}
+          onError={errors => console.log(errors)}
+        >
+          <div className="inputs">
+            <TextValidator
+              label="メール"
+              onChange={e => changeSignInMailAddress(e.target.value)}
+              value={signInMailAddress}
+              validators={['required', 'isString']}
+              errorMessages={['入力してください', 'string is not valid']}
+            />
+            <TextValidator
+              label="パスワード"
+              onChange={e => changeSignInPassword(e.target.value)}
+              value={signInPassword}
+              validators={['required', 'isString']}
+              errorMessages={['入力してください', 'string is not valid']}
+            />
+            <br />
+            <Button variant="outlined" type='submit'>
+              ログイン
               </Button>
-              </div>
-            </ValidatorForm>
           </div>
-        }
+        </ValidatorForm>
       </div>
     );
   }
