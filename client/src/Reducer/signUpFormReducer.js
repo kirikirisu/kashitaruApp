@@ -1,5 +1,4 @@
 import {
-  CHANGE_NAME,
   CHANGE_PASSWORD,
   CHANGE_MAILADDRESS,
   INITIALIZE_SIGNUP_FORM,
@@ -16,11 +15,6 @@ const initialState = {
 
 const signUpFormReducer = (state = initialState.signUpForm, action) => {
   switch (action.type) {
-    case CHANGE_NAME:
-      return {
-        ...state,
-        name: action.name,
-      }
     case CHANGE_PASSWORD:
       return {
         ...state,

@@ -4,6 +4,7 @@ import shareInformatiosReducer from './shareInformatiosReducer';
 import signUpFormReducer from './signUpFormReducer';
 import signInFormReducer from './signInFormReducer';
 import userInformationsReducer from './userInformationsReducer';
+import settingProfileFormReducer from './settingProfileFormReducer';
 
 const rootReducer = combineReducers({
   shareForm: shareFormReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   signUpForm: signUpFormReducer,
   signInForm: signInFormReducer,
   userInformations: userInformationsReducer,
+  settingProfileForm: settingProfileFormReducer,
 });
 
 export default rootReducer;

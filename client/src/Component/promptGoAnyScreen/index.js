@@ -9,15 +9,15 @@ const useStyles = makeStyles({
   }
 });
 
-const PromptSignInScreen = () => {
+const PromptSignInScreen = ({ p, to, btn }) => {
 
   const classes = useStyles();
 
   return (
     <div>
-      <p>ログインしてください！！</p>
-      <Button size="small" component={RouterLink} to="/signIn" className={classes.button}>
-        ログインページへ
+      <p>{p}</p>
+      <Button size="small" component={RouterLink} to={to} className={classes.button}>
+        {btn}
       </Button>
     </div>
   );
