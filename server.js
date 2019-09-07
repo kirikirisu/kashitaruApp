@@ -1,17 +1,28 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import mysql from 'mysql';
 import bodyParser from 'body-parser';
 import Chatkit from '@pusher/chatkit-server';
+import * as admin from 'firebase-admin';
 import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
 
-import shareInformation from './shareInformation';
-import userInformation from './userInformation';
-
 const app = express();
 const port = process.env.PORT;
-const dbUrl = 'mongodb://127.0.0.1:27017/kashitaru';
+
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'arakappa',
+  password: process.env.DATABASE_PASSWORD,
+  database: 'kashitaru',
+});
+connection.connect();
+
+
+admin.initializeApp({                                       // Admin SDKを初期化
+  credential: admin.credential.applicationDefault(),
+  databaseURL: "https://kashitaru-434fb.firebaseio.com"
+});
 
 const chatkit = new Chatkit({
   instanceLocator: process.env.CHATKIT_INSTANCE_LOCATOR,
@@ -24,122 +35,127 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-mongoose.connect(dbUrl, dbErr => {
-  if (dbErr) throw new Error(dbErr)
-  console.log('db connected');
+app.post('/api/share', (request, response) => {
+  const {
+    productName,
+    companyName,
+    name,
+    password,
+    comment
+  } = request.body;
 
-  app.post('/api/share', (request, response) => {
-    const {
-      productName,
-      companyName,
-      name,
-      password,
-      comment
-    } = request.body;
-
-    let Share = new shareInformation({
-      productName: productName,
-      companyName: companyName,
-      name: name,
-      password: password,
-      comment: comment,
-    });
-
-    Share.save((err, share) => {
-      if (err) return console.error(err);
-      response.status(200).send(`successfully!!`);
-    });
-
+  let Share = new shareInformation({
+    productName: productName,
+    companyName: companyName,
+    name: name,
+    password: password,
+    comment: comment,
   });
 
-  app.get('/api/share', (request, response) => {
-    shareInformation.find({}, (err, characterArray) => {  // 取得したドキュメントをクライアント側と同じくcharacterArrayと命名
-      if (err) response.status(500).send();
-      console.log(characterArray);
-      response.status(200).send(characterArray);  // characterArrayをレスポンスとして送り返す
-    });
+  Share.save((err, share) => {
+    if (err) return console.error(err);
+    response.status(200).send(`successfully!!`);
   });
 
-  app.post('/api/signUp', (request, response) => {
-    const {
-      name,
-      password,
-    } = request.body;
+});
 
-    let query = { "name": name, "password": password };
-    userInformation.find(query, (err, user) => {      // 同じアカウントがないか調べる
-      if (user.length === 0) {                        // なかったら保存して、falseを返す
-        let User = new userInformation({
-          name: name,
-          password: password,
-        });
-
-        User.save((err, user) => {
-          if (err) return console.error(err);
-          response.status(200).send({ isExistUser: false });
-        });
-      } else {
-        response.status(200).send({ isExistUser: true }); // あったら保存せずtrueを返す
-      }
-    });
-
-
+app.get('/api/share', (request, response) => {
+  shareInformation.find({}, (err, characterArray) => {  // 取得したドキュメントをクライアント側と同じくcharacterArrayと命名
+    if (err) response.status(500).send();
+    console.log(characterArray);
+    response.status(200).send(characterArray);  // characterArrayをレスポンスとして送り返す
   });
+});
 
-  app.post('/api/signIn', (request, response) => {
-    const {
-      signInName,
-      signInPassword,
-    } = request.body;
+app.post('/api/setUid', (request, response) => {
+  const { idToken } = request.body;
 
-    let query = { "name": signInName, "password": signInPassword };
-    userInformation.find(query, (err, user) => {　　　　　　　　　　　　　　　　// まずユーザーがいるか探す
-      if (err) return console.log(err);
-      // response.status(200).send({ isSignIn: user });
+  admin.auth().verifyIdToken(idToken)     // アクセストークンを受け取りユニークキーであるuidを受け取る。これが今までのnameとmailAddressになる
+    .then((decodedToken) => {
+      let uid = decodedToken.uid;
 
-      if (user.length === 0) {
-        response.status(200).send({ name: '', password: '', isLogin: false, share: [] }); // いなかった場合falseを返す
-      } else {
-        shareInformation.find(query, (err, share) => {                     // いたらそのユーザのシェアしている物を探す。なくても空の配列がはいる。
-          response.status(200).send({ name: signInName, password: signInPassword, isLogin: true, share: share }); // true 
-        });
-      }
-    });
-
-  });
-
-  app.post('/users', (req, res) => {
-    const { userId } = req.body;
-
-    chatkit
-      .createUser({
-        id: userId,
-        name: userId,
-      })
-      .then(() => {
-        res.sendStatus(201);
-      })
-      .catch(err => {
-        if (err.error === 'services/chatkit/user_already_exists') {
-          console.log(`User already exists: ${userId}`);
-          res.sendStatus(200);
-        } else {
-          res.status(err.status).json(err);
-        }
+      connection.query('INSERT INTO user set ?', { uid: `${uid}` }, (error, results, fields) => {     // サインアップでは単純に新規ユーザーを登録するだけ。
+        // console.log('set Succsee!!');                                                                  // プロフィール設定は行わない。
       });
-  });
-
-  app.post('/authenticate', (req, res) => {
-    const authData = chatkit.authenticate({
-      userId: req.query.user_id,
+      response.status(200).send('signUp success!!');
+    }).catch(function (error) {
+      console.log(error);
     });
-    res.status(authData.status).send(authData.body);
-  });
 
-  // MongoDBに接続してからサーバーを立てるために
-  // app.listen()をmongoose.connect()の中に移動
-  app.listen(port, err => {
-    if (err) throw new Error(err)
-    else console.log(`listening on port ${port}`)
-  })
+});
+
+app.post('/api/getUserInformation', (request, response) => {
+  const { idToken } = request.body;
+
+  admin.auth().verifyIdToken(idToken)
+    .then((decodedToken) => {
+      let gotUid = decodedToken.uid;
+
+      connection.query('SELECT * FROM `user` WHERE `uid` = ?', [`${gotUid}`], (error, results, fields) => {
+        const rslt = results[0]
+        delete rslt.uid;                        // uidの削除
+        response.status(200).send(rslt);
+      });
+    });
+
+});
+
+app.post('/api/updateUser', (request, response) => {
+  const {
+    idToken,                           // サーバ側でアクセストークンを元にuidを生成
+    profileName,
+    profileComment,
+    avatarImg
+  } = request.body;
+
+  admin.auth().verifyIdToken(idToken)
+    .then((decodedToken) => {
+      let gotUid = decodedToken.uid;
+
+      connection.query('UPDATE `user` SET `name` = ?, `comment` = ?, `avatar` = ? WHERE `uid` = ?',      // ユーザー情報をアップデート   // 更新の際にavatarImgの古いほうをfirebaseから消すようにしたい
+        [`${profileName}`, `${profileComment}`, `${avatarImg}`, `${gotUid}`],
+        (error, results, fields) => {
+          connection.query('SELECT * FROM `user` WHERE `uid` = ?', [`${gotUid}`], (error, results, fields) => {    // 更新したユーザー情報を取得
+            console.log(results);
+            const rslt = results[0]
+            delete rslt.uid;                                 // uid削除
+            response.status(200).send(rslt);
+          });
+        });
+    });
+});
+
+app.post('/users', (req, res) => {
+  const { userId } = req.body;
+
+  chatkit
+    .createUser({
+      id: userId,
+      name: userId,
+    })
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch(err => {
+      if (err.error === 'services/chatkit/user_already_exists') {
+        console.log(`User already exists: ${userId}`);
+        res.sendStatus(200);
+      } else {
+        res.status(err.status).json(err);
+      }
+    });
+});
+
+app.post('/authenticate', (req, res) => {
+  const authData = chatkit.authenticate({
+    userId: req.query.user_id,
+  });
+  res.status(authData.status).send(authData.body);
+});
+
+// MongoDBに接続してからサーバーを立てるために
+// app.listen()をmongoose.connect()の中に移動
+app.listen(port, err => {
+  if (err) throw new Error(err)
+  else console.log(`listening on port ${port}`)
 });

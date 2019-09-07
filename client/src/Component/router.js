@@ -8,6 +8,7 @@ import ChatAppComponent from '../Component/ChatAppComponent';
 import SignUpPageScreen from '../Container/signUpPageScreen';
 import SignInPageScreen from '../Container/signInPageScreen';
 import ProfilePageScreen from '../Container/profilePageScreen';
+import SettingProfilePageScreen from '../Container/settingProfilePageScreen';
 
 const TopPage = () => (
   <Drawer screen={<TopPageScreen />} />
@@ -37,6 +38,10 @@ const ProfilePage = () => (
   <Drawer screen={<ProfilePageScreen />} />
 );
 
+const SettingProfilePage = () => (
+  <Drawer screen={<SettingProfilePageScreen />} />
+);
+
 const Router = () => (
   <BrowserRouter>
     <div>
@@ -47,6 +52,7 @@ const Router = () => (
       <Route exact path='/signUp' component={SignUpPage} />
       <Route exact path='/signIn' component={SignInPage} />
       <Route exact path='/profile' component={ProfilePage} />
+      <Route exact path='/settingProfile' component={SettingProfilePage} />
     </div>
   </BrowserRouter>
 );

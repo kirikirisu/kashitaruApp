@@ -1,37 +1,37 @@
 import {
-  CHANGE_NAME,
   CHANGE_PASSWORD,
+  CHANGE_MAILADDRESS,
   INITIALIZE_SIGNUP_FORM,
-  SAME_USER_EXIST,
+  SIGNUP_FAILED,
 } from '../Action/index';
 
 const initialState = {
   signUpForm: {
-    name: '',
     password: '',
-    isExistUser: null,
+    mailAddress: '',
+    errorMessage: '',
   },
 }
 
 const signUpFormReducer = (state = initialState.signUpForm, action) => {
   switch (action.type) {
-    case CHANGE_NAME:
-      return {
-        ...state,
-        name: action.name,
-      }
     case CHANGE_PASSWORD:
       return {
         ...state,
         password: action.password,
       }
-    case SAME_USER_EXIST:
+    case CHANGE_MAILADDRESS:
       return {
         ...state,
-        isExistUser: action.isExistUser,
+        mailAddress: action.mailAddress,
       }
     case INITIALIZE_SIGNUP_FORM:
       return initialState.signUpForm  // 初期状態を返す
+    case SIGNUP_FAILED:
+      return {
+        ...state,
+        errorMessage: action.errorMessage,
+      }
     default:
       return state
   }

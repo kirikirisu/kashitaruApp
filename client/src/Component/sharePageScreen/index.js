@@ -3,7 +3,7 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './style.css';
-import PromptSignInScreen from '../promptSignInScreen';
+import PromptGoAnyScreen from '../promptGoAnyScreen';
 
 class ShareForm extends React.Component {
 
@@ -102,7 +102,7 @@ class ShareForm extends React.Component {
               </div>
             </ValidatorForm>
           </div>
-          : <PromptSignInScreen />　　　　　　　　// isLoginがnullかfalseだったら
+          : <PromptGoAnyScreen p='ログイン' to='/signIn' btn='ログイン' />
         }
       </div>
     );
