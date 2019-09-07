@@ -100,6 +100,31 @@ app.post('/api/getUserInformation', (request, response) => {
 
 });
 
+app.post('/api/updateUser', (request, response) => {
+  const {
+    idToken,                           // サーバ側でアクセストークンを元にuidを生成
+    profileName,
+    profileComment,
+    avatarImg
+  } = request.body;
+
+  admin.auth().verifyIdToken(idToken)
+    .then((decodedToken) => {
+      let gotUid = decodedToken.uid;
+
+      connection.query('UPDATE `user` SET `name` = ?, `comment` = ?, `avatar` = ? WHERE `uid` = ?',      // ユーザー情報をアップデート   // 更新の際にavatarImgの古いほうをfirebaseから消すようにしたい
+        [`${profileName}`, `${profileComment}`, `${avatarImg}`, `${gotUid}`],
+        (error, results, fields) => {
+          connection.query('SELECT * FROM `user` WHERE `uid` = ?', [`${gotUid}`], (error, results, fields) => {    // 更新したユーザー情報を取得
+            console.log(results);
+            const rslt = results[0]
+            delete rslt.uid;                                 // uid削除
+            response.status(200).send(rslt);
+          });
+        });
+    });
+});
+
 app.post('/users', (req, res) => {
   const { userId } = req.body;
 

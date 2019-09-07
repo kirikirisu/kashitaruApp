@@ -4,7 +4,8 @@ import {
   changeProfileName,
   changeProfileComment,
   initializeProfileForm,
-  setAvatarImg
+  setAvatarImg,
+  getUserInformation
 } from '../Action/index';
 
 const mapStateToProps = (state) => {
@@ -26,6 +27,9 @@ const mapDispatchToProps = dispatch => ({
   },
   initializeProfileForm() {
     dispatch(initializeProfileForm());
+  },
+  getUserInformation(userInformation) {
+    dispatch(getUserInformation(userInformation));
   },
 });
 

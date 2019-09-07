@@ -13,12 +13,19 @@ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Grid from '@material-ui/core/Grid';
 import Card from '../cardComponent/index';
 import PromptGoAnyScreen from '../promptGoAnyScreen/index';
+import Button from '@material-ui/core/Button';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
     width: '100vw',
     maxWidth: 800,
+  },
+  bigAvatar: {
+    margin: 10,
+    width: 60,
+    height: 60,
   },
 }));
 
@@ -35,9 +42,7 @@ const renderProfile = (classes, store) => {
           <List className={classes.root}>
             <ListItem>
               <ListItemAvatar>
-                <Avatar>
-                  <Face />
-                </Avatar>
+                <Avatar alt="Remy Sharp" src={avatar} className={classes.bigAvatar} />
               </ListItemAvatar>
               <ListItemText primary="ニックネーム" secondary={name} />
             </ListItem>
@@ -47,18 +52,11 @@ const renderProfile = (classes, store) => {
                   <VpnKey />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="パスワード" secondary={avatar} />
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Vacation" secondary="July 20, 2014" />
+              <ListItemText primary="コメント" secondary={comment} />
             </ListItem>
           </List>
           <Heading title='あなたの貸し出し一覧' subTitle='シェアしている情報を確認' />
+          <Button component={RouterLink} to='/settingProfile'>プロフィール更新</Button>
         </Box>
         : <PromptGoAnyScreen p='プロフィールを設置しましょう' to='/settingProfile' btn='プロフィール設置画面へ' />
       }

@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Input } from '@material-ui/core';
 import firebase from '../../firebaseWithConfig';
-import PromptGoAnyScreen from '../promptGoAnyScreen';
 import axios from 'axios';
 
 class SettingProfilePage extends React.Component {
@@ -36,38 +35,39 @@ class SettingProfilePage extends React.Component {
   };
 
   sendProfileData = () => {
-    const { store } = this.props;
-    const { profileName, profileComment, avatarImg } = store.settingProfileForm;
+    const { store, getUserInformation } = this.props;
+    const { profileName, profileComment, avatarImg } = store.settingProfileForm;　　　　// firebaseへのアップロードに少し時間がかかるため、ファイルを選択してからすぐに更新ボタンを押されるとavatarImgにurlが入らない
 
     firebase.auth().currentUser.getIdToken(true)
       .then((idToken) => {
-        axios.post('/api/getUserInformation', {
+        axios.post('/api/updateUser', {
           idToken,                           // サーバ側でアクセストークンを元にuidを生成
           profileName,
           profileComment,
           avatarImg
         })
           .then(response => {
-            console.log(response.data)
-            // const userInformation = response.data;
-            // getUserInformation(userInformation);
+            console.log(response.data);
+            const userInformation = response.data;
+            getUserInformation(userInformation);
           })
           .catch(err => {
             console.error(new Error(err))
           })
+      }).catch((error) => {
+        console.log(error);
       });
-
   };
 
   render() {
     const { store, changeProfileName, changeProfileComment } = this.props;
-    const { profileName, profileComment } = store.settingProfileForm;
-
+    const { profileName, profileComment, avatarImg } = store.settingProfileForm;
+    console.log(avatarImg);
     return (
       <div className="container">
         <ValidatorForm
           ref="form"
-          onSubmit={this.someFunc}
+          onSubmit={this.sendProfileData}
           onError={errors => console.log(errors)}
         >
           <div className="inputs">
