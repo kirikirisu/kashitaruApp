@@ -1,9 +1,13 @@
 // 文字列定数
 // シェアフォーム
 export const CHANGE_PRODUCTNAME = 'CHANGE_PRODUCTNAME';
-export const CHANGE_COMPANYNAME = 'CHANGE_COMPANYNAME';
-export const CHANGE_COMMNT = 'CHANGE_COMMNT';
-export const INITIALIZE_FORM = 'INITIALIZE_FORM';
+export const SET_PRODUCT_IMG_URL = 'SET_PRODUCT_IMG_URL';
+export const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION';
+export const CHANGE_PRICE = 'CHANGE_PRICE';
+export const CHANGE_PERIOD = 'CHANGE_PERIOD';
+export const CHANGE_SHIPPING_AREA = 'CHANGE_SHIPPING_AREA';
+export const CHANGE_DAYS = 'CHANGE_DAYS';
+export const INITIALIZE_SHARE_FORM = 'INITIALIZE_SHARE_FORM';
 // rentページ // シェア情報取得
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_DATA_SUCCESS = 'RECEIVE_DATA_SUCCESS';
@@ -32,16 +36,32 @@ export const changeProductName = productName => ({
   type: CHANGE_PRODUCTNAME,
   productName,
 });
-export const changeCompanyName = companyName => ({
-  type: CHANGE_COMPANYNAME,
-  companyName,
+export const setProductImgUrl = productImgUrl => ({
+  type: SET_PRODUCT_IMG_URL,
+  productImgUrl,
 });
-export const changeComment = comment => ({
-  type: CHANGE_COMMNT,
-  comment,
+export const changeDescription = description => ({
+  type: CHANGE_DESCRIPTION,
+  description,
 });
-export const initializeForm = () => ({
-  type: INITIALIZE_FORM,
+export const changePrice = price => ({
+  type: CHANGE_PRICE,
+  price,
+});
+export const changePeriod = period => ({
+  type: CHANGE_PERIOD,
+  period,
+});
+export const changeShippingArea = shippingArea => ({
+  type: CHANGE_SHIPPING_AREA,
+  shippingArea,
+});
+export const changeDays = days => ({
+  type: CHANGE_DAYS,
+  days,
+});
+export const initializeShareForm = () => ({
+  type: INITIALIZE_SHARE_FORM,
 });
 
 

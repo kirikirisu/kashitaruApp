@@ -44,7 +44,7 @@ const renderProfile = (classes, store) => {
               <ListItemAvatar>
                 <Avatar alt="Remy Sharp" src={avatar} className={classes.bigAvatar} />
               </ListItemAvatar>
-              <ListItemText primary="ニックネーム" secondary={name} />
+              <ListItemText primary={name} secondary="ニックネーム" />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -52,7 +52,7 @@ const renderProfile = (classes, store) => {
                   <VpnKey />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="コメント" secondary={comment} />
+              <ListItemText primary={comment} secondary="コメント" />
             </ListItem>
           </List>
           <Heading title='あなたの貸し出し一覧' subTitle='シェアしている情報を確認' />

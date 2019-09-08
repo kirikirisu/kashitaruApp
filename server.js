@@ -10,7 +10,7 @@ dotenv.config({ path: '.env' });
 const app = express();
 const port = process.env.PORT;
 
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
   host: 'localhost',
   user: 'arakappa',
   password: process.env.DATABASE_PASSWORD,
@@ -37,33 +37,36 @@ app.use(bodyParser.json());
 
 app.post('/api/share', (request, response) => {
   const {
+    idToken,
     productName,
-    companyName,
-    name,
-    password,
-    comment
+    productImgUrl,
+    description,
+    price,
+    period,
+    shippingArea,
+    days,
   } = request.body;
 
-  let Share = new shareInformation({
-    productName: productName,
-    companyName: companyName,
-    name: name,
-    password: password,
-    comment: comment,
-  });
-
-  Share.save((err, share) => {
-    if (err) return console.error(err);
-    response.status(200).send(`successfully!!`);
-  });
+  admin.auth().verifyIdToken(idToken)
+    .then((decodedToken) => {
+      let uid = decodedToken.uid;
+      connection.query('INSERT INTO product SET ?',
+        { uid: `${uid}`, productImg: `${productImgUrl}`, productName: `${productName}`, description: `${description}`, price: `${price}`, period: `${period}`, shippingArea: `${shippingArea}`, days: `${days}` },
+        (error, results, fields) => {
+          response.status(200).send('success!!');
+        });
+    });
 
 });
 
 app.get('/api/share', (request, response) => {
-  shareInformation.find({}, (err, characterArray) => {  // 取得したドキュメントをクライアント側と同じくcharacterArrayと命名
-    if (err) response.status(500).send();
-    console.log(characterArray);
-    response.status(200).send(characterArray);  // characterArrayをレスポンスとして送り返す
+  connection.query('SELECT * FROM `product`', (error, results, fields) => {
+    let products = [];
+    results.forEach((rslt) => {
+      delete rslt.uid;
+      products = products.concat(rslt)
+    });
+    response.status(200).send(products);
   });
 });
 
