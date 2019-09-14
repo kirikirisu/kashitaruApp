@@ -33,7 +33,18 @@ const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed })
               <Grid container justify="center" spacing={2}>
                 {shareInformationsArray.map((share, index) => (
                   <Grid key={index} item>
-                    <Card productName={share.productName} img={share.productImg} description={share.description} price={share.price} period={share.period} shippingArea={share.shippingArea} days={share.days} />
+                    <Card
+                      productName={share.productName}
+                      img={share.productImg}
+                      description={share.description}
+                      price={share.price}
+                      period={share.period}
+                      shippingArea={share.shippingArea}
+                      days={share.days}
+                      name={share.name}
+                      avatar={share.avatar}
+                      comment={share.comment}
+                    />
                   </Grid>
                 ))}
               </Grid>

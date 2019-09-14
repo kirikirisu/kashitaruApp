@@ -10,9 +10,8 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+import Textsms from '@material-ui/icons/Textsms';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -35,11 +34,23 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    margin: 10,
   },
 }));
 
-const ProductCard = ({ productName, img, description, price, period, shippingArea, days }) => {
+const ProductCard = ({
+  productName,
+  img,
+  description,
+  price,
+  period,
+  shippingArea,
+  days,
+  name,
+  avatar,
+  comment
+}) => {
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -51,17 +62,15 @@ const ProductCard = ({ productName, img, description, price, period, shippingAre
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
+          <Avatar aria-label="recipe" className={classes.avatar} src={avatar} />
         }
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={name}
+        subheader="投稿日2019_3_9"
       />
       <CardMedia
         className={classes.media}
@@ -69,16 +78,13 @@ const ProductCard = ({ productName, img, description, price, period, shippingAre
         title="product image"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {description}
+        <Typography variant="h6" color="textSecondary" component="p">
+          {productName}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton aria-label="chat">
+          <Textsms />
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -93,28 +99,25 @@ const ProductCard = ({ productName, img, description, price, period, shippingAre
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
+          <Typography paragraph>商品説明:</Typography>
           <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-            minutes.
+            {description}
           </Typography>
+          <Typography paragraph>価格:</Typography>
           <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-            heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-            browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-            and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-            pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
+            {price}
           </Typography>
+          <Typography paragraph>貸し出し期間:</Typography>
           <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-            without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-            medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-            again without stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don’t open.)
+            {period}
           </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
+          <Typography paragraph>発送元エリア:</Typography>
+          <Typography paragraph>
+            {shippingArea}
+          </Typography>
+          <Typography paragraph>発送日数:</Typography>
+          <Typography paragraph>
+            {days}
           </Typography>
         </CardContent>
       </Collapse>

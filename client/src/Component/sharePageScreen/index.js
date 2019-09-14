@@ -49,28 +49,25 @@ class ShareForm extends React.Component {
       days,
     } = store.shareForm;
 
-    firebase.auth().currentUser.getIdToken(true)
-      .then((idToken) => {
-        axios.post('/api/share', {
-          idToken,
-          productName,
-          productImgUrl,
-          description,
-          price,
-          period,
-          shippingArea,
-          days,
-        })
-          .then(response => {
-            console.log(response.data);
-            initializeShareForm();
-          })
-          .catch(err => {
-            console.error(new Error(err))
-          })
-      }).catch((error) => {
-        console.log(error);
-      });
+    const { id } = store.userInformations.userInfor;
+
+    axios.post('/api/share', {
+      id,
+      productName,
+      productImgUrl,
+      description,
+      price,
+      period,
+      shippingArea,
+      days,
+    })
+      .then(response => {
+        console.log(response.data);
+        initializeShareForm();
+      })
+      .catch(err => {
+        console.error(new Error(err))
+      })
 
   }
 

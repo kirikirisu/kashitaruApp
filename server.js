@@ -5,6 +5,7 @@ import Chatkit from '@pusher/chatkit-server';
 import * as admin from 'firebase-admin';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { join } from 'path';
 dotenv.config({ path: '.env' });
 
 const app = express();
@@ -37,7 +38,7 @@ app.use(bodyParser.json());
 
 app.post('/api/share', (request, response) => {
   const {
-    idToken,
+    id,
     productName,
     productImgUrl,
     description,
@@ -47,26 +48,25 @@ app.post('/api/share', (request, response) => {
     days,
   } = request.body;
 
-  admin.auth().verifyIdToken(idToken)
-    .then((decodedToken) => {
-      let uid = decodedToken.uid;
-      connection.query('INSERT INTO product SET ?',
-        { uid: `${uid}`, productImg: `${productImgUrl}`, productName: `${productName}`, description: `${description}`, price: `${price}`, period: `${period}`, shippingArea: `${shippingArea}`, days: `${days}` },
-        (error, results, fields) => {
-          response.status(200).send('success!!');
-        });
+
+  connection.query('INSERT INTO product SET ?',
+    { id: id, productImg: `${productImgUrl}`, productName: `${productName}`, description: `${description}`, price: `${price}`, period: `${period}`, shippingArea: `${shippingArea}`, days: `${days}` },
+    (error, results, fields) => {
+      response.status(200).send('success!!');
     });
+
 
 });
 
 app.get('/api/share', (request, response) => {
-  connection.query('SELECT * FROM `product`', (error, results, fields) => {
-    let products = [];
-    results.forEach((rslt) => {
-      delete rslt.uid;
-      products = products.concat(rslt)
-    });
-    response.status(200).send(products);
+  connection.query('SELECT * FROM `product` INNER JOIN `user` ON product.id = user.id', (error, results, fields) => {
+    let resResults = [];
+    for (let i = 0; i < results.length; i++) {
+      let rslts = results[i];
+      delete rslts.uid;
+      resResults = resResults.concat(rslts)
+    }
+    response.status(200).send(resResults);
   });
 });
 
