@@ -49,7 +49,7 @@ class SettingProfilePage extends React.Component {
           .then(response => {
             console.log(response.data);
             const userInformation = response.data;
-            getUserInformation(userInformation);
+            getUserInformation(userInformation);         // 更新されたユーザープロフィール情報をステートに保存
           })
           .catch(err => {
             console.error(new Error(err))
@@ -61,8 +61,8 @@ class SettingProfilePage extends React.Component {
 
   render() {
     const { store, changeProfileName, changeProfileComment } = this.props;
-    const { profileName, profileComment, avatarImg } = store.settingProfileForm;
-    console.log(avatarImg);
+    const { profileName, profileComment } = store.settingProfileForm;
+
     return (
       <div className="container">
         <ValidatorForm

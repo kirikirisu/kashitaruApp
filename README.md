@@ -1,24 +1,39 @@
 # kashitaruApp
 ## 概要
 夏休み中に何を作ろうか色々考えた結果、[こちら](https://kougusharing.storeinfo.jp/)のアイデアを参考にwebアプリを作ることにした。
-node+react+mongodb+reduxでアプリを作るのが初めてのためREADMEに色々まとめながら開発を進めたい。
+node+react+sql+reduxでアプリを作るのが初めてのためREADMEに色々まとめながら開発を進めたい。
 ## アプリの起動
-mongodbを起動
+sqlを起動
 
 ```
-brew services start mongodb   // mogodbをhomebrewでインストールした場合
+brew services start sql@5.6   // sqlをhomebrewでインストールした場合
 brew services list            // 起動しているサービスを確認する
-mongo                         // mongodbのシェルを起動
-exit                          // mongodbのシェルを閉じる
-brew services stop mongodb    // mongodbを停止
+mysql -u arakappa -p          // sqlのシェルを起動
+exit                          // sqlのシェルを閉じる
+brew services stop sql@5.6    // sqlを停止
 ```
 
-.envファイルを作成し、以下のフォーマットでCHATKITのキーとインスタンスロケータを入力する。
+バックエンド側　
+.envファイルを作成し、以下のフォーマットでCHATKITのキーとインスタンスロケータを入力
 
 ```
 PORT = hoge
 CHATKIT_INSTANCE_LOCATOR = hoge
 CHATKIT_SECRET_KEY = huga
+```
+
+フロントエンド側
+.envファイルを作成し、以下のフォーマットでfirebaseのキーなどを入力
+create-react-appでプロジェクトを作成した場合、dotenvモジュールをインストールする必要はない、REACT_APP_で宣言しなければならない
+
+```
+REACT_APP_FIREBASE_KEY = "hoge"
+REACT_APP_AUTH_DOMAIN = "hoge"
+REACT_APP_DATABASE_URL = "hoge"
+REACT_APP_PROJECT_ID = "kashitaru-434fb"
+REACT_APP_MESSAGINGSENDER_ID = "hoge"
+REACT_APP_APP_ID = "hoge"
+REACT_APP_STORAGE_BUCKET = "hoge"
 ```
 
 フロント側とサーバ側二つを起動
@@ -64,42 +79,13 @@ const chatkit = new Chatkit.default({
 connectToChatkit()が実行されるとconnectToRoom()も実行される。これは作成された部屋にユーザーを入れる。
 #### methods.js/
 
-## ログイン認証
-ログインの際にmongooseのfind()メソッドを使用して、値があったらtrue返し、値がなかったらfalseを返すようにしたが、find()メソッドで返ってくるものは配列のためuser.lengthで値があるかないか判断しなければならない。 if(user === "") や if(user === [])はだめ。
 
 ## 複雑なif文の省略
 [ここを](https://qiita.com/Slowh/items/5a95943824802221f2da)参考
 
-## signUpで使っていたcreateUserForLoginWithEmailAndPasswordメソッド
-
-```
-  createUserForLoginWithEmailAndPassword = () => {
-    const { store, signInDidSuccess, initializeSignUpForm } = this.props;
-    const { name, password, mailAddress } = store.signUpForm;
-
-    firebase.auth().createUserWithEmailAndPassword(mailAddress, password)    // 入力されたメールとパスワードでfirebaseにアカウントを作る
-      .then((userCredentials) => {　　　　　　　　　// アカウント作成が成功すると自動でそのアカウントはログイン状態になる　　　　　　　　　　　　　　　   
-        if (userCredentials.user) {　　　　　　　　　// アカウントがログインしているか判断　　　
-          userCredentials.user.updateProfile({    // firebaseにメールとパスワードと一緒に保存される名前はデフォルトでnull
-            displayName: name,                 // そのため、入力された名前をログインしているアカウントに登録する
-          })
-        }
-      }).then(() => {                              　　　　　　　　　　　　　　
-          firebase.auth().onAuthStateChanged(userInformations => {  // 名前を登録したらログインしているアカウント情報を取得　　　
-          console.log(userInformations);        // displayNameの変更に少し時間がかかる？ここのコンソールでdisplayNameが保存されていても、stateのdisplayNameが保存されていない場合があり意味わからない。。
-          signInDidSuccess(userInformations);      // そしてステートに保存
-          initializeSignUpForm(); 
-        }) 
-      })
-      .catch(function (error) {
-        let errorMessage = error.message;
-        console.log(errorMessage);
-      });
-  }
-```
-
 ## uidの使い道
-firebase認証にしていなかった時は名前とメールアドレスの二つによってログインしているユーザを判断していたが、それがuid一つで済むようになる。uidの管理がセキュリティに気をつける必要があり、クライアントではuidはぜったに発行せず、アクセストークンを発行しそれを元にサーバーでfirebaseからuidを入手しなければならない。
+firebase認証にしていなかった時は名前とメールアドレスの二つによってログインしているユーザを判断していたが、それがuid一つで済むようになる。uidの管理がセキュリティに気をつける必要があり、クライアントではuidを絶対に発行せず、アクセストークンを発行しそれを元にサーバーでfirebaseからuidを入手しなければならない。
+
 ## プロフィール画面
 プロフィール画面ではまずユーザの名前が登録されているかどうかで分岐、登録されていない場合プロフィール設定画面をログインしていれば表示する。
-ログインしていなければプロフィール画面は見ることができない。
+ログインした時にユーザ情報を持ってきているため、ログインしていなければプロフィール画面は見ることができない。

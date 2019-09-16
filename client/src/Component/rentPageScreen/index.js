@@ -10,8 +10,8 @@ const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed })
     requestData();  // axios.get()を呼ぶ前にisFetchingをtrueにしておく
     axios.get('/api/share')
       .then(response => {  // データ受け取りに成功した場合
-        const _characterArray = response.data;
-        receiveDataSuccess(_characterArray);    // データをstoreに保存するとともにisFetchingをfalseに
+        const products = response.data;
+        receiveDataSuccess(products);    // データをstoreに保存するとともにisFetchingをfalseに
       })
       .catch(err => {  // データ受け取りに失敗した場合
         console.error(new Error(err))
@@ -31,9 +31,20 @@ const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed })
           : <div>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={2}>
-                {shareInformationsArray.map(share => (
-                  <Grid key={share._id} item>
-                    <Card productName={share.productName} name={share.name} comment={share.comment} />
+                {shareInformationsArray.map((share, index) => (
+                  <Grid key={index} item>
+                    <Card
+                      productName={share.productName}
+                      img={share.productImg}
+                      description={share.description}
+                      price={share.price}
+                      period={share.period}
+                      shippingArea={share.shippingArea}
+                      days={share.days}
+                      name={share.name}
+                      avatar={share.avatar}
+                      comment={share.comment}
+                    />
                   </Grid>
                 ))}
               </Grid>

@@ -5,12 +5,13 @@ import Chatkit from '@pusher/chatkit-server';
 import * as admin from 'firebase-admin';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { join } from 'path';
 dotenv.config({ path: '.env' });
 
 const app = express();
 const port = process.env.PORT;
 
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
   host: 'localhost',
   user: 'arakappa',
   password: process.env.DATABASE_PASSWORD,
@@ -37,33 +38,35 @@ app.use(bodyParser.json());
 
 app.post('/api/share', (request, response) => {
   const {
+    id,
     productName,
-    companyName,
-    name,
-    password,
-    comment
+    productImgUrl,
+    description,
+    price,
+    period,
+    shippingArea,
+    days,
   } = request.body;
 
-  let Share = new shareInformation({
-    productName: productName,
-    companyName: companyName,
-    name: name,
-    password: password,
-    comment: comment,
-  });
 
-  Share.save((err, share) => {
-    if (err) return console.error(err);
-    response.status(200).send(`successfully!!`);
-  });
+  connection.query('INSERT INTO product SET ?',
+    { id: id, productImg: `${productImgUrl}`, productName: `${productName}`, description: `${description}`, price: `${price}`, period: `${period}`, shippingArea: `${shippingArea}`, days: `${days}` },
+    (error, results, fields) => {
+      response.status(200).send('success!!');
+    });
+
 
 });
 
 app.get('/api/share', (request, response) => {
-  shareInformation.find({}, (err, characterArray) => {  // 取得したドキュメントをクライアント側と同じくcharacterArrayと命名
-    if (err) response.status(500).send();
-    console.log(characterArray);
-    response.status(200).send(characterArray);  // characterArrayをレスポンスとして送り返す
+  connection.query('SELECT * FROM `product` INNER JOIN `user` ON product.id = user.id', (error, results, fields) => {
+    let resResults = [];
+    for (let i = 0; i < results.length; i++) {
+      let rslts = results[i];
+      delete rslts.uid;
+      resResults = resResults.concat(rslts)
+    }
+    response.status(200).send(resResults);
   });
 });
 
