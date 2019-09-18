@@ -7,7 +7,7 @@ import {
   CHANGE_SHIPPING_AREA,
   CHANGE_DAYS,
   INITIALIZE_SHARE_FORM
-} from '../Action/index';
+} from '../constants/actionTypes';
 
 const initialState = {
   shareForm: {

@@ -30,11 +30,14 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const renderProfile = (classes, store) => {
-
-  const { name, avatar, comment } = store.userInformations.userInfor;
-  const userShareInformation = store.userInformations.userShareInformation;
-  const isFechingShareInfor = store.userInformations.isFechingShareInfor;
+const renderProfile = (
+  classes,
+  name,
+  avatar,
+  comment,
+  userShareInformation,
+  isFechingShareInfor,
+  ) => {
 
   return (
     <div>
@@ -91,13 +94,17 @@ const renderProfile = (classes, store) => {
 };
 
 const ProfilePageScreen = ({
-  store,
+  isLogin,
+  id,
+  name,
+  avatar,
+  comment,
+  userShareInformation,
+  isFechingShareInfor,
   requestUserShareInformation,
   receiveUserShareInformationSuccess,
   receiveUserShareInformationFailed
 }) => {
-  const { isLogin } = store.userInformations;
-  const { id } = store.userInformations.userInfor;
   const classes = useStyles();
 
   useEffect(() => {
@@ -116,7 +123,13 @@ const ProfilePageScreen = ({
   return (
     <div>
       {isLogin                                  // ログインしているかで分岐
-        ? renderProfile(classes, store)         // ログインしていたらプロフィール画面を表示
+        ? renderProfile(                        // ログインしていたらプロフィール画面を表示
+          classes,
+          name,
+          avatar,
+          comment,
+          userShareInformation,
+          isFechingShareInfor)
         : <PromptGoAnyScreen p='ログインしましょう' to='/signIn' btn='ログイン画面へ' />
       }
     </div>

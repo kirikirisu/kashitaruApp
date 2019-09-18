@@ -1,4 +1,8 @@
-import { CHANGE_SIGNIN_MAILADDRESS, CHANGE_SIGNIN_PASSWORD, INITIALIZE_SIGNIN_FORM } from '../Action/index';
+import {
+  CHANGE_SIGNIN_MAILADDRESS,
+  CHANGE_SIGNIN_PASSWORD,
+  INITIALIZE_SIGNIN_FORM
+} from '../constants/actionTypes';
 
 const initialState = {
   signInForm: {

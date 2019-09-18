@@ -9,12 +9,20 @@ import {
   changeShippingArea,
   changeDays,
   initializeShareForm
-} from '../Action/index';
+} from '../actions/index';
 
-const mapStateToProps = (state) => {
-  // console.log(state);
+const mapStateToProps = ({ share, user }) => {
+
   return {
-    store: state,
+    productName: share.productName,
+    productImgUrl: share.productImgUrl,
+    description: share.description,
+    price: share.price,
+    period: share.period,
+    shippingArea: share.shippingArea,
+    days: share.days,
+    id: user.userInfor.id,
+    isLogin: user.isLogin,
   };
 };
 

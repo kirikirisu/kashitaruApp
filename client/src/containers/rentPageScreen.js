@@ -1,11 +1,15 @@
 import { connect } from 'react-redux';
 import RentPage from '../Component/rentPageScreen/index';
-import { requestData, receiveDataSuccess, receiveDataFailed } from '../Action/index';
+import {
+  requestData,
+  receiveDataSuccess,
+  receiveDataFailed
+} from '../actions/index';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ getShare }) => {
   // console.log(state);
   return {
-    store: state,
+    allShare: getShare,
   };
 };
 

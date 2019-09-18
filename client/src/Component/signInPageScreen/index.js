@@ -5,12 +5,13 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './style.css';
 import firebase from '../../firebaseWithConfig';
 import AlreadySignInScreen from '../alreadySignInScreen/index';
+// import PromptGoAnyScreen from '../promptGoAnyScreen/index';
+// import { connectToChatkit } from '../ChatAppComponent/methods';
 
 class SignInForm extends React.Component {
 
   signInWithEmailAndPassword = () => {
-    const { store, toggleSignIn, initializeSignInForm } = this.props;
-    const { signInMailAddress, signInPassword } = store.signInForm;
+    const { signInMailAddress, signInPassword, toggleSignIn, initializeSignInForm } = this.props;
 
     firebase.auth().signInWithEmailAndPassword(signInMailAddress, signInPassword)
       .then(() => {
@@ -33,7 +34,7 @@ class SignInForm extends React.Component {
         })
           .then(response => {
             const userInformation = response.data;
-            getUserInformation(userInformation);
+            getUserInformation(userInformation);     // ユーザー情報をステートに保存
           })
           .catch(err => {
             console.error(new Error(err))
@@ -43,11 +44,28 @@ class SignInForm extends React.Component {
       });
   }
 
+  /* generationChatInstance = () => {
+    const {store} = this.props; 
+    const { name } = store.userInfor;
+
+    if (name === null || name.trim() === ''){     // ユーザーの名前がなかったらプロフィール設定へ
+      return(
+        <PromptGoAnyScreen p='プロフィールを設置しましょう' to='/settingProfile' btn='プロフィール設置画面へ' />
+      );
+    } else {
+      connectToChatkit(name);
+    }
+  } */
+
   render() {
 
-    const { store, changeSignInMailAddress, changeSignInPassword } = this.props;
-    const { signInMailAddress, signInPassword } = store.signInForm;
-    const { isLogin } = store.userInformations;
+    const {
+      signInMailAddress,
+      signInPassword,
+      changeSignInMailAddress,
+      changeSignInPassword,
+      isLogin,
+    } = this.props;
 
     return (
       <div>{isLogin

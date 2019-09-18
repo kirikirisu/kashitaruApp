@@ -4,7 +4,7 @@ import {
   REQUEST_USER_SHARE_INFORMATION,
   RECEIVE_USER_SHARE_INFORMATION_SUCCESS,
   RECEIVE_USER_SHARE_INFORMATION_FAILED,
-} from '../Action/index';
+} from '../constants/actionTypes';
 
 const initialState = {
   userInformations: {

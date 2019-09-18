@@ -3,7 +3,7 @@ import {
   CHANGE_PROFILE_COMMENT,
   INITIALIZE_PROFILE_FORM,
   SET_AVATAR_IMG,
-} from '../Action/index';
+} from '../constants/actionTypes';
 
 const initialState = {
   profileForm: {

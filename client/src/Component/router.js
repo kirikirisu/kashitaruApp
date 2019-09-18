@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Drawer from './persistentDrawerLeftComponent/index';
 import TopPageScreen from '../Component/topPageScreen/index';
-import SharePageScreen from '../Container/sharePageScreen';
-import RentPageScreen from '../Container/rentPageScreen';
+import SharePageScreen from '../containers/sharePageScreen';
+import RentPageScreen from '../containers/rentPageScreen';
 import ChatAppComponent from '../Component/ChatAppComponent';
-import SignUpPageScreen from '../Container/signUpPageScreen';
-import SignInPageScreen from '../Container/signInPageScreen';
-import ProfilePageScreen from '../Container/profilePageScreen';
-import SettingProfilePageScreen from '../Container/settingProfilePageScreen';
+import SignUpPageScreen from '../containers/signUpPageScreen';
+import SignInPageScreen from '../containers/signInPageScreen';
+import ProfilePageScreen from '../containers/profilePageScreen';
+import SettingProfilePageScreen from '../containers/settingProfilePageScreen';
 
 const TopPage = () => (
   <Drawer screen={<TopPageScreen />} />

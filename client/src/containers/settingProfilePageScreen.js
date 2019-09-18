@@ -6,12 +6,14 @@ import {
   initializeProfileForm,
   setAvatarImg,
   getUserInformation
-} from '../Action/index';
+} from '../actions/index';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ profile }) => {
   //console.log(state);
   return {
-    store: state,
+    profileName: profile.profileName,
+    profileComment: profile.profileComment,
+    vatarImg: profile.avatarImg,
   };
 };
 

@@ -1,11 +1,19 @@
 import { connect } from 'react-redux';
 import SignInForm from '../Component/signInPageScreen';
-import { changeSignInMailAddress, changeSignInPassword, initializeSignInForm, getUserInformation, toggleSignIn } from '../Action/index';
+import {
+  changeSignInMailAddress,
+  changeSignInPassword,
+  initializeSignInForm,
+  getUserInformation,
+  toggleSignIn
+} from '../actions/index';
 
-const mapStateToProps = (state) => {
-  //console.log(state);
+const mapStateToProps = ({ signIn, user }) => {
+
   return {
-    store: state,
+    signInMailAddress: signIn.signInMailAddress,
+    signInPassword: signIn.signInPassword,
+    isLogin: user.isLogin,
   };
 };
 

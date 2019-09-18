@@ -3,8 +3,14 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Card from '../cardComponent/index';
 
-const RentPage = ({ store, requestData, receiveDataSuccess, receiveDataFailed }) => {
-  const { isFetching, shareInformationsArray } = store.shareInformations;
+const RentPage = ({
+  allShare,
+  requestData,
+  receiveDataSuccess,
+  receiveDataFailed
+}) => {
+
+  const { isFetching, shareInformationsArray } = allShare;
 
   const handleFetchData = () => {
     requestData();  // axios.get()を呼ぶ前にisFetchingをtrueにしておく

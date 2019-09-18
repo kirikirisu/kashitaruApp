@@ -4,12 +4,17 @@ import {
   requestUserShareInformation,
   receiveUserShareInformationSuccess,
   receiveUserShareInformationFailed
-} from '../Action/index';
+} from '../actions/index';
 
-const mapStateToProps = (state) => {
-  // console.log(state);
+const mapStateToProps = ({ user }) => {
   return {
-    store: state,
+    isLogin: user.isLogin,
+    id: user.userInfor.id,
+    name: user.userInfor.name,
+    avatar: user.userInfor.avatar,
+    comment: user.userInfor.comment,
+    userShareInformation: user.userShareInformation,
+    isFechingShareInfor: user.isFechingShareInfor,
   };
 };
 

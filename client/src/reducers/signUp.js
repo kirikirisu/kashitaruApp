@@ -3,7 +3,7 @@ import {
   CHANGE_MAILADDRESS,
   INITIALIZE_SIGNUP_FORM,
   SIGNUP_FAILED,
-} from '../Action/index';
+} from '../constants/actionTypes';
 
 const initialState = {
   signUpForm: {

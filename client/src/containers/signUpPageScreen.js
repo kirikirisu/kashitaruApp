@@ -1,10 +1,17 @@
 import { connect } from 'react-redux';
 import SignUpForm from '../Component/signUpPageScreen/index';
-import { changePassword, changeMailAddress, initializeSignUpForm, signUpFailed } from '../Action/index';
+import {
+  changePassword,
+  changeMailAddress,
+  initializeSignUpForm,
+  signUpFailed
+} from '../actions/index';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ signUp }) => {
   return {
-    store: state,
+    password: signUp.password,
+    mailAddress: signUp.mailAddress,
+    errorMessage: signUp.errorMessage,
   };
 };
 
