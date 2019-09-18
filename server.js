@@ -5,7 +5,6 @@ import Chatkit from '@pusher/chatkit-server';
 import * as admin from 'firebase-admin';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { join } from 'path';
 dotenv.config({ path: '.env' });
 
 const app = express();
@@ -70,6 +69,7 @@ app.get('/api/share', (request, response) => {
   });
 });
 
+// signUp
 app.post('/api/setUid', (request, response) => {
   const { idToken } = request.body;
 
@@ -87,6 +87,7 @@ app.post('/api/setUid', (request, response) => {
 
 });
 
+// signIn
 app.post('/api/getUserInformation', (request, response) => {
   const { idToken } = request.body;
 
@@ -119,7 +120,6 @@ app.post('/api/updateUser', (request, response) => {
         [`${profileName}`, `${profileComment}`, `${avatarImg}`, `${gotUid}`],
         (error, results, fields) => {
           connection.query('SELECT * FROM `user` WHERE `uid` = ?', [`${gotUid}`], (error, results, fields) => {    // 更新したユーザー情報を取得
-            console.log(results);
             const rslt = results[0]
             delete rslt.uid;                                 // uid削除
             response.status(200).send(rslt);
@@ -128,6 +128,16 @@ app.post('/api/updateUser', (request, response) => {
     });
 });
 
+app.post('/api/user/shareInformation', (request, response) => {
+  const { id } = request.body;
+
+  connection.query('SELECT * FROM `product` WHERE `id` = ?', [id], (error, results, fields) => {
+    console.log(results);
+    response.status(200).send(results);
+  });
+});
+
+// chatKitの設定
 app.post('/users', (req, res) => {
   const { userId } = req.body;
 
@@ -156,8 +166,7 @@ app.post('/authenticate', (req, res) => {
   res.status(authData.status).send(authData.body);
 });
 
-// MongoDBに接続してからサーバーを立てるために
-// app.listen()をmongoose.connect()の中に移動
+
 app.listen(port, err => {
   if (err) throw new Error(err)
   else console.log(`listening on port ${port}`)

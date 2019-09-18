@@ -30,6 +30,10 @@ export const CHANGE_PROFILE_NAME = 'CHANGE_PROFILE_NAME';
 export const CHANGE_PROFILE_COMMENT = 'CHANGE_PROFILE_COMMENT';
 export const INITIALIZE_PROFILE_FORM = 'INITIALIZE_PROFILE_FORM';
 export const SET_AVATAR_IMG = 'SET_AVATAR_IMG';
+// ユーザーの出品情報取得
+export const REQUEST_USER_SHARE_INFORMATION = 'REQUEST_USER_SHARE_INFORMATION';
+export const RECEIVE_USER_SHARE_INFORMATION_SUCCESS = 'RECEIVE_USER_SHARE_INFORMATION_SUCCESS';
+export const RECEIVE_USER_SHARE_INFORMATION_FAILED = 'RECEIVE_USER_SHARE_INFORMATION_FAILED';
 
 // action creaters
 export const changeProductName = productName => ({
@@ -134,4 +138,18 @@ export const initializeProfileForm = () => ({
 export const setAvatarImg = avatarImg => ({
   type: SET_AVATAR_IMG,
   avatarImg
+});
+
+
+export const requestUserShareInformation = () => ({
+  type: REQUEST_USER_SHARE_INFORMATION
+});
+
+export const receiveUserShareInformationSuccess = userShareInformation => ({
+  type: RECEIVE_USER_SHARE_INFORMATION_SUCCESS,
+  userShareInformation
+});
+
+export const receiveUserShareInformationFailed = () => ({
+  type: RECEIVE_USER_SHARE_INFORMATION_FAILED
 });

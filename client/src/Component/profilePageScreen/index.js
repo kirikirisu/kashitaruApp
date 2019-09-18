@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Heading from '../headingComponent/index';
@@ -7,14 +8,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import Face from '@material-ui/icons/Face';
-import VpnKey from '@material-ui/icons/VpnKey';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import Grid from '@material-ui/core/Grid';
-import Card from '../cardComponent/index';
+import Textsms from '@material-ui/icons/Textsms';
 import PromptGoAnyScreen from '../promptGoAnyScreen/index';
 import Button from '@material-ui/core/Button';
 import { Link as RouterLink } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import ProfileCard from '../profileCardComponent/index';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,13 +28,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+
 const renderProfile = (classes, store) => {
 
   const { name, avatar, comment } = store.userInformations.userInfor;
+  const userShareInformation = store.userInformations.userShareInformation;
+  const isFechingShareInfor = store.userInformations.isFechingShareInfor;
 
   return (
     <div>
-      {name
+      {name                          // プロフィール設定がしてあるかどうかはログインした時に持ってくるプロフィール情報の名前があるかないかで判断
         ? <Box display="flex" flexDirection="column" alignItems="center">
           <Heading title='あなたのプロフィール' subTitle='ログイン情報を確認' />
           <br />
@@ -49,14 +52,37 @@ const renderProfile = (classes, store) => {
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
-                  <VpnKey />
+                  <Textsms />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={comment} secondary="コメント" />
             </ListItem>
           </List>
-          <Heading title='あなたの貸し出し一覧' subTitle='シェアしている情報を確認' />
           <Button component={RouterLink} to='/settingProfile'>プロフィール更新</Button>
+          <Heading title='あなたの貸し出し一覧' subTitle='シェアしている情報を確認' />
+          <br />
+          <div>
+            {isFechingShareInfor
+              ? <h1>Now Loading</h1>
+              : <Grid item xs={12}>
+                <Grid container justify="center" spacing={2}>
+                  {userShareInformation.map((share, index) => (
+                    <Grid key={index} item>
+                      <ProfileCard
+                        productName={share.productName}
+                        img={share.productImg}
+                        description={share.description}
+                        price={share.price}
+                        period={share.period}
+                        shippingArea={share.shippingArea}
+                        days={share.days}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+            }
+          </div>
         </Box>
         : <PromptGoAnyScreen p='プロフィールを設置しましょう' to='/settingProfile' btn='プロフィール設置画面へ' />
       }
@@ -64,14 +90,33 @@ const renderProfile = (classes, store) => {
   );
 };
 
-const ProfilePageScreen = ({ store }) => {
-  const { share, isLogin } = store.userInformations;
+const ProfilePageScreen = ({
+  store,
+  requestUserShareInformation,
+  receiveUserShareInformationSuccess,
+  receiveUserShareInformationFailed
+}) => {
+  const { isLogin } = store.userInformations;
+  const { id } = store.userInformations.userInfor;
   const classes = useStyles();
+
+  useEffect(() => {
+    requestUserShareInformation();
+    axios.post('/api/user/shareInformation', { id })
+      .then(response => {
+        const userShareInformation = response.data;
+        receiveUserShareInformationSuccess(userShareInformation);
+      })
+      .catch(err => {
+        console.error(new Error(err))
+        receiveUserShareInformationFailed();
+      })
+  }, []);
 
   return (
     <div>
-      {isLogin
-        ? renderProfile(classes, store)
+      {isLogin                                  // ログインしているかで分岐
+        ? renderProfile(classes, store)         // ログインしていたらプロフィール画面を表示
         : <PromptGoAnyScreen p='ログインしましょう' to='/signIn' btn='ログイン画面へ' />
       }
     </div>
@@ -79,17 +124,3 @@ const ProfilePageScreen = ({ store }) => {
 }
 
 export default ProfilePageScreen;
-
-
-/*
-<br />
-      <Grid item xs={6}>
-        <Grid container justify="center" spacing={2}>
-          {share.map(shareElement => (
-            <Grid key={shareElement._id} item>
-              <Card productName={shareElement.productName} name={shareElement.name} comment={shareElement.comment} />
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
-      */
