@@ -8,25 +8,22 @@ import {
   changePeriod,
   changeShippingArea,
   changeDays,
-  initializeShareForm
+  initializeShareForm,
 } from '../actions/index';
 
-const mapStateToProps = ({ share, user }) => {
+const mapStateToProps = ({ share, user }) => ({
+  productName: share.productName,
+  productImgUrl: share.productImgUrl,
+  description: share.description,
+  price: share.price,
+  period: share.period,
+  shippingArea: share.shippingArea,
+  days: share.days,
+  id: user.userInfor.id,
+  isLogin: user.isLogin,
+});
 
-  return {
-    productName: share.productName,
-    productImgUrl: share.productImgUrl,
-    description: share.description,
-    price: share.price,
-    period: share.period,
-    shippingArea: share.shippingArea,
-    days: share.days,
-    id: user.userInfor.id,
-    isLogin: user.isLogin,
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeProductName(productName) {
     dispatch(changeProductName(productName));
   },

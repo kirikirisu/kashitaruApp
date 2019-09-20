@@ -57,6 +57,6 @@ const ProfileCard = ({
       </CardActions>
     </Card>
   );
-}
+};
 
 export default ProfileCard;

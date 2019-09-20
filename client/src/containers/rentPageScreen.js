@@ -3,17 +3,14 @@ import RentPage from '../Component/rentPageScreen/index';
 import {
   requestData,
   receiveDataSuccess,
-  receiveDataFailed
+  receiveDataFailed,
 } from '../actions/index';
 
-const mapStateToProps = ({ getShare }) => {
-  // console.log(state);
-  return {
-    allShare: getShare,
-  };
-};
+const mapStateToProps = ({ getShare }) => ({
+  allShare: getShare,
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   requestData() {
     dispatch(requestData());
   },

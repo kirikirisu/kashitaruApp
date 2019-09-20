@@ -19,22 +19,22 @@ const settingProfileFormReducer = (state = initialState.profileForm, action) => 
       return {
         ...state,
         profileName: action.profileName,
-      }
+      };
     case CHANGE_PROFILE_COMMENT:
       return {
         ...state,
         profileComment: action.profileComment,
-      }
+      };
     case SET_AVATAR_IMG:
       return {
         ...state,
         avatarImg: action.avatarImg,
-      }
+      };
     case INITIALIZE_PROFILE_FORM:
-      return initialState.profileForm  // 初期状態を返す
+      return initialState.profileForm; // 初期状態を返す
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default settingProfileFormReducer;

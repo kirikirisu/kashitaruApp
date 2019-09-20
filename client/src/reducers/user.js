@@ -13,7 +13,7 @@ const initialState = {
     userInfor: {},
     userShareInformation: [],
   },
-}
+};
 
 const userInformationsReducer = (state = initialState.userInformations, action) => {
   switch (action.type) {
@@ -44,8 +44,8 @@ const userInformationsReducer = (state = initialState.userInformations, action) 
         isFechingShareInfor: false,
       };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default userInformationsReducer;

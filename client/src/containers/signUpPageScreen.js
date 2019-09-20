@@ -4,18 +4,16 @@ import {
   changePassword,
   changeMailAddress,
   initializeSignUpForm,
-  signUpFailed
+  signUpFailed,
 } from '../actions/index';
 
-const mapStateToProps = ({ signUp }) => {
-  return {
-    password: signUp.password,
-    mailAddress: signUp.mailAddress,
-    errorMessage: signUp.errorMessage,
-  };
-};
+const mapStateToProps = ({ signUp }) => ({
+  password: signUp.password,
+  mailAddress: signUp.mailAddress,
+  errorMessage: signUp.errorMessage,
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changePassword(password) {
     dispatch(changePassword(password));
   },

@@ -5,19 +5,23 @@ import {
   changeSignInPassword,
   initializeSignInForm,
   getUserInformation,
-  toggleSignIn
+  toggleSignIn,
+  addRoom,
+  setCurrentUser,
+  setRooms,
 } from '../actions/index';
 
-const mapStateToProps = ({ signIn, user }) => {
+const mapStateToProps = ({ signIn, user, chat }) => ({
+  signInMailAddress: signIn.signInMailAddress,
+  signInPassword: signIn.signInPassword,
+  isLogin: user.isLogin,
+  name: user.userInfor.name,
+  rooms: chat.rooms,
+  currentRoom: chat.currentRoom,
+  currentUser: chat.currentUser,
+});
 
-  return {
-    signInMailAddress: signIn.signInMailAddress,
-    signInPassword: signIn.signInPassword,
-    isLogin: user.isLogin,
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeSignInMailAddress(signInMailAddress) {
     dispatch(changeSignInMailAddress(signInMailAddress));
   },
@@ -32,6 +36,15 @@ const mapDispatchToProps = dispatch => ({
   },
   toggleSignIn() {
     dispatch(toggleSignIn());
+  },
+  addRoom(room) {
+    dispatch(addRoom(room));
+  },
+  setCurrentUser(currentUser) {
+    dispatch(setCurrentUser(currentUser));
+  },
+  setRooms(rooms) {
+    dispatch(setRooms(rooms));
   },
 });
 

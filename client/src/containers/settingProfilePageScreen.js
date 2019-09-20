@@ -5,19 +5,16 @@ import {
   changeProfileComment,
   initializeProfileForm,
   setAvatarImg,
-  getUserInformation
+  getUserInformation,
 } from '../actions/index';
 
-const mapStateToProps = ({ profile }) => {
-  //console.log(state);
-  return {
-    profileName: profile.profileName,
-    profileComment: profile.profileComment,
-    vatarImg: profile.avatarImg,
-  };
-};
+const mapStateToProps = ({ profile }) => ({
+  profileName: profile.profileName,
+  profileComment: profile.profileComment,
+  vatarImg: profile.avatarImg,
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeProfileName(profileName) {
     dispatch(changeProfileName(profileName));
   },

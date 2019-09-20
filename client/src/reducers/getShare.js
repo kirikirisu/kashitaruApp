@@ -1,7 +1,7 @@
 import {
   REQUEST_DATA,
   RECEIVE_DATA_SUCCESS,
-  RECEIVE_DATA_FAILED
+  RECEIVE_DATA_FAILED,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
     isFetching: false,
     shareInformationsArray: [],
   },
-}
+};
 
 const shareInformationsReducer = (state = initialState.shareInformations, action) => {
   switch (action.type) {
@@ -30,8 +30,8 @@ const shareInformationsReducer = (state = initialState.shareInformations, action
         isFetching: false,
       };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default shareInformationsReducer;

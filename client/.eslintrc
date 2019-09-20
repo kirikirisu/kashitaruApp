@@ -7,6 +7,13 @@
     "react"
   ],
   "rules": {
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
     "react/jsx-filename-extension": [
       1,
       {
@@ -15,6 +22,18 @@
           ".jsx"
         ]
       }
+    ],
+    "no-use-before-define": [
+      "error",
+      {
+        "variables": false
+      }
+    ],
+    "react/prop-types": [
+      0
+    ],
+    "global-require": [
+      0
     ]
   }
 }
