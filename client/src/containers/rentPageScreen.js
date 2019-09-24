@@ -7,7 +7,8 @@ import {
 } from '../actions/index';
 
 const mapStateToProps = ({ getShare }) => ({
-  allShare: getShare,
+  isFetching: getShare.isFetching,
+  shareInformationsArray: getShare.shareInformationsArray,
 });
 
 const mapDispatchToProps = (dispatch) => ({

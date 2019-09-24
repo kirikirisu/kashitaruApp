@@ -88,10 +88,43 @@ class SignInForm extends React.Component {
           .then((currentUser) => {
             setCurrentUser(currentUser);
             setRooms(currentUser.rooms);
+            this.firstConnectToRoom(currentUser);
           });
       })
       .catch(console.error);
   }
+
+  firstConnectToRoom = (currentU) => {
+    const id = 'b4bb7dfe-4125-4099-86a3-748b8ba8e726';
+    const {
+      initializeMessage,
+      setRooms,
+      setRoomUsers,
+      setRoomName,
+      setCurrentRoom,
+    } = this.props;
+
+    initializeMessage();
+
+    return currentU
+      .subscribeToRoom({
+        roomId: `${id}`,
+      })
+      .then((currentRoom) => {
+        const roomName =
+          currentRoom.customData && currentRoom.customData.isDirectMessage
+            ? currentRoom.customData.userIds.filter(
+              (elemId) => elemId !== currentU.id,
+            )[0]
+            : currentRoom.name;
+
+        setCurrentRoom(currentRoom);
+        setRoomUsers(currentRoom.users);
+        setRooms(currentU.rooms);
+        setRoomName(roomName);
+      })
+      .catch(console.error);
+  };
 
   render() {
     const {

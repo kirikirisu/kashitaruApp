@@ -1,5 +1,5 @@
 import React from 'react';
-import connectToRoom from '../../utils/connectToRoom';
+// import connectToRoom from '../../utils/connectToRoom';
 
 const RoomList = (props) => {
   const {
@@ -7,7 +7,6 @@ const RoomList = (props) => {
     currentRoom,
     currentUser,
   } = props;
-  console.log(props);
 
   const roomList = rooms.map((room) => {
     const roomIcon = !room.isPrivate ? '🌐' : '🔒';
@@ -31,9 +30,15 @@ const RoomList = (props) => {
     );
   });
 
+  const WrapUl = (
+    <ul>
+      {roomList}
+    </ul>
+  );
+
   return (
     <div className="rooms">
-      <ul className="chat-rooms">{roomList}</ul>
+      <ul className="chat-rooms">{WrapUl}</ul>
     </div>
   );
 };

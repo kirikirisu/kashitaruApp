@@ -5,13 +5,12 @@ import Card from '../cardComponent/index';
 import key from '../../utils/listKeyGenerator';
 
 const RentPage = ({
-  allShare,
+  isFetching,
+  shareInformationsArray,
   requestData,
   receiveDataSuccess,
   receiveDataFailed,
 }) => {
-
-  const { isFetching, shareInformationsArray } = allShare;
 
   const handleFetchData = () => {
     requestData(); // axios.get()を呼ぶ前にisFetchingをtrueにしておく
