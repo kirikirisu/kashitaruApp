@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import RoomList from '../Component/rentPageScreen/index';
+import RoomList from '../Component/chatScreenComponent/RoomList';
 import {
   setMessages,
   initializeMessage,

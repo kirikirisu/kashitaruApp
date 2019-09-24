@@ -1,5 +1,5 @@
 import React from 'react';
-// import connectToRoom from '../../utils/connectToRoom';
+import connectToRoom from '../../utils/connectToRoom';
 
 const RoomList = (props) => {
   const {
