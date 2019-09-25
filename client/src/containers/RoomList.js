@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import RoomList from '../Component/chatScreenComponent/RoomList';
 import {
-  setMessages,
   initializeMessage,
   setRooms,
   setRoomUsers,
   setRoomName,
   setCurrentRoom,
+  onMessages,
+  onPresenceChanged,
 } from '../actions/index';
 
 const mapStateToProps = ({ chat }) => ({
@@ -17,7 +18,7 @@ const mapStateToProps = ({ chat }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setMessages(message) {
-    dispatch(setMessages(message));
+    dispatch(onMessages(message));
   },
   initializeMessage() {
     dispatch(initializeMessage());
@@ -33,6 +34,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setCurrentRoom(currentRoom) {
     dispatch(setCurrentRoom(currentRoom));
+  },
+  onPresenceChanged(currentRoom) {
+    dispatch(onPresenceChanged(currentRoom));
   },
 });
 

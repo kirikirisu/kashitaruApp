@@ -9,11 +9,12 @@ import {
   addRoom,
   setCurrentUser,
   setRooms,
-  setMessages,
   initializeMessage,
   setRoomUsers,
   setRoomName,
   setCurrentRoom,
+  onMessages,
+  onPresenceChanged,
 } from '../actions/index';
 
 const mapStateToProps = ({ signIn, user, chat }) => ({
@@ -50,9 +51,6 @@ const mapDispatchToProps = (dispatch) => ({
   setRooms(rooms) {
     dispatch(setRooms(rooms));
   },
-  setMessages(message) {
-    dispatch(setMessages(message));
-  },
   initializeMessage() {
     dispatch(initializeMessage());
   },
@@ -64,6 +62,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setCurrentRoom(currentRoom) {
     dispatch(setCurrentRoom(currentRoom));
+  },
+  onMessages(message) {
+    dispatch(onMessages(message));
+  },
+  onPresenceChanged(currentRoom) {
+    dispatch(onPresenceChanged(currentRoom));
   },
 });
 

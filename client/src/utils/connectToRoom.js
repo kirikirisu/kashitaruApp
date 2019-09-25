@@ -1,11 +1,13 @@
-const connectToRoom = (id = 'b4bb7dfe-4125-4099-86a3-748b8ba8e726', props) => {
+const connectToRoom = (id, currentUser, props) => {
   const {
-    currentUser,
     initializeMessage,
     setRooms,
     setRoomUsers,
     setRoomName,
     setCurrentRoom,
+    onMessages,
+    currentRoom,
+    onPresenceChanged,
   } = props;
 
   initializeMessage();
@@ -13,17 +15,27 @@ const connectToRoom = (id = 'b4bb7dfe-4125-4099-86a3-748b8ba8e726', props) => {
   return currentUser
     .subscribeToRoom({
       roomId: `${id}`,
+      messageLimit: 100,
+      hooks: {
+        onMessage: (message) => {
+          onMessages(message);
+        },
+        onPresenceChanged: () => {
+          if (!currentRoom === null) {
+            onPresenceChanged(currentRoom);
+          }
+        },
+      },
     })
-    .then((currentRoom) => {
-      const roomName =
-        currentRoom.customData && currentRoom.customData.isDirectMessage
-          ? currentRoom.customData.userIds.filter(
-            (elemId) => elemId !== currentUser.id,
-          )[0]
-          : currentRoom.name;
+    .then((returnedCurrentRoom) => {
+      const roomName = returnedCurrentRoom.customData && returnedCurrentRoom.customData.isDirectMessage
+        ? returnedCurrentRoom.customData.userIds.filter(
+          (elemId) => elemId !== currentUser.id,
+        )[0]
+        : returnedCurrentRoom.name;
 
-      setCurrentRoom(currentRoom);
-      setRoomUsers(currentRoom.users);
+      setCurrentRoom(returnedCurrentRoom);
+      setRoomUsers(returnedCurrentRoom.users);
       setRooms(currentUser.rooms);
       setRoomName(roomName);
     })

@@ -1,5 +1,9 @@
 import { connect } from 'react-redux';
 import ChatPageComponent from '../Component/chatScreenComponent/index';
+import {
+  initializeNewMessage,
+  setNewMessage,
+} from '../actions/index';
 
 const mapStateToProps = ({ chat }) => ({
   userId: chat.userId,
@@ -12,4 +16,13 @@ const mapStateToProps = ({ chat }) => ({
   roomName: chat.roomName,
 });
 
-export default connect(mapStateToProps, null)(ChatPageComponent);
+const mapDispatchToProps = (dispatch) => ({
+  initializeNewMessage() {
+    dispatch(initializeNewMessage());
+  },
+  setNewMessage(newMessage) {
+    dispatch(setNewMessage(newMessage));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatPageComponent);

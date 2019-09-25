@@ -2,12 +2,14 @@ import {
   ADD_ROOM,
   SET_CURRENT_USER,
   SET_ROOMS,
-  SET_MESSAGES,
+  ON_MESSAGES,
   INITIALIZE_MESSAGE,
   ON_PRESENCE_CHANGED,
   SET_ROOM_USERS,
   SET_ROOM_NAME,
   SET_CURRENT_ROOM,
+  INITIALIZE_NEW_MESSAGE,
+  SET_NEW_MESSAGE,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -42,7 +44,7 @@ const chatReducer = (state = initialState.chat, action) => {
         ...state,
         rooms: action.rooms,
       };
-    case SET_MESSAGES:
+    case ON_MESSAGES:
       return {
         ...state,
         messages: [...state.messages, action.message],
@@ -75,6 +77,16 @@ const chatReducer = (state = initialState.chat, action) => {
 
           return 1;
         }),
+      };
+    case INITIALIZE_NEW_MESSAGE:
+      return {
+        ...state,
+        newMessage: '',
+      };
+    case SET_NEW_MESSAGE:
+      return {
+        ...state,
+        newMessage: action.newMessage,
       };
     default:
       return state;

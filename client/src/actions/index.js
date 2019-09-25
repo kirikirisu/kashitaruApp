@@ -131,11 +131,6 @@ export const setRooms = (rooms) => ({
   rooms,
 });
 
-export const setMessages = (message) => ({
-  type: types.SET_MESSAGES,
-  message,
-});
-
 export const initializeMessage = () => ({
   type: types.INITIALIZE_MESSAGE,
 });
@@ -158,4 +153,18 @@ export const setCurrentRoom = (currentRoom) => ({
 export const onPresenceChanged = (currentRoom) => ({
   type: types.ON_PRESENCE_CHANGED,
   currentRoom,
+});
+
+export const onMessages = (message) => ({
+  type: types.ON_MESSAGES,
+  message,
+});
+
+export const initializeNewMessage = () => ({
+  type: types.INITIALIZE_NEW_MESSAGE,
+});
+
+export const setNewMessage = (newMessage) => ({
+  type: types.SET_NEW_MESSAGE,
+  newMessage,
 });

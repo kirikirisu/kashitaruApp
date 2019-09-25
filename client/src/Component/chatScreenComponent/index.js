@@ -1,5 +1,7 @@
 import React from 'react';
 import RoomList from '../../containers/RoomList';
+import ChatSession from '../../containers/ChatSession';
+import RoomUsers from '../../containers/RoomUsers';
 import './style.css';
 
 const Chat = ({
@@ -12,7 +14,28 @@ const Chat = ({
   newMessage,
   roomUsers,
   roomName,
+  initializeNewMessage, // ここからアクション
+  setNewMessage,
 }) => {
+  const sendMessage = (event) => {
+    event.preventDefault();
+
+    if (newMessage.trim() === '') return;
+
+    currentUser.sendMessage({
+      text: newMessage,
+      roomId: `${currentRoom.id}`,
+    });
+
+    initializeNewMessage(); // ステートのnewMessageを初期化
+  };
+
+  const handleInput = (event) => {
+    const { value } = event.target;
+
+    setNewMessage(value);
+  };
+
   return (
     <div className="App">
       <aside className="sidebar left-sidebar">
@@ -30,19 +53,27 @@ const Chat = ({
         <header className="chat-header">
           {currentRoom ? <h3>{roomName}</h3> : null}
         </header>
-        <ul className="chat-messages"></ul>
+        <ul className="chat-messages">
+          <ChatSession />
+        </ul>
         <footer className="chat-footer">
-          <form className="message-form">
+          <form className="message-form" onSubmit={sendMessage}>
             <input
-              type="text"
+              ttype="text"
+              value={newMessage}
               name="newMessage"
               className="message-input"
               placeholder="Type your message and hit ENTER to send"
+              onChange={handleInput}
             />
           </form>
         </footer>
       </section>
-      <aside className="sidebar right-sidebar"></aside>
+      <aside className="sidebar right-sidebar">
+        {currentRoom ? (
+          <RoomUsers />
+        ) : null}
+      </aside>
     </div>
   );
 };
