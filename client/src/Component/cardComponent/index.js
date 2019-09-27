@@ -123,6 +123,6 @@ const ProductCard = ({
       </Collapse>
     </Card>
   );
-}
+};
 
 export default ProductCard;

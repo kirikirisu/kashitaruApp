@@ -6,8 +6,8 @@ const connectToRoom = (id, currentUser, props) => {
     setRoomName,
     setCurrentRoom,
     onMessages,
+    onPresenceChanged, // ここまでアクション
     currentRoom,
-    onPresenceChanged,
   } = props;
 
   initializeMessage();

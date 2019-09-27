@@ -17,7 +17,7 @@ const mapStateToProps = ({ chat }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setMessages(message) {
+  onMessages(message) {
     dispatch(onMessages(message));
   },
   initializeMessage() {
