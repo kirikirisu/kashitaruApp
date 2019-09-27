@@ -35,8 +35,7 @@ class SettingProfilePage extends React.Component {
   };
 
   sendProfileData = () => {
-    const { store, getUserInformation } = this.props;
-    const { profileName, profileComment, avatarImg } = store.settingProfileForm;　　　　// firebaseへのアップロードに少し時間がかかるため、ファイルを選択してからすぐに更新ボタンを押されるとavatarImgにurlが入らない
+    const { profileName, profileComment, avatarImg, getUserInformation } = this.props;　// firebaseへのアップロードに少し時間がかかるため、ファイルを選択してからすぐに更新ボタンを押されるとavatarImgにurlが入らない
 
     firebase.auth().currentUser.getIdToken(true)
       .then((idToken) => {
@@ -60,8 +59,12 @@ class SettingProfilePage extends React.Component {
   };
 
   render() {
-    const { store, changeProfileName, changeProfileComment } = this.props;
-    const { profileName, profileComment } = store.settingProfileForm;
+    const {
+      profileName,
+      profileComment,
+      changeProfileName,
+      changeProfileComment,
+    } = this.props;
 
     return (
       <div className="container">

@@ -1,10 +1,9 @@
 import React from 'react';
-import Proptypes from 'prop-types';
 import { format } from 'date-fns';
 
-const ChatSession = props => {
+const ChatSession = (props) => {
   const { messages } = props;
-  return messages.map(message => {
+  return messages.map((message) => {
     const time = format(new Date(`${message.updatedAt}`), 'HH:mm');
 
     return (
@@ -17,10 +16,6 @@ const ChatSession = props => {
       </li>
     );
   });
-};
-
-ChatSession.propTypes = {
-  messages: Proptypes.arrayOf(Proptypes.object).isRequired,
 };
 
 export default ChatSession;

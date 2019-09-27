@@ -11,11 +11,11 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
-import Textsms from '@material-ui/icons/Textsms';
+import Chat from '@material-ui/icons/Chat';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
   },
@@ -84,7 +84,7 @@ const ProductCard = ({
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="chat">
-          <Textsms />
+          <Chat />
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -123,6 +123,6 @@ const ProductCard = ({
       </Collapse>
     </Card>
   );
-}
+};
 
 export default ProductCard;

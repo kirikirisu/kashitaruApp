@@ -17,12 +17,13 @@ import Gavel from '@material-ui/icons/Gavel';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import Home from '@material-ui/icons/Home';
 import ExitToApp from '@material-ui/icons/ExitToApp';
-import ListItemLink from './listItem';
 import AccountBox from '@material-ui/icons/AccountBox';
+import Chat from '@material-ui/icons/Chat';
+import ListItemLink from './listItem';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
@@ -135,6 +136,7 @@ const PersistentDrawerLeft = ({ screen }) => {
           <ListItemLink to="/profile" primary="プロフィール" icon={<AccountBox />} />
           <ListItemLink to="/share" primary="工具をシェアする" icon={<Gavel />} />
           <ListItemLink to="/rent" primary="工具を借りる" icon={<PanTool />} />
+          <ListItemLink to="/chat" primary="チャット一覧" icon={<Chat />} />
         </List>
         <Divider />
         <List component="nav">

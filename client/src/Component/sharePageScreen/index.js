@@ -38,7 +38,6 @@ class ShareForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();    // フォームsubmit時のデフォルトの動作を抑制
 
-    const { store, initializeShareForm } = this.props;
     const {
       productName,
       productImgUrl,
@@ -47,9 +46,9 @@ class ShareForm extends React.Component {
       period,
       shippingArea,
       days,
-    } = store.shareForm;
-
-    const { id } = store.userInformations.userInfor;
+      initializeShareForm,
+      id,
+    } = this.props;
 
     axios.post('/api/share', {
       id,
@@ -73,25 +72,20 @@ class ShareForm extends React.Component {
 
   render() {
     const {
-      store,
-      changeProductName,
-      changeDescription,
-      changePrice,
-      changePeriod,
-      changeShippingArea,
-      changeDays,
-    } = this.props;
-
-    const {
       productName,
       description,
       price,
       period,
       shippingArea,
       days,
-    } = store.shareForm;
-
-    const isLogin = store.userInformations.isLogin;
+      changeProductName,
+      changeDescription,
+      changePrice,
+      changePeriod,
+      changeShippingArea,
+      changeDays,
+      isLogin,
+    } = this.props;
 
     return (
       <div>

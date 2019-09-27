@@ -8,8 +8,7 @@ import './style.css';
 class SignUpForm extends React.Component {
 
   createUserForLoginWithEmailAndPassword = () => {
-    const { store, initializeSignUpForm, signUpFailed } = this.props;
-    const { password, mailAddress } = store.signUpForm;
+    const { password, mailAddress, initializeSignUpForm, signUpFailed } = this.props;
 
     firebase.auth().createUserWithEmailAndPassword(mailAddress, password)    // 入力されたメールとパスワードでfirebaseにアカウントを作る
       .then((userCredentials) => {　　　　　　　　　// アカウント作成が成功すると自動でそのアカウントはログイン状態になる　　　　　　　　　　　　　　　   
@@ -41,9 +40,7 @@ class SignUpForm extends React.Component {
 
   render() {
 
-    const { store, changePassword, changeMailAddress } = this.props;
-    const { password, mailAddress } = store.signUpForm;
-    const { errorMessage } = store.signUpForm;
+    const { password, mailAddress, errorMessage, changePassword, changeMailAddress } = this.props;
 
     return (
       <div>
