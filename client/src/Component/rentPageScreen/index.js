@@ -10,6 +10,9 @@ const RentPage = ({
   requestData,
   receiveDataSuccess,
   receiveDataFailed,
+  currentUser,
+  rooms,
+  ...rest, // チャットのアクションたち
 }) => {
 
   const handleFetchData = () => {
@@ -51,6 +54,9 @@ const RentPage = ({
                         name={share.name}
                         avatar={share.avatar}
                         comment={share.comment}
+                        currentUser={currentUser}
+                        rooms={rooms}
+                        rest={rest}
                       />
                     </Grid>
                   ))}

@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Chat from '@material-ui/icons/Chat';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import connectToRoom from '../../utils/connectToRoom';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -48,15 +49,56 @@ const ProductCard = ({
   days,
   name,
   avatar,
-  comment
+  comment,
+  currentUser,
+  rooms,
+  rest,
 }) => {
-
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
-  function handleExpandClick() {
+  const handleExpandClick = () => {
     setExpanded(!expanded);
-  }
+  };
+
+  const createPrivateRoom = (id) => {
+    const roomName = `${currentUser.id}_${id}`;
+
+    const isPrivateChatCreated = rooms.filter((room) => {
+      if (room.customData && room.customData.isDirectMessage) {
+        const arr = [currentUser.id, id];
+        const { userIds } = room.customData;
+
+        if (arr.sort().join('') === userIds.sort().join('')) {
+          return {
+            room,
+          };
+        }
+      }
+
+      return false;
+    });
+
+    if (isPrivateChatCreated.length > 0) {
+      return Promise.resolve(isPrivateChatCreated[0]);
+    }
+
+    return currentUser.createRoom({
+      name: `${roomName}`,
+      private: true,
+      addUserIds: [`${id}`],
+      customData: {
+        isDirectMessage: true,
+        userIds: [currentUser.id, id],
+      },
+    });
+  };
+
+  const sendDM = (id) => {
+    createPrivateRoom(id).then((room) => {
+      connectToRoom(room.id, currentUser, rest);
+    });
+  };
 
   return (
     <Card className={classes.card}>
@@ -83,7 +125,7 @@ const ProductCard = ({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="chat">
+        <IconButton aria-label="chat" onClick={() => sendDM(name)}>
           <Chat />
         </IconButton>
         <IconButton

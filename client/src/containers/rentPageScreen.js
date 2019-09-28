@@ -4,11 +4,20 @@ import {
   requestData,
   receiveDataSuccess,
   receiveDataFailed,
+  initializeMessage,
+  setRooms,
+  setRoomUsers,
+  setRoomName,
+  setCurrentRoom,
+  onMessages,
+  onPresenceChanged,
 } from '../actions/index';
 
-const mapStateToProps = ({ getShare }) => ({
+const mapStateToProps = ({ getShare, chat }) => ({
   isFetching: getShare.isFetching,
   shareInformationsArray: getShare.shareInformationsArray,
+  currentUser: chat.currentUser,
+  rooms: chat.rooms,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -20,6 +29,27 @@ const mapDispatchToProps = (dispatch) => ({
   },
   receiveDataFailed() {
     dispatch(receiveDataFailed());
+  },
+  onMessages(message) {
+    dispatch(onMessages(message));
+  },
+  initializeMessage() {
+    dispatch(initializeMessage());
+  },
+  setRooms(rooms) {
+    dispatch(setRooms(rooms));
+  },
+  setRoomUsers(roomUser) {
+    dispatch(setRoomUsers(roomUser));
+  },
+  setRoomName(roomName) {
+    dispatch(setRoomName(roomName));
+  },
+  setCurrentRoom(currentRoom) {
+    dispatch(setCurrentRoom(currentRoom));
+  },
+  onPresenceChanged(currentRoom) {
+    dispatch(onPresenceChanged(currentRoom));
   },
 });
 

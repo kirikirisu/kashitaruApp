@@ -48,6 +48,7 @@ const RoomUsers = (props) => {
   };
 
   const users = roomUsers.map((user) => {
+    console.log(user.id);
     return (
       <li className="room-member" key={user.id}>
         <div>
