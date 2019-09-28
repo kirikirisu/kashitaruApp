@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SignUpForm from '../components/signUpPageScreen/index';
+import SignUpScreen from '../components/SignUpScreen/index';
 import {
   changePassword,
   changeMailAddress,
@@ -29,4 +29,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);

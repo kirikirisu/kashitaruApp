@@ -1,13 +1,12 @@
 import React from 'react';
 import connectToRoom from '../../utils/connectToRoom';
 
-const RoomUsers = (props) => {
-  const {
-    roomUsers,
-    currentUser,
-    rooms,
-  } = props;
-
+const RoomUsers = ({
+  roomUsers,
+  currentUser,
+  rooms,
+  rest,
+}) => {
   const createPrivateRoom = (id) => {
     const roomName = `${currentUser.id}_${id}`;
 
@@ -43,12 +42,11 @@ const RoomUsers = (props) => {
 
   const sendDM = (id) => {
     createPrivateRoom(id).then((room) => {
-      connectToRoom(room.id, currentUser, props);
+      connectToRoom(room.id, currentUser, rest);
     });
   };
 
   const users = roomUsers.map((user) => {
-    console.log(user.id);
     return (
       <li className="room-member" key={user.id}>
         <div>

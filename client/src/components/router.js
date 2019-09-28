@@ -1,25 +1,25 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Drawer from './persistentDrawerLeftComponent/index';
-import TopPageScreen from './topPageScreen/index';
-import SharePageScreen from '../containers/sharePageScreen';
-import RentPageScreen from '../containers/rentPageScreen';
+import Drawer from './DrawerLeftComponent/index';
+import HomeScreen from './HomeScreen/index';
+import ShareScreen from '../containers/ShareScreen';
+import RentScreen from '../containers/RentScreen';
 import ChatScreen from '../containers/ChatScreen';
-import SignUpPageScreen from '../containers/signUpPageScreen';
-import SignInPageScreen from '../containers/signInPageScreen';
-import ProfilePageScreen from '../containers/profilePageScreen';
-import SettingProfilePageScreen from '../containers/settingProfilePageScreen';
+import SignUpScreen from '../containers/SignUpScreen';
+import SignInScreen from '../containers/SignInScreen';
+import ProfileScreen from '../containers/ProfileScreen';
+import SettingScreen from '../containers/SettingScreen';
 
-const TopPage = () => (
-  <Drawer screen={<TopPageScreen />} />
+const HomePage = () => (
+  <Drawer screen={<HomeScreen />} />
 );
 
 const SharePage = () => (
-  <Drawer screen={<SharePageScreen />} />
+  <Drawer screen={<ShareScreen />} />
 );
 
 const RentPage = () => (
-  <Drawer screen={<RentPageScreen />} />
+  <Drawer screen={<RentScreen />} />
 );
 
 const ChatPage = () => (
@@ -27,25 +27,25 @@ const ChatPage = () => (
 );
 
 const SignUpPage = () => (
-  <Drawer screen={<SignUpPageScreen />} />
+  <Drawer screen={<SignUpScreen />} />
 );
 
 const SignInPage = () => (
-  <Drawer screen={<SignInPageScreen />} />
+  <Drawer screen={<SignInScreen />} />
 );
 
 const ProfilePage = () => (
-  <Drawer screen={<ProfilePageScreen />} />
+  <Drawer screen={<ProfileScreen />} />
 );
 
 const SettingProfilePage = () => (
-  <Drawer screen={<SettingProfilePageScreen />} />
+  <Drawer screen={<SettingScreen />} />
 );
 
 const Router = () => (
   <BrowserRouter>
     <div>
-      <Route exact path="/" component={TopPage} />
+      <Route exact path="/" component={HomePage} />
       <Route exact path="/share" component={SharePage} />
       <Route exact path="/rent" component={RentPage} />
       <Route exact path="/chat" component={ChatPage} />

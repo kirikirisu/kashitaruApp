@@ -11,9 +11,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Textsms from '@material-ui/icons/Textsms';
 import Button from '@material-ui/core/Button';
 import { Link as RouterLink } from 'react-router-dom';
-import ProfileCard from '../profileCardComponent/index';
-import Heading from '../headingComponent/index';
-import PromptGoAnyScreen from '../promptGoAnyScreen/index';
+import NormalCard from './NormalCard';
+import Heading from './Heading';
+import PromptGoAnyScreen from '../PromptComponent/index';
 import key from '../../utils/listKeyGenerator';
 
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +70,7 @@ const renderProfile = (
                     <Grid container justify="center" spacing={2}>
                       {userShareInformation.map((share) => (
                         <Grid key={key()} item>
-                          <ProfileCard
+                          <NormalCard
                             productName={share.productName}
                             img={share.productImg}
                             description={share.description}
@@ -91,7 +91,7 @@ const renderProfile = (
     </div>
   );
 
-const ProfilePageScreen = ({
+const ProfileScreen = ({
   isLogin,
   id,
   name,
@@ -134,4 +134,4 @@ const ProfilePageScreen = ({
   );
 };
 
-export default ProfilePageScreen;
+export default ProfileScreen;

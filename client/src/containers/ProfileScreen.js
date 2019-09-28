@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ProfilePage from '../components/profilePageScreen';
+import ProfilePage from '../components/ProfileScreen';
 import {
   requestUserShareInformation,
   receiveUserShareInformationSuccess,

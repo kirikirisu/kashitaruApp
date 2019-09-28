@@ -5,11 +5,11 @@ import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './style.css';
 import firebase from '../../firebaseWithConfig';
-import AlreadySignInScreen from '../alreadySignInScreen/index';
-import PromptGoAnyScreen from '../promptGoAnyScreen/index';
+import AlreadySignInScreen from './AlreadySignIn';
+import PromptGoAnyScreen from '../PromptComponent/index';
 import connectToRoom from '../../utils/connectToRoom';
 
-class SignInForm extends React.Component {
+class SignInScreen extends React.Component {
   signInWithEmailAndPassword = () => {
     const {
       signInMailAddress,
@@ -146,4 +146,4 @@ class SignInForm extends React.Component {
   }
 }
 
-export default SignInForm;
+export default SignInScreen;

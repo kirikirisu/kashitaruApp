@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
-import Card from '../cardComponent/index';
+import Card from '../CardComponent/index';
 import key from '../../utils/listKeyGenerator';
 
-const RentPage = ({
+const RentScreen = ({
   isFetching,
   shareInformationsArray,
   requestData,
@@ -12,9 +12,8 @@ const RentPage = ({
   receiveDataFailed,
   currentUser,
   rooms,
-  ...rest, // チャットのアクションたち
+  ...rest // チャットのアクションたち
 }) => {
-
   const handleFetchData = () => {
     requestData(); // axios.get()を呼ぶ前にisFetchingをtrueにしておく
     axios.get('/api/share')
@@ -69,4 +68,4 @@ const RentPage = ({
   );
 };
 
-export default RentPage;
+export default RentScreen;

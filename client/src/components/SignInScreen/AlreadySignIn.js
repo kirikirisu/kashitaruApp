@@ -6,21 +6,21 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles({
   button: {
     textDecoration: 'none',
-  }
+  },
 });
 
-const PromptSignInScreen = ({ p, to, btn }) => {
+const AlreadySignIn = () => {
 
   const classes = useStyles();
 
   return (
     <div>
-      <p>{p}</p>
-      <Button size="small" component={RouterLink} to={to} className={classes.button}>
-        {btn}
+      <p>ログインしました!!</p>
+      <Button size="small" component={RouterLink} to="/" className={classes.button}>
+        戻る
       </Button>
     </div>
   );
 };
 
-export default PromptSignInScreen;
+export default AlreadySignIn;

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SignInForm from '../components/signInPageScreen';
+import SignInScreen from '../components/SignInScreen';
 import {
   changeSignInMailAddress,
   changeSignInPassword,
@@ -72,4 +72,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

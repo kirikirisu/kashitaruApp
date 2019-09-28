@@ -1,8 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 
-const ChatSession = (props) => {
-  const { messages } = props;
+const ChatSession = ({ messages }) => {
   return messages.map((message) => {
     const time = format(new Date(`${message.updatedAt}`), 'HH:mm');
 

@@ -1,12 +1,11 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Input } from '@material-ui/core';
 import firebase from '../../firebaseWithConfig';
-import axios from 'axios';
 
-class SettingProfilePage extends React.Component {
-
+class SettingScreen extends React.Component {
   onFileChange = (e) => {
     const files = e.target.files;
 
@@ -15,7 +14,7 @@ class SettingProfilePage extends React.Component {
       const fileName = file.name;　　　　　　　　　　　　　　　　　// 入力された画像の名前を取得
       this.upLoadToFirebase(file, fileName);
     } else {
-      console.log('no data')
+      console.log('no data');
     }
   };
 
@@ -25,17 +24,21 @@ class SettingProfilePage extends React.Component {
     let cloudStoragePath = storageRef.child(`${fileName}`);      // firebaseで保存するパスを設定、今回はfirebaseの方にフォルダを作らない
     cloudStoragePath.put(imgData).then((snapshot) => {           // firebaseに保存
 
-      cloudStoragePath.getDownloadURL().then(url => {            // 保存したらその画像のurlを入手
+      cloudStoragePath.getDownloadURL().then((url) => {            // 保存したらその画像のurlを入手
         setAvatarImg(url);　　　　　　　　　　　　　　　　　　　　　    // urlをステートに保存
-      }).catch(error => {
+      }).catch((error) => {
         console.log(error);
       });
-
     });
   };
 
   sendProfileData = () => {
-    const { profileName, profileComment, avatarImg, getUserInformation } = this.props;　// firebaseへのアップロードに少し時間がかかるため、ファイルを選択してからすぐに更新ボタンを押されるとavatarImgにurlが入らない
+    const {
+      profileName,
+      profileComment,
+      avatarImg,
+      getUserInformation
+    } = this.props; // firebaseへのアップロードに少し時間がかかるため、ファイルを選択してからすぐに更新ボタンを押されるとavatarImgにurlが入らない
 
     firebase.auth().currentUser.getIdToken(true)
       .then((idToken) => {
@@ -43,16 +46,16 @@ class SettingProfilePage extends React.Component {
           idToken,                           // サーバ側でアクセストークンを元にuidを生成
           profileName,
           profileComment,
-          avatarImg
+          avatarImg,
         })
-          .then(response => {
+          .then((response) => {
             console.log(response.data);
             const userInformation = response.data;
             getUserInformation(userInformation);         // 更新されたユーザープロフィール情報をステートに保存
           })
-          .catch(err => {
-            console.error(new Error(err))
-          })
+          .catch((err) => {
+            console.error(new Error(err));
+          });
       }).catch((error) => {
         console.log(error);
       });
@@ -71,27 +74,27 @@ class SettingProfilePage extends React.Component {
         <ValidatorForm
           ref="form"
           onSubmit={this.sendProfileData}
-          onError={errors => console.log(errors)}
+          onError={(errors) => console.log(errors)}
         >
           <div className="inputs">
             <TextValidator
               label="名前"
-              onChange={e => changeProfileName(e.target.value)}
+              onChange={(e) => changeProfileName(e.target.value)}
               value={profileName}
               validators={['required', 'isString']}
               errorMessages={['入力してください', 'string is not valid']}
             />
             <TextValidator
               label="一言コメント"
-              onChange={e => changeProfileComment(e.target.value)}
+              onChange={(e) => changeProfileComment(e.target.value)}
               value={profileComment}
               validators={['required', 'isString']}
               errorMessages={['入力してください', 'string is not valid']}
             />
             <p>アイコン</p>
-            <Input type="file" multiple="" accept="image/*" onChange={e => this.onFileChange(e)} />
+            <Input type="file" multiple="" accept="image/*" onChange={(e) => this.onFileChange(e)} />
             <br />
-            <Button variant="outlined" type='submit'>
+            <Button variant="outlined" type="submit">
               プロフィールを更新
             </Button>
           </div>
@@ -101,4 +104,4 @@ class SettingProfilePage extends React.Component {
   }
 };
 
-export default SettingProfilePage;
+export default SettingScreen;

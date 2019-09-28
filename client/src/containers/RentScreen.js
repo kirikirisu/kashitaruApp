@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import RentPage from '../components/rentPageScreen/index';
+import RentScreen from '../components/RentScreen/index';
 import {
   requestData,
   receiveDataSuccess,
@@ -53,4 +53,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RentPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RentScreen);

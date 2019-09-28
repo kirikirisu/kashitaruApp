@@ -1,8 +1,15 @@
 import { connect } from 'react-redux';
-import ChatPageComponent from '../components/ChatScreen/index';
+import ChatScreen from '../components/ChatScreen/index';
 import {
   initializeNewMessage,
   setNewMessage,
+  initializeMessage, // ここからconnectToRoom用
+  setRooms,
+  setRoomUsers,
+  setRoomName,
+  setCurrentRoom,
+  onMessages,
+  onPresenceChanged,
 } from '../actions/index';
 
 const mapStateToProps = ({ chat }) => ({
@@ -23,6 +30,27 @@ const mapDispatchToProps = (dispatch) => ({
   setNewMessage(newMessage) {
     dispatch(setNewMessage(newMessage));
   },
+  onMessages(message) { // ここからconnectToRoom用
+    dispatch(onMessages(message));
+  },
+  initializeMessage() {
+    dispatch(initializeMessage());
+  },
+  setRooms(rooms) {
+    dispatch(setRooms(rooms));
+  },
+  setRoomUsers(roomUser) {
+    dispatch(setRoomUsers(roomUser));
+  },
+  setRoomName(roomName) {
+    dispatch(setRoomName(roomName));
+  },
+  setCurrentRoom(currentRoom) {
+    dispatch(setCurrentRoom(currentRoom));
+  },
+  onPresenceChanged(currentRoom) {
+    dispatch(onPresenceChanged(currentRoom));
+  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatPageComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatScreen);

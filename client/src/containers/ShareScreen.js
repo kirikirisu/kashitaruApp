@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SharePage from '../components/sharePageScreen/index';
+import ShareScreen from '../components/ShareScreen/index';
 import {
   changeProductName,
   setProductImgUrl,
@@ -51,4 +51,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SharePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ShareScreen);

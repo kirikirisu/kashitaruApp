@@ -1,7 +1,7 @@
 import React from 'react';
-import RoomList from '../../containers/RoomList';
-import ChatSession from '../../containers/ChatSession';
-import RoomUsers from '../../containers/RoomUsers';
+import RoomList from './RoomList';
+import ChatSession from './ChatSession';
+import RoomUsers from './RoomUsers';
 import './style.css';
 
 const Chat = ({
@@ -16,6 +16,7 @@ const Chat = ({
   roomName,
   initializeNewMessage, // ここからアクション
   setNewMessage,
+  ...rest // connectToRoom用のアクションたち
 }) => {
   const sendMessage = (event) => {
     event.preventDefault();
@@ -46,7 +47,12 @@ const Chat = ({
           </div>
         ) : null}
         {currentRoom ? (
-          <RoomList />
+          <RoomList
+            rooms={rooms}
+            currentRoom={currentRoom}
+            currentUser={currentUser}
+            rest={rest}
+          />
         ) : null}
       </aside>
       <section className="chat-screen">
@@ -54,7 +60,9 @@ const Chat = ({
           {currentRoom ? <h3>{roomName}</h3> : null}
         </header>
         <ul className="chat-messages">
-          <ChatSession />
+          <ChatSession
+            messages={messages}
+          />
         </ul>
         <footer className="chat-footer">
           <form className="message-form" onSubmit={sendMessage}>
@@ -71,7 +79,12 @@ const Chat = ({
       </section>
       <aside className="sidebar right-sidebar">
         {currentRoom ? (
-          <RoomUsers />
+          <RoomUsers
+            roomUsers={roomUsers}
+            currentUser={currentUser}
+            rooms={rooms}
+            rest={rest}
+          />
         ) : null}
       </aside>
     </div>

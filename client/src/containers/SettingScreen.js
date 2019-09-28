@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SettingProfilePageScreen from '../components/settingProfilePageScreen/index';
+import SettingScreen from '../components/SettingScreen/index';
 import {
   changeProfileName,
   changeProfileComment,
@@ -33,4 +33,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingProfilePageScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen);
