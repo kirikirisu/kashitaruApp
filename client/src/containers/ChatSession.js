@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ChatSession from '../Component/chatScreenComponent/ChatSession';
+import ChatSession from '../components/ChatScreen/ChatSession';
 
 const mapStateToProps = ({ chat }) => ({
   messages: chat.messages,

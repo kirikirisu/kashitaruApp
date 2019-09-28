@@ -30,7 +30,7 @@ const RoomList = (props) => {
     );
   });
 
-  const WrapUl = (
+  const WrapUl = () => (
     <ul>
       {roomList}
     </ul>

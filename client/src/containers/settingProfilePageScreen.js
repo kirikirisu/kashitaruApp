@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SettingProfilePageScreen from '../Component/settingProfilePageScreen/index';
+import SettingProfilePageScreen from '../components/settingProfilePageScreen/index';
 import {
   changeProfileName,
   changeProfileComment,

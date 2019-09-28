@@ -4,7 +4,7 @@ import Drawer from './persistentDrawerLeftComponent/index';
 import TopPageScreen from './topPageScreen/index';
 import SharePageScreen from '../containers/sharePageScreen';
 import RentPageScreen from '../containers/rentPageScreen';
-import ChatPageScreen from '../containers/chatScreenComponent';
+import ChatScreen from '../containers/ChatScreen';
 import SignUpPageScreen from '../containers/signUpPageScreen';
 import SignInPageScreen from '../containers/signInPageScreen';
 import ProfilePageScreen from '../containers/profilePageScreen';
@@ -23,7 +23,7 @@ const RentPage = () => (
 );
 
 const ChatPage = () => (
-  <Drawer screen={<ChatPageScreen />} />
+  <Drawer screen={<ChatScreen />} />
 );
 
 const SignUpPage = () => (

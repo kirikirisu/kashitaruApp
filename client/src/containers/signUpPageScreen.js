@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SignUpForm from '../Component/signUpPageScreen/index';
+import SignUpForm from '../components/signUpPageScreen/index';
 import {
   changePassword,
   changeMailAddress,

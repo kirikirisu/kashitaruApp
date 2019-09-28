@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import RentPage from '../Component/rentPageScreen/index';
+import RentPage from '../components/rentPageScreen/index';
 import {
   requestData,
   receiveDataSuccess,

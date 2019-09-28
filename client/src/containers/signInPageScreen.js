@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SignInForm from '../Component/signInPageScreen';
+import SignInForm from '../components/signInPageScreen';
 import {
   changeSignInMailAddress,
   changeSignInPassword,

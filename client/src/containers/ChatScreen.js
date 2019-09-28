@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ChatPageComponent from '../Component/chatScreenComponent/index';
+import ChatPageComponent from '../components/ChatScreen/index';
 import {
   initializeNewMessage,
   setNewMessage,

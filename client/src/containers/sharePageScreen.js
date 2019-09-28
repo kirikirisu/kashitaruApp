@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SharePage from '../Component/sharePageScreen/index';
+import SharePage from '../components/sharePageScreen/index';
 import {
   changeProductName,
   setProductImgUrl,

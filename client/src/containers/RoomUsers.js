@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import RoomUsers from '../Component/chatScreenComponent/RoomUsers';
+import RoomUsers from '../components/ChatScreen/RoomUsers';
 import {
   initializeMessage,
   setRooms,
