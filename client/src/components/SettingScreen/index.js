@@ -4,40 +4,15 @@ import axios from 'axios';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Input } from '@material-ui/core';
 import firebase from '../../firebaseWithConfig';
+import upLoadImg from '../../utils/upLoadImg';
 
 class SettingScreen extends React.Component {
-  onFileChange = (e) => {
-    const files = e.target.files;
-
-    if (files.length > 0) {
-      let file = files[0];                                   // 入力された画像を取得
-      const fileName = file.name;　　　　　　　　　　　　　　　　　// 入力された画像の名前を取得
-      this.upLoadToFirebase(file, fileName);
-    } else {
-      console.log('no data');
-    }
-  };
-
-  upLoadToFirebase = (imgData, fileName) => {
-    const { setAvatarImg } = this.props;
-    let storageRef = firebase.storage().ref();
-    let cloudStoragePath = storageRef.child(`${fileName}`);      // firebaseで保存するパスを設定、今回はfirebaseの方にフォルダを作らない
-    cloudStoragePath.put(imgData).then((snapshot) => {           // firebaseに保存
-
-      cloudStoragePath.getDownloadURL().then((url) => {            // 保存したらその画像のurlを入手
-        setAvatarImg(url);　　　　　　　　　　　　　　　　　　　　　    // urlをステートに保存
-      }).catch((error) => {
-        console.log(error);
-      });
-    });
-  };
-
   sendProfileData = () => {
     const {
       profileName,
       profileComment,
       avatarImg,
-      getUserInformation
+      getUserInformation,
     } = this.props; // firebaseへのアップロードに少し時間がかかるため、ファイルを選択してからすぐに更新ボタンを押されるとavatarImgにurlが入らない
 
     firebase.auth().currentUser.getIdToken(true)
@@ -67,6 +42,7 @@ class SettingScreen extends React.Component {
       profileComment,
       changeProfileName,
       changeProfileComment,
+      ...rest
     } = this.props;
 
     return (
@@ -92,7 +68,7 @@ class SettingScreen extends React.Component {
               errorMessages={['入力してください', 'string is not valid']}
             />
             <p>アイコン</p>
-            <Input type="file" multiple="" accept="image/*" onChange={(e) => this.onFileChange(e)} />
+            <Input type="file" multiple="" accept="image/*" onChange={(e) => upLoadImg(e, rest)} />
             <br />
             <Button variant="outlined" type="submit">
               プロフィールを更新
@@ -102,6 +78,6 @@ class SettingScreen extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default SettingScreen;

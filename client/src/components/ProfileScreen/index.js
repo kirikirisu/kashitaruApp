@@ -10,7 +10,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Textsms from '@material-ui/icons/Textsms';
 import Button from '@material-ui/core/Button';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Route, Redirect } from 'react-router-dom';
 import NormalCard from './NormalCard';
 import Heading from './Heading';
 import PromptGoAnyScreen from '../PromptComponent/index';
@@ -29,16 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const renderProfile = (
-  classes,
-  name,
-  avatar,
-  comment,
-  userShareInformation,
-  isFechingShareInfor,
-) => (
+const renderProfile = (classes, rest) => {
+  const {
+    name,
+    avatar,
+    comment,
+    userShareInformation,
+    isFechingShareInfor,
+  } = rest;
+  return (
     <div>
-      {name // プロフィール設定がしてあるかどうかはログインした時に持ってくるプロフィール情報の名前があるかないかで分岐
+      {name // プロフィール設定がしてあるかどうかはログインした時に持ってくるプロフィール情報の名前があるかないかで判断
         ? (
           <Box display="flex" flexDirection="column" alignItems="center">
             <Heading title="あなたのプロフィール" subTitle="ログイン情報を確認" />
@@ -59,7 +60,7 @@ const renderProfile = (
                 <ListItemText primary={comment} secondary="コメント" />
               </ListItem>
             </List>
-            <Button component={RouterLink} to="/settingProfile">プロフィール更新</Button>
+            <Button component={RouterLink} to="/setting">プロフィール更新</Button>
             <Heading title="あなたの貸し出し一覧" subTitle="シェアしている情報を確認" />
             <br />
             <div>
@@ -87,21 +88,18 @@ const renderProfile = (
             </div>
           </Box>
         )
-        : <PromptGoAnyScreen p="プロフィールを設置しましょう" to="/settingProfile" btn="プロフィール設置画面へ" />}
+        : <PromptGoAnyScreen p="プロフィールを設置しましょう" to="/setting" btn="プロフィール設置画面へ" />}
     </div>
   );
+};
 
 const ProfileScreen = ({
   isLogin,
   id,
-  name,
-  avatar,
-  comment,
-  userShareInformation,
-  isFechingShareInfor,
   requestUserShareInformation,
   receiveUserShareInformationSuccess,
   receiveUserShareInformationFailed,
+  ...rest
 }) => {
   const classes = useStyles();
 
@@ -119,18 +117,14 @@ const ProfileScreen = ({
   }, []);
 
   return (
-    <div>
-      {isLogin                                  // ログインしているかで分岐
-        ? renderProfile(                        // ログインしていたらプロフィール画面を表示
-          classes,
-          name,
-          avatar,
-          comment,
-          userShareInformation,
-          isFechingShareInfor,
-        )
-        : <PromptGoAnyScreen p="ログインしましょう" to="/signIn" btn="ログイン画面へ" />}
-    </div>
+    <Route
+      render={() => (
+        isLogin ? (
+          renderProfile(classes, rest)
+        ) : (
+            <Redirect to="signIn" />) // ログインしてなければログインページへリダイレクト
+      )}
+    />
   );
 };
 

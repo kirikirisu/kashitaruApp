@@ -11,7 +11,7 @@ import {
 const mapStateToProps = ({ profile }) => ({
   profileName: profile.profileName,
   profileComment: profile.profileComment,
-  vatarImg: profile.avatarImg,
+  avatarImg: profile.avatarImg,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeProfileComment(profileComment) {
     dispatch(changeProfileComment(profileComment));
   },
-  setAvatarImg(avatarImg) {
+  setImg(avatarImg) {
     dispatch(setAvatarImg(avatarImg));
   },
   initializeProfileForm() {

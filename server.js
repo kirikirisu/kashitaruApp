@@ -111,6 +111,7 @@ app.post('/api/updateUser', (request, response) => {
     profileComment,
     avatarImg
   } = request.body;
+  console.log(avatarImg)
 
   admin.auth().verifyIdToken(idToken)
     .then((decodedToken) => {

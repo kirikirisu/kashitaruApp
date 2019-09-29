@@ -84,13 +84,13 @@ const PersistentDrawerLeft = ({ screen }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  function handleDrawerOpen() {
+  const handleDrawerOpen = () => {
     setOpen(true);
-  }
+  };
 
-  function handleDrawerClose() {
+  const handleDrawerClose = () => {
     setOpen(false);
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -154,6 +154,6 @@ const PersistentDrawerLeft = ({ screen }) => {
       </main>
     </div>
   );
-}
+};
 
 export default PersistentDrawerLeft;

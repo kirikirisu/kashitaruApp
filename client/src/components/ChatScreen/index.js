@@ -81,9 +81,6 @@ const Chat = ({
         {currentRoom ? (
           <RoomUsers
             roomUsers={roomUsers}
-            currentUser={currentUser}
-            rooms={rooms}
-            rest={rest}
           />
         ) : null}
       </aside>

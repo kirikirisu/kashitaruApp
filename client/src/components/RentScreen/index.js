@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
-import Card from '../CardComponent/index';
+import Card from './DetailedCard';
 import key from '../../utils/listKeyGenerator';
 
 const RentScreen = ({
@@ -12,7 +12,7 @@ const RentScreen = ({
   receiveDataFailed,
   currentUser,
   rooms,
-  ...rest // チャットのアクションたち
+  ...rest // connectToRoomのアクションたち
 }) => {
   const handleFetchData = () => {
     requestData(); // axios.get()を呼ぶ前にisFetchingをtrueにしておく

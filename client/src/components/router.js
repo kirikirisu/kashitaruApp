@@ -22,10 +22,6 @@ const RentPage = () => (
   <Drawer screen={<RentScreen />} />
 );
 
-const ChatPage = () => (
-  <Drawer screen={<ChatScreen />} />
-);
-
 const SignUpPage = () => (
   <Drawer screen={<SignUpScreen />} />
 );
@@ -38,7 +34,7 @@ const ProfilePage = () => (
   <Drawer screen={<ProfileScreen />} />
 );
 
-const SettingProfilePage = () => (
+const SettingPage = () => (
   <Drawer screen={<SettingScreen />} />
 );
 
@@ -48,11 +44,11 @@ const Router = () => (
       <Route exact path="/" component={HomePage} />
       <Route exact path="/share" component={SharePage} />
       <Route exact path="/rent" component={RentPage} />
-      <Route exact path="/chat" component={ChatPage} />
+      <Route exact path="/chat" component={ChatScreen} />
       <Route exact path="/signUp" component={SignUpPage} />
       <Route exact path="/signIn" component={SignInPage} />
       <Route exact path="/profile" component={ProfilePage} />
-      <Route exact path="/settingProfile" component={SettingProfilePage} />
+      <Route exact path="/setting" component={SettingPage} />
     </div>
   </BrowserRouter>
 );
