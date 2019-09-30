@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductCard = ({
+const DetailedCard = ({
   productName,
   img,
   description,
@@ -52,6 +53,8 @@ const ProductCard = ({
   comment,
   currentUser,
   rooms,
+  redirectChat,
+  toggleRedirectChat,
   rest,
 }) => {
   const classes = useStyles();
@@ -96,11 +99,12 @@ const ProductCard = ({
 
   const sendDM = (id) => {
     createPrivateRoom(id).then((room) => {
+      toggleRedirectChat(true);
       connectToRoom(room.id, currentUser, rest);
     });
   };
 
-  return (
+  const renderDetailedCard = () => (
     <Card className={classes.card}>
       <CardHeader
         avatar={
@@ -165,6 +169,17 @@ const ProductCard = ({
       </Collapse>
     </Card>
   );
+
+  return (
+    <Route
+      render={() => (
+        redirectChat ? (
+          <Redirect to="chat" />
+        ) : (
+            renderDetailedCard())
+      )}
+    />
+  );
 };
 
-export default ProductCard;
+export default DetailedCard;

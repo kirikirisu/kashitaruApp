@@ -20,7 +20,7 @@ class SignInScreen extends React.Component {
 
     firebase.auth().signInWithEmailAndPassword(signInMailAddress, signInPassword)
       .then(() => {
-        toggleSignIn(); // ユーザをログイン状態にし、
+        toggleSignIn(); // ユーザをログイン状態に
         initializeSignInForm();
         this.getUserInformation(); // そのユーザのプロフィール情報を持ってくる。
       })

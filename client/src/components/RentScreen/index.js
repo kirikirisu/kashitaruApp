@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
-import Card from './DetailedCard';
+import DetailedCard from './DetailedCard';
 import key from '../../utils/listKeyGenerator';
 
 const RentScreen = ({
@@ -12,6 +12,8 @@ const RentScreen = ({
   receiveDataFailed,
   currentUser,
   rooms,
+  toggleRedirectChat,
+  redirectChat,
   ...rest // connectToRoomのアクションたち
 }) => {
   const handleFetchData = () => {
@@ -42,7 +44,7 @@ const RentScreen = ({
                 <Grid container justify="center" spacing={2}>
                   {shareInformationsArray.map((share) => (
                     <Grid key={key()} item>
-                      <Card
+                      <DetailedCard
                         productName={share.productName}
                         img={share.productImg}
                         description={share.description}
@@ -55,6 +57,8 @@ const RentScreen = ({
                         comment={share.comment}
                         currentUser={currentUser}
                         rooms={rooms}
+                        toggleRedirectChat={toggleRedirectChat}
+                        redirectChat={redirectChat}
                         rest={rest}
                       />
                     </Grid>

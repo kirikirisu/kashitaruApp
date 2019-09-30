@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RoomList from './RoomList';
 import ChatSession from './ChatSession';
 import RoomUsers from './RoomUsers';
@@ -16,8 +16,13 @@ const Chat = ({
   roomName,
   initializeNewMessage, // ここからアクション
   setNewMessage,
+  toggleRedirectChat,
   ...rest // connectToRoom用のアクションたち
 }) => {
+  useEffect(() => {
+    toggleRedirectChat(false);
+  });
+
   const sendMessage = (event) => {
     event.preventDefault();
 
@@ -36,6 +41,7 @@ const Chat = ({
 
     setNewMessage(value);
   };
+
 
   return (
     <div className="App">

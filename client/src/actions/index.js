@@ -168,3 +168,8 @@ export const setNewMessage = (newMessage) => ({
   type: types.SET_NEW_MESSAGE,
   newMessage,
 });
+
+export const toggleRedirectChat = (bool) => ({
+  type: types.TOGGLE_REDIRECT_CHAT,
+  bool,
+});

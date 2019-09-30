@@ -11,6 +11,7 @@ import {
   setCurrentRoom,
   onMessages,
   onPresenceChanged,
+  toggleRedirectChat,
 } from '../actions/index';
 
 const mapStateToProps = ({ getShare, chat }) => ({
@@ -18,6 +19,7 @@ const mapStateToProps = ({ getShare, chat }) => ({
   shareInformationsArray: getShare.shareInformationsArray,
   currentUser: chat.currentUser,
   rooms: chat.rooms,
+  redirectChat: getShare.redirectChat,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -50,6 +52,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onPresenceChanged(currentRoom) {
     dispatch(onPresenceChanged(currentRoom));
+  },
+  toggleRedirectChat(bool) {
+    dispatch(toggleRedirectChat(bool));
   },
 });
 
