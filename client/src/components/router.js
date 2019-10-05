@@ -11,35 +11,31 @@ import ProfileScreen from '../containers/ProfileScreen';
 import SettingScreen from '../containers/SettingScreen';
 
 const HomePage = () => (
-  <Drawer screen={<HomeScreen />} />
+  <Drawer screen={<HomeScreen />} title="KASHITARU" />
 );
 
 const SharePage = () => (
-  <Drawer screen={<ShareScreen />} />
+  <Drawer screen={<ShareScreen />} title="シェアする" />
 );
 
 const RentPage = () => (
-  <Drawer screen={<RentScreen />} />
-);
-
-const ChatPage = () => (
-  <Drawer screen={<ChatScreen />} />
+  <Drawer screen={<RentScreen />} title="借りる" />
 );
 
 const SignUpPage = () => (
-  <Drawer screen={<SignUpScreen />} />
+  <Drawer screen={<SignUpScreen />} title="サインアップ" />
 );
 
 const SignInPage = () => (
-  <Drawer screen={<SignInScreen />} />
+  <Drawer screen={<SignInScreen />} title="サインイン" />
 );
 
 const ProfilePage = () => (
-  <Drawer screen={<ProfileScreen />} />
+  <Drawer screen={<ProfileScreen />} title="マイプロフィール" />
 );
 
-const SettingProfilePage = () => (
-  <Drawer screen={<SettingScreen />} />
+const SettingPage = () => (
+  <Drawer screen={<SettingScreen />} title="セッティング" />
 );
 
 const Router = () => (
@@ -48,11 +44,11 @@ const Router = () => (
       <Route exact path="/" component={HomePage} />
       <Route exact path="/share" component={SharePage} />
       <Route exact path="/rent" component={RentPage} />
-      <Route exact path="/chat" component={ChatPage} />
+      <Route exact path="/chat" component={ChatScreen} />
       <Route exact path="/signUp" component={SignUpPage} />
       <Route exact path="/signIn" component={SignInPage} />
       <Route exact path="/profile" component={ProfilePage} />
-      <Route exact path="/settingProfile" component={SettingProfilePage} />
+      <Route exact path="/setting" component={SettingPage} />
     </div>
   </BrowserRouter>
 );

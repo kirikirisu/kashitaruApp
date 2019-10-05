@@ -2,12 +2,14 @@ import {
   REQUEST_DATA,
   RECEIVE_DATA_SUCCESS,
   RECEIVE_DATA_FAILED,
+  TOGGLE_REDIRECT_CHAT,
 } from '../constants/actionTypes';
 
 const initialState = {
   shareInformations: {
     isFetching: false,
     shareInformationsArray: [],
+    redirectChat: false,
   },
 };
 
@@ -28,6 +30,11 @@ const shareInformationsReducer = (state = initialState.shareInformations, action
       return {
         ...state,
         isFetching: false,
+      };
+    case TOGGLE_REDIRECT_CHAT:
+      return {
+        ...state,
+        redirectChat: action.bool,
       };
     default:
       return state;

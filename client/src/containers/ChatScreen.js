@@ -10,6 +10,7 @@ import {
   setCurrentRoom,
   onMessages,
   onPresenceChanged,
+  toggleRedirectChat,
 } from '../actions/index';
 
 const mapStateToProps = ({ chat }) => ({
@@ -50,6 +51,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onPresenceChanged(currentRoom) {
     dispatch(onPresenceChanged(currentRoom));
+  },
+  toggleRedirectChat(bool) {
+    dispatch(toggleRedirectChat(bool));
   },
 });
 

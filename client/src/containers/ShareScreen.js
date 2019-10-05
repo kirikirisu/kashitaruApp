@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeProductName(productName) {
     dispatch(changeProductName(productName));
   },
-  setProductImgUrl(productImgUrl) {
+  setImg(productImgUrl) {
     dispatch(setProductImgUrl(productImgUrl));
   },
   changeDescription(description) {

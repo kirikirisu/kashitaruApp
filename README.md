@@ -1,7 +1,12 @@
 # kashitaruApp
 ## 概要
-夏休み中に何を作ろうか色々考えた結果、[こちら](https://kougusharing.storeinfo.jp/)のアイデアを参考にwebアプリを作ることにした。
-node+react+sql+reduxでアプリを作るのが初めてのためREADMEに色々まとめながら開発を進めたい。
+ものの貸し借りができるサービスがあまりなく、特に自分自身が体験したことから工具が貸し借りできるサービスがあれば面白そうだと感じた。
+工具を貸し借りできるアイデアとして[こちら](https://kougusharing.storeinfo.jp/)のアイデアがあるが、これを参考に使いやすい工具の貸し借りができるアプリを作る。勉強も兼ねていろんな機能や技術を取り入れていきたい。
+## 使用技術
+- node
+- react & redux
+- sql
+- firebase(Authentication, Storage)
 ## アプリの起動
 sqlを起動
 
@@ -30,7 +35,7 @@ create-react-appでプロジェクトを作成した場合、dotenvモジュー�
 REACT_APP_FIREBASE_KEY = "hoge"
 REACT_APP_AUTH_DOMAIN = "hoge"
 REACT_APP_DATABASE_URL = "hoge"
-REACT_APP_PROJECT_ID = "kashitaru-434fb"
+REACT_APP_PROJECT_ID = "hoge"
 REACT_APP_MESSAGINGSENDER_ID = "hoge"
 REACT_APP_APP_ID = "hoge"
 REACT_APP_STORAGE_BUCKET = "hoge"
@@ -69,23 +74,28 @@ const chatkit = new Chatkit.default({
 
 の「.default」を省略できる。[ここを参照](https://github.com/pusher/chatkit-server-node/issues/12)
 
-## ChatAppComponentについて
+## チャット機能
 - チャットAPIに[Pusher](https://pusher.com/)のCHATKITを使用
-- ダイレクトメッセージチャットを作るのは初めてのため[サンプル](https://pusher.com/tutorials/react-direct-messaging)をほとんどパクる。チャットにもreduxを導入予定。
-### チャットの流れ
-#### methods.js/connectToChatkit()
-まず最初に、ユーザーをChatkitインスタンスに接続する前に、ユーザーを識別する必要がある。ユーザー名の入力を求め、そのユーザー名をサーバーに（/usersルートに）送信し、存在しない場合はChatkitユーザーを作成する。そして次に、ユーザー情報やルームのIDを元にChatkitインスタンスを作成する。Chatkitインスタンスを作成するとconnect()メソッドが呼び出さる。このメソッドはオブジェクト(currentUser)を生成し、このオブジェクトはChatkitインスタンスとやり取りができる。
-#### methods.js/connectToRoom()
-connectToChatkit()が実行されるとconnectToRoom()も実行される。これは作成された部屋にユーザーを入れる。
-#### methods.js/
-
-
-## 複雑なif文の省略
-[ここを](https://qiita.com/Slowh/items/5a95943824802221f2da)参考
+- ダイレクトメッセージチャットを作るのは初めてだったが[サンプル](https://pusher.com/tutorials/react-direct-messaging)を参考に実装
+### connectToRoom.js
+この関数には7個のアクションと二つのステートを渡す必要がる。reduxにコンテナされた親から子にこれらを渡す場合、[スプレッド構文](https://qiita.com/akisx/items/682a4283c13fe336c547)を使うことでまとめて渡すことができる。currentUserとcurrentRoomというステートでcurrentRoomだけアクションたちとまとめて渡しているのは、ログインしてチャットキットインスタンスから返ってきたcurrentUserをステートに保存するのを待たずにそのままこの関数の引数として渡したいから。
 
 ## uidの使い道
-firebase認証にしていなかった時は名前とメールアドレスの二つによってログインしているユーザを判断していたが、それがuid一つで済むようになる。uidの管理がセキュリティに気をつける必要があり、クライアントではuidを絶対に発行せず、アクセストークンを発行しそれを元にサーバーでfirebaseからuidを入手しなければならない。
+firebase認証にしていなかった時は名前とメールアドレスの二つによってユーザを判断していたが、それがuid一つで済むようになる。uidの管理に気をつける必要があり、クライアントではuidを絶対に発行せず、アクセストークンを発行しそれを元にサーバーでfirebaseからuidを入手しなければならない。
 
 ## プロフィール画面
-プロフィール画面ではまずユーザの名前が登録されているかどうかで分岐、登録されていない場合プロフィール設定画面をログインしていれば表示する。
 ログインした時にユーザ情報を持ってきているため、ログインしていなければプロフィール画面は見ることができない。
+
+## utilsフォルダ
+共通化したものを入れていく
+
+## テスト
+create-react-appでjestとenzymeを使ってテストをする際の環境構築
+[create-react-app公式](https://create-react-app.dev/docs/running-tests)
+そもそものテストの仕方は別で調べる必要がある
+[enzyme公式](https://airbnb.io/enzyme/docs/api/)
+
+## 感想
+アクションの名前の付け方を最初から決めておけばよかった
+画面の数や機能を最初にある程度決めておけばよかった
+チャットアイコンを押したらリダイレクトするだけなのに、なぜかアイコンを押したらブール値のトグルによってリダイレクトをするようにしてしまった。

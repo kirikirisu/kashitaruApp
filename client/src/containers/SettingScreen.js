@@ -8,10 +8,10 @@ import {
   getUserInformation,
 } from '../actions/index';
 
-const mapStateToProps = ({ profile }) => ({
-  profileName: profile.profileName,
-  profileComment: profile.profileComment,
-  vatarImg: profile.avatarImg,
+const mapStateToProps = ({ setting }) => ({
+  profileName: setting.profileName,
+  profileComment: setting.profileComment,
+  avatarImg: setting.avatarImg,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeProfileComment(profileComment) {
     dispatch(changeProfileComment(profileComment));
   },
-  setAvatarImg(avatarImg) {
+  setImg(avatarImg) {
     dispatch(setAvatarImg(avatarImg));
   },
   initializeProfileForm() {

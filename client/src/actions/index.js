@@ -74,9 +74,9 @@ export const initializeSignInForm = () => ({
 });
 
 
-export const getUserInformation = (userInformations) => ({
+export const getUserInformation = (userInformation) => ({
   type: types.GET_USER_INFORMATION,
-  userInformations,
+  userInformation,
 });
 
 export const toggleSignIn = () => ({
@@ -103,18 +103,25 @@ export const setAvatarImg = (avatarImg) => ({
 });
 
 
-export const requestUserShareInformation = () => ({
-  type: types.REQUEST_USER_SHARE_INFORMATION,
+export const requestProfileData = () => ({
+  type: types.REQUEST_PROFILE_DATA,
 });
 
-export const receiveUserShareInformationSuccess = (userShareInformation) => ({
-  type: types.RECEIVE_USER_SHARE_INFORMATION_SUCCESS,
-  userShareInformation,
+export const receiveProfileSuccess = (profileData) => {
+  // console.log(`action${profileData}`);
+  return {
+    type: types.RECEIVE_PROFOLE_SUCCESS,
+    payload: {
+      user: profileData.user,
+      product: profileData.product,
+    },
+  };
+};
+
+export const receiveProfileFailed = () => ({
+  type: types.RECEIVE_PROFILE_FAILED,
 });
 
-export const receiveUserShareInformationFailed = () => ({
-  type: types.RECEIVE_USER_SHARE_INFORMATION_FAILED,
-});
 
 export const addRoom = (room) => ({
   type: types.ADD_ROOM,
@@ -167,4 +174,9 @@ export const initializeNewMessage = () => ({
 export const setNewMessage = (newMessage) => ({
   type: types.SET_NEW_MESSAGE,
   newMessage,
+});
+
+export const toggleRedirectChat = (bool) => ({
+  type: types.TOGGLE_REDIRECT_CHAT,
+  bool,
 });

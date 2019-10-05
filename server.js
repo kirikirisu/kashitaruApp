@@ -69,6 +69,20 @@ app.get('/api/share', (request, response) => {
   });
 });
 
+// getProfile
+app.post('/api/getProfileData', (request, response) => {
+  const { id } = request.body;
+  const columns = ['id','name', 'avatar', 'comment'];
+  let resResults = {};
+  connection.query('SELECT ?? FROM `user` WHERE id = ?', [columns, id], (error, results, fields) => {
+    resResults.user = results[0];
+    connection.query('SELECT * FROM `product` WHERE id =?', [id], (error, results, fields) => {
+      resResults.product = results;
+      response.status(200).send(resResults);
+    });
+  });
+});
+
 // signUp
 app.post('/api/setUid', (request, response) => {
   const { idToken } = request.body;
@@ -88,17 +102,16 @@ app.post('/api/setUid', (request, response) => {
 });
 
 // signIn
-app.post('/api/getUserInformation', (request, response) => {
+app.post('/api/getCurrentUser', (request, response) => {
   const { idToken } = request.body;
 
   admin.auth().verifyIdToken(idToken)
     .then((decodedToken) => {
-      let gotUid = decodedToken.uid;
+      const gotUid = decodedToken.uid;
+      const columns = ['id', 'name'];
 
-      connection.query('SELECT * FROM `user` WHERE `uid` = ?', [`${gotUid}`], (error, results, fields) => {
-        const rslt = results[0]
-        delete rslt.uid;                        // uidの削除
-        response.status(200).send(rslt);
+      connection.query('SELECT ?? FROM `user` WHERE `uid` = ?', [columns, `${gotUid}`], (error, results, fields) => {
+        response.status(200).send(results);
       });
     });
 
@@ -111,6 +124,7 @@ app.post('/api/updateUser', (request, response) => {
     profileComment,
     avatarImg
   } = request.body;
+  console.log(avatarImg)
 
   admin.auth().verifyIdToken(idToken)
     .then((decodedToken) => {
