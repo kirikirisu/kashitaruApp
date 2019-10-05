@@ -1,30 +1,29 @@
 import { connect } from 'react-redux';
 import ProfilePage from '../components/ProfileScreen';
 import {
-  requestUserShareInformation,
-  receiveUserShareInformationSuccess,
-  receiveUserShareInformationFailed,
+  requestProfileData,
+  receiveProfileSuccess,
+  receiveProfileFailed,
 } from '../actions/index';
 
-const mapStateToProps = ({ user }) => ({
-  isLogin: user.isLogin,
+const mapStateToProps = ({ profile, user }) => ({
   id: user.userInfor.id,
+  isLogin: user.isLogin,
   name: user.userInfor.name,
-  avatar: user.userInfor.avatar,
-  comment: user.userInfor.comment,
-  userShareInformation: user.userShareInformation,
-  isFechingShareInfor: user.isFechingShareInfor,
+  profileIsFetching: profile.profileIsFetching,
+  user: profile.user,
+  product: profile.product,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestUserShareInformation() {
-    dispatch(requestUserShareInformation());
+  requestProfileData() {
+    dispatch(requestProfileData());
   },
-  receiveUserShareInformationSuccess(userShareInformation) {
-    dispatch(receiveUserShareInformationSuccess(userShareInformation));
+  receiveProfileSuccess(profile) {
+    dispatch(receiveProfileSuccess(profile));
   },
-  receiveUserShareInformationFailed() {
-    dispatch(receiveUserShareInformationFailed());
+  receiveProfileFailed() {
+    dispatch(receiveProfileFailed());
   },
 });
 

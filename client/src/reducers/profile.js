@@ -1,40 +1,39 @@
 import {
-  CHANGE_PROFILE_NAME,
-  CHANGE_PROFILE_COMMENT,
-  INITIALIZE_PROFILE_FORM,
-  SET_AVATAR_IMG,
+  REQUEST_PROFILE_DATA,
+  RECEIVE_PROFOLE_SUCCESS,
+  RECEIVE_PROFILE_FAILED,
 } from '../constants/actionTypes';
 
 const initialState = {
-  profileForm: {
-    profileName: '',
-    profileComment: '',
-    avatarImg: '',
+  profileInformation: {
+    profileIsFetching: false,
+    user: {},
+    product: [],
   },
 };
 
-const settingProfileFormReducer = (state = initialState.profileForm, action) => {
+const profileFormReducer = (state = initialState.profileInformation, action) => {
   switch (action.type) {
-    case CHANGE_PROFILE_NAME:
+    case REQUEST_PROFILE_DATA:
       return {
         ...state,
-        profileName: action.profileName,
+        profileIsFetching: true,
       };
-    case CHANGE_PROFILE_COMMENT:
+    case RECEIVE_PROFOLE_SUCCESS:
       return {
         ...state,
-        profileComment: action.profileComment,
+        profileIsFetching: false,
+        user: action.payload.user,
+        product: action.payload.product,
       };
-    case SET_AVATAR_IMG:
+    case RECEIVE_PROFILE_FAILED:
       return {
         ...state,
-        avatarImg: action.avatarImg,
+        profileIsFetching: false,
       };
-    case INITIALIZE_PROFILE_FORM:
-      return initialState.profileForm; // 初期状態を返す
     default:
       return state;
   }
 };
 
-export default settingProfileFormReducer;
+export default profileFormReducer;

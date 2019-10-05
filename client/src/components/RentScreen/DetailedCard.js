@@ -110,11 +110,11 @@ const DetailedCard = ({
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar} src={avatar} />
         }
-        action={
+        action={(
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
-        }
+        )}
         title={name}
         subheader="投稿日2019_3_9"
       />
@@ -176,7 +176,8 @@ const DetailedCard = ({
         redirectChat ? (
           <Redirect to="chat" />
         ) : (
-            renderDetailedCard())
+            renderDetailedCard()
+          )
       )}
     />
   );

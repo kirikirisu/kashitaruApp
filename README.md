@@ -1,7 +1,12 @@
 # kashitaruApp
 ## 概要
-夏休み中に何を作ろうか色々考えた結果、[こちら](https://kougusharing.storeinfo.jp/)のアイデアを参考にwebアプリを作ることにした。
-node+react+sql+reduxでアプリを作るのが初めてのためREADMEに色々まとめながら開発を進めたい。
+ものの貸し借りができるサービスがあまりなく、特に自分自身が体験したことから工具が貸し借りできるサービスがあれば面白そうだと感じた。
+工具を貸し借りできるアイデアとして[こちら](https://kougusharing.storeinfo.jp/)のアイデアがあるが、これを参考に使いやすい工具の貸し借りができるアプリを作る。勉強も兼ねていろんな機能や技術を取り入れていきたい。
+## 使用技術
+- node
+- react & redux
+- sql
+- firebase(Authentication, Storage)
 ## アプリの起動
 sqlを起動
 
@@ -69,7 +74,7 @@ const chatkit = new Chatkit.default({
 
 の「.default」を省略できる。[ここを参照](https://github.com/pusher/chatkit-server-node/issues/12)
 
-## チャットについて
+## チャット機能
 - チャットAPIに[Pusher](https://pusher.com/)のCHATKITを使用
 - ダイレクトメッセージチャットを作るのは初めてだったが[サンプル](https://pusher.com/tutorials/react-direct-messaging)を参考に実装
 ### connectToRoom.js
@@ -84,5 +89,13 @@ firebase認証にしていなかった時は名前とメールアドレスの二
 ## utilsフォルダ
 共通化したものを入れていく
 
-## 
+## テスト
+create-react-appでjestとenzymeを使ってテストをする際の環境構築
+[create-react-app公式](https://create-react-app.dev/docs/running-tests)
+そもそものテストの仕方は別で調べる必要がある
+[enzyme公式](https://airbnb.io/enzyme/docs/api/)
 
+## 感想
+アクションの名前の付け方を最初から決めておけばよかった
+画面の数や機能を最初にある程度決めておけばよかった
+チャットアイコンを押したらリダイレクトするだけなのに、なぜかアイコンを押したらブール値のトグルによってリダイレクトをするようにしてしまった。

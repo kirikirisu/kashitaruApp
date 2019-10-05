@@ -8,10 +8,10 @@ import {
   getUserInformation,
 } from '../actions/index';
 
-const mapStateToProps = ({ profile }) => ({
-  profileName: profile.profileName,
-  profileComment: profile.profileComment,
-  avatarImg: profile.avatarImg,
+const mapStateToProps = ({ setting }) => ({
+  profileName: setting.profileName,
+  profileComment: setting.profileComment,
+  avatarImg: setting.avatarImg,
 });
 
 const mapDispatchToProps = (dispatch) => ({

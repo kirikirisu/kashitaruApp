@@ -6,7 +6,6 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './style.css';
 import firebase from '../../firebaseWithConfig';
 import AlreadySignInScreen from './AlreadySignIn';
-import PromptGoAnyScreen from '../PromptComponent/index';
 import connectToRoom from '../../utils/connectToRoom';
 
 class SignInScreen extends React.Component {
@@ -14,13 +13,11 @@ class SignInScreen extends React.Component {
     const {
       signInMailAddress,
       signInPassword,
-      toggleSignIn,
       initializeSignInForm,
     } = this.props;
 
     firebase.auth().signInWithEmailAndPassword(signInMailAddress, signInPassword)
       .then(() => {
-        toggleSignIn(); // ユーザをログイン状態に
         initializeSignInForm();
         this.getUserInformation(); // そのユーザのプロフィール情報を持ってくる。
       })
@@ -34,13 +31,18 @@ class SignInScreen extends React.Component {
     const { getUserInformation } = this.props;
     firebase.auth().currentUser.getIdToken(true)
       .then((idToken) => {
-        axios.post('/api/getUserInformation', {
+        axios.post('/api/getCurrentUser', {
           idToken, // サーバ側でアクセストークンを元にuidを生成 // uidは現在ログインしているユーザーのユニークキー
         })
           .then((response) => {
-            const userInformation = response.data;
-            getUserInformation(userInformation); // ユーザー情報をステートに保存
-            this.generationChatInstance();
+            const userInformation = response.data[0];
+            const informationSet = new Promise((reslove) => { // ステートに名前が入るまで次の処理を待つ
+              getUserInformation(userInformation); // ログインしているユーザーの名前とidを保存
+              reslove();
+            });
+            informationSet.then(() => {
+              this.generationChatInstance();
+            });
           })
           .catch((err) => {
             console.error(new Error(err));
@@ -54,11 +56,9 @@ class SignInScreen extends React.Component {
     const { name } = this.props;
 
     if (name === null || name.trim() === '') { // ユーザーの名前がなかったらプロフィール設定へ
-      return (
-        <PromptGoAnyScreen p="プロフィールを設置しましょう" to="/settingProfile" btn="プロフィール設置画面へ" />
-      );
+      return;
     }
-    return this.connectToChatkit(name);
+    this.connectToChatkit(name);
   };
 
   connectToChatkit = (userId) => { // chatkitインスタンスにログインしたユーザを接続
@@ -66,6 +66,7 @@ class SignInScreen extends React.Component {
       addRoom,
       setCurrentUser,
       setRooms,
+      toggleSignIn,
     } = this.props;
     axios
       .post('/users', { userId })
@@ -93,6 +94,7 @@ class SignInScreen extends React.Component {
             const id = 'b4bb7dfe-4125-4099-86a3-748b8ba8e726';
             const props = { ...this.props };
             connectToRoom(id, currentUser, props);
+            toggleSignIn(); // ユーザをログイン状態に
           });
       })
       .catch(console.error);
@@ -114,7 +116,6 @@ class SignInScreen extends React.Component {
           : (
             <div className="container">
               <ValidatorForm
-                ref="form"
                 onSubmit={this.signInWithEmailAndPassword}
                 onError={(errors) => console.log(errors)}
               >
