@@ -12,6 +12,9 @@ import {
   onMessages,
   onPresenceChanged,
   toggleRedirectChat,
+  requestProfileData,
+  receiveProfileSuccess,
+  receiveProfileFailed,
 } from '../actions/index';
 
 const mapStateToProps = ({ getShare, chat }) => ({
@@ -55,6 +58,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   toggleRedirectChat(bool) {
     dispatch(toggleRedirectChat(bool));
+  },
+  requestProfileData() {
+    requestProfileData();
+  },
+  receiveProfileSuccess(profile) {
+    receiveProfileSuccess(profile);
+  },
+  receiveProfileFailed() {
+    receiveProfileFailed();
   },
 });
 

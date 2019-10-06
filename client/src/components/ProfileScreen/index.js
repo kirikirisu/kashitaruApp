@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink, Route, Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +12,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Textsms from '@material-ui/icons/Textsms';
 import NormalCard from './NormalCard';
 import Heading from './Heading';
-import getProfile from '../../utils/getProfile';
 import PromptGoAnyScreen from '../PromptComponent/index';
 import key from '../../utils/listKeyGenerator';
 
@@ -31,38 +30,29 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileScreen = ({
   id,
-  name,
+  name: currentUserName,
   isLogin,
   profileIsFetching,
   user,
   product,
-  ...rest
 }) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    getProfile(id, rest);
-  }, []);
-
   const renderProfile = () => {
-    console.log(user, product);
+    // console.log(user, product);
     const {
       id: pulledUserId,
-      name: pulledUserName,
+      name,
       avatar,
       comment,
     } = user;
-    let profileName = '';
+
     let title = '';
-    let subTitle = '';
-    if (id === pulledUserId) {
-      profileName = name;
+    const subTitle = 'プロフィールを確認';
+    if (id === pulledUserId) { // 自分のプロフィール
       title = 'あなたのプロフィール';
-      subTitle = 'ログイン情報を確認';
     } else {
-      profileName = pulledUserName;
-      title = 'あなたのプロフィール';
-      subTitle = 'ログイン情報を確認';
+      title = `${name}のプロフィール`;
     }
     return (
       <div>
@@ -79,7 +69,7 @@ const ProfileScreen = ({
                   <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src={avatar} className={classes.bigAvatar} />
                   </ListItemAvatar>
-                  <ListItemText primary={profileName} secondary="ニックネーム" />
+                  <ListItemText primary={name} secondary="ニックネーム" />
                 </ListItem>
                 <ListItem>
                   <ListItemAvatar>
@@ -120,7 +110,7 @@ const ProfileScreen = ({
   const isSetting = () => {
     return (
       <div>
-        {name // プロフィール設定がしてあるかどうかはログインした時に持ってくるプロフィール情報の名前があるかないかで判断
+        {currentUserName // プロフィール設定がしてあるかどうかはログインした時に持ってくるプロフィール情報の名前があるかないかで判断
           ? (
             renderProfile()
           )

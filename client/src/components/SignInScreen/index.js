@@ -6,7 +6,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './style.css';
 import firebase from '../../firebaseWithConfig';
 import AlreadySignInScreen from './AlreadySignIn';
-import connectToRoom from '../../utils/connectToRoom';
+import getProfile from '../../utils/getProfile';
 
 class SignInScreen extends React.Component {
   signInWithEmailAndPassword = () => {
@@ -63,10 +63,12 @@ class SignInScreen extends React.Component {
 
   connectToChatkit = (userId) => { // chatkitインスタンスにログインしたユーザを接続
     const {
+      id,
       addRoom,
       setCurrentUser,
       setRooms,
       toggleSignIn,
+      ...rest
     } = this.props;
     axios
       .post('/users', { userId })
@@ -91,9 +93,7 @@ class SignInScreen extends React.Component {
             setCurrentUser(currentUser);
             setRooms(currentUser.rooms);
 
-            const id = 'b4bb7dfe-4125-4099-86a3-748b8ba8e726';
-            const props = { ...this.props };
-            connectToRoom(id, currentUser, props);
+            getProfile(id, rest);
             toggleSignIn(); // ユーザをログイン状態に
           });
       })
