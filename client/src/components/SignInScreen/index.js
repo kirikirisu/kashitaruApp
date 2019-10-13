@@ -19,7 +19,7 @@ class SignInScreen extends React.Component {
     firebase.auth().signInWithEmailAndPassword(signInMailAddress, signInPassword)
       .then(() => {
         initializeSignInForm();
-        this.getUserInformation(); // そのユーザのプロフィール情報を持ってくる。
+        this.getUserInformation(); // そのユーザのidとnameを持ってくる。
       })
       .catch((error) => {
         console.log(error);
@@ -55,8 +55,8 @@ class SignInScreen extends React.Component {
   generationChatInstance = () => {
     const { name } = this.props;
 
-    if (name === null || name.trim() === '') { // ユーザーの名前がなかったらプロフィール設定へ
-      return;
+    if (name === null || name.trim() === '') {
+      window.location.href = '/setting';
     }
     this.connectToChatkit(name);
   };

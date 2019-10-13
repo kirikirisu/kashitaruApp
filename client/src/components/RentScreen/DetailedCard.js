@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Redirect, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -132,7 +133,11 @@ const DetailedCard = ({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => goProfilePage()}>Profile</MenuItem>
+      <Button component={Link} to="/profile" onClick={() => goProfilePage()}>
+        <MenuItem>
+          Profile
+        </MenuItem>
+      </Button>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );

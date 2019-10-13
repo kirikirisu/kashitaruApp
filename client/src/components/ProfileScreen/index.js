@@ -47,12 +47,14 @@ const ProfileScreen = ({
       comment,
     } = user;
 
-    let title = '';
-    const subTitle = 'プロフィールを確認';
-    if (id === pulledUserId) { // 自分のプロフィール
-      title = 'あなたのプロフィール';
+    let firstTitle = '';
+    let secondTitle = '';
+    if (id === pulledUserId) { // 自分のプロフィールか他の人のプロフィールか判断
+      firstTitle = 'あなたのプロフィール';
+      secondTitle = 'あなたのシェア情報';
     } else {
-      title = `${name}のプロフィール`;
+      firstTitle = `${name}のプロフィール`;
+      secondTitle = `${name} のシェア情報`;
     }
     return (
       <div>
@@ -62,7 +64,7 @@ const ProfileScreen = ({
           )
           : (
             <Box display="flex" flexDirection="column" alignItems="center">
-              <Heading title={title} subTitle={subTitle} />
+              <Heading title={firstTitle} subTitle="プロフィールを確認" />
               <br />
               <List className={classes.root}>
                 <ListItem>
@@ -81,7 +83,7 @@ const ProfileScreen = ({
                 </ListItem>
               </List>
               <Button component={RouterLink} to="/setting">プロフィール更新</Button>
-              <Heading title="あなたの貸し出し一覧" subTitle="シェアしている情報を確認" />
+              <Heading title={secondTitle} subTitle="シェア情報を確認" />
               <br />
               <Grid item xs={12}>
                 <Grid container justify="center" spacing={2}>

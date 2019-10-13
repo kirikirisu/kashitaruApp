@@ -60,13 +60,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(toggleRedirectChat(bool));
   },
   requestProfileData() {
-    requestProfileData();
+    dispatch(requestProfileData());
   },
   receiveProfileSuccess(profile) {
-    receiveProfileSuccess(profile);
+    dispatch(receiveProfileSuccess(profile));
   },
   receiveProfileFailed() {
-    receiveProfileFailed();
+    dispatch(receiveProfileFailed());
   },
 });
 
