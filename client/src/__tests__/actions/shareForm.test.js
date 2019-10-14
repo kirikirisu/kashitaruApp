@@ -57,7 +57,7 @@ describe('shareForm actions', () => {
   });
 
   test('発送までの日数を変更するアクションが発行されること', () => {
-    const days = '発送までの日数を変更するアクションが発行されること';
+    const days = '発送までの日数';
     const expected = {
       type: types.CHANGE_DAYS,
       days,
