@@ -16,7 +16,7 @@ class SignUpScreen extends React.Component {
 
     firebase.auth().createUserWithEmailAndPassword(mailAddress, password) // 入力されたメールとパスワードでfirebaseにアカウントを作る
       .then((userCredentials) => { // アカウント作成が成功すると自動でそのアカウントはログイン状態になる　　　　　   
-        userCredentials.user.getIdToken(true) // アクセストークンを入手　trueで自動でキャッシュを削除してくれる(forceRefresh)
+        userCredentials.user.getIdToken(true) // アクセストークンを入手、trueで自動でキャッシュを削除してくれる(forceRefresh)
           .then((idToken) => {                   // アクセストークンをサーバーにリクエスト
             axios.post('/api/setUid', {
               idToken,                           // サーバ側でアクセストークンを元にログインしたユーザのユニークキーを入手し保存
@@ -56,7 +56,6 @@ class SignUpScreen extends React.Component {
         <div>{errorMessage}</div>
         <div className="container">
           <ValidatorForm
-            ref="form"
             onSubmit={this.createUserForLoginWithEmailAndPassword}
             onError={(errors) => console.log(errors)}
           >

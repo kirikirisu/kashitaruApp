@@ -9,18 +9,16 @@ import {
   addRoom,
   setCurrentUser,
   setRooms,
-  initializeMessage,
-  setRoomUsers,
-  setRoomName,
-  setCurrentRoom,
-  onMessages,
-  onPresenceChanged,
+  requestProfileData,
+  receiveProfileSuccess,
+  receiveProfileFailed,
 } from '../actions/index';
 
 const mapStateToProps = ({ signIn, user, chat }) => ({
   signInMailAddress: signIn.signInMailAddress,
   signInPassword: signIn.signInPassword,
   isLogin: user.isLogin,
+  id: user.userInfor.id,
   name: user.userInfor.name,
   rooms: chat.rooms,
   currentRoom: chat.currentRoom,
@@ -51,23 +49,14 @@ const mapDispatchToProps = (dispatch) => ({
   setRooms(rooms) {
     dispatch(setRooms(rooms));
   },
-  initializeMessage() {
-    dispatch(initializeMessage());
+  requestProfileData() {
+    dispatch(requestProfileData());
   },
-  setRoomUsers(roomUser) {
-    dispatch(setRoomUsers(roomUser));
+  receiveProfileSuccess(profile) {
+    dispatch(receiveProfileSuccess(profile));
   },
-  setRoomName(roomName) {
-    dispatch(setRoomName(roomName));
-  },
-  setCurrentRoom(currentRoom) {
-    dispatch(setCurrentRoom(currentRoom));
-  },
-  onMessages(message) {
-    dispatch(onMessages(message));
-  },
-  onPresenceChanged(currentRoom) {
-    dispatch(onPresenceChanged(currentRoom));
+  receiveProfileFailed() {
+    dispatch(receiveProfileFailed());
   },
 });
 

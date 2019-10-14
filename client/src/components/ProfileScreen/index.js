@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink, Route, Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +12,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Textsms from '@material-ui/icons/Textsms';
 import NormalCard from './NormalCard';
 import Heading from './Heading';
-import getProfile from '../../utils/getProfile';
 import PromptGoAnyScreen from '../PromptComponent/index';
 import key from '../../utils/listKeyGenerator';
 
@@ -31,38 +30,31 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileScreen = ({
   id,
-  name,
+  name: currentUserName,
   isLogin,
   profileIsFetching,
   user,
   product,
-  ...rest
 }) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    getProfile(id, rest);
-  }, []);
-
   const renderProfile = () => {
-    console.log(user, product);
+    // console.log(user, product);
     const {
       id: pulledUserId,
-      name: pulledUserName,
+      name,
       avatar,
       comment,
     } = user;
-    let profileName = '';
-    let title = '';
-    let subTitle = '';
-    if (id === pulledUserId) {
-      profileName = name;
-      title = 'あなたのプロフィール';
-      subTitle = 'ログイン情報を確認';
+
+    let firstTitle = '';
+    let secondTitle = '';
+    if (id === pulledUserId) { // 自分のプロフィールか他の人のプロフィールか判断
+      firstTitle = 'あなたのプロフィール';
+      secondTitle = 'あなたのシェア情報';
     } else {
-      profileName = pulledUserName;
-      title = 'あなたのプロフィール';
-      subTitle = 'ログイン情報を確認';
+      firstTitle = `${name}のプロフィール`;
+      secondTitle = `${name} のシェア情報`;
     }
     return (
       <div>
@@ -72,14 +64,14 @@ const ProfileScreen = ({
           )
           : (
             <Box display="flex" flexDirection="column" alignItems="center">
-              <Heading title={title} subTitle={subTitle} />
+              <Heading title={firstTitle} subTitle="プロフィールを確認" />
               <br />
               <List className={classes.root}>
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src={avatar} className={classes.bigAvatar} />
                   </ListItemAvatar>
-                  <ListItemText primary={profileName} secondary="ニックネーム" />
+                  <ListItemText primary={name} secondary="ニックネーム" />
                 </ListItem>
                 <ListItem>
                   <ListItemAvatar>
@@ -91,7 +83,7 @@ const ProfileScreen = ({
                 </ListItem>
               </List>
               <Button component={RouterLink} to="/setting">プロフィール更新</Button>
-              <Heading title="あなたの貸し出し一覧" subTitle="シェアしている情報を確認" />
+              <Heading title={secondTitle} subTitle="シェア情報を確認" />
               <br />
               <Grid item xs={12}>
                 <Grid container justify="center" spacing={2}>
@@ -120,7 +112,7 @@ const ProfileScreen = ({
   const isSetting = () => {
     return (
       <div>
-        {name // プロフィール設定がしてあるかどうかはログインした時に持ってくるプロフィール情報の名前があるかないかで判断
+        {currentUserName // プロフィール設定がしてあるかどうかはログインした時に持ってくるプロフィール情報の名前があるかないかで判断
           ? (
             renderProfile()
           )

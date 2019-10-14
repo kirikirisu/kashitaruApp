@@ -10,7 +10,6 @@ const useStyles = makeStyles({
 });
 
 const AlreadySignIn = () => {
-
   const classes = useStyles();
 
   return (

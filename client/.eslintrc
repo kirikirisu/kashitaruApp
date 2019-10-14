@@ -6,6 +6,11 @@
   "plugins": [
     "react"
   ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  },
   "rules": {
     "indent": [
       "error",

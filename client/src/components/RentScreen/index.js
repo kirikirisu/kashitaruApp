@@ -14,7 +14,7 @@ const RentScreen = ({
   rooms,
   toggleRedirectChat,
   redirectChat,
-  ...rest // connectToRoomのアクションたち
+  ...rest // connectToRoomとgetProfileのアクションたち
 }) => {
   const handleFetchData = () => {
     requestData(); // axios.get()を呼ぶ前にisFetchingをtrueにしておく
@@ -48,10 +48,10 @@ const RentScreen = ({
                         productName={share.productName}
                         img={share.productImg}
                         description={share.description}
-                        price={share.price}
                         period={share.period}
                         shippingArea={share.shippingArea}
                         days={share.days}
+                        id={share.id}
                         name={share.name}
                         avatar={share.avatar}
                         comment={share.comment}
