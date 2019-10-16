@@ -18,7 +18,6 @@ let connection = mysql.createConnection({
 });
 connection.connect();
 
-
 admin.initializeApp({                                       // Admin SDKを初期化
   credential: admin.credential.applicationDefault(),
   databaseURL: "https://kashitaru-434fb.firebaseio.com"
@@ -70,9 +69,9 @@ app.get('/api/share', (request, response) => {
 });
 
 // getProfile
-app.post('/api/getProfileData', (request, response) => {
+app.post('/api/postProfileData', (request, response) => {
   const { id } = request.body;
-  const columns = ['id','name', 'avatar', 'comment'];
+  const columns = ['id', 'name', 'avatar', 'comment'];
   let resResults = {};
   connection.query('SELECT ?? FROM `user` WHERE id = ?', [columns, id], (error, results, fields) => {
     resResults.user = results[0];

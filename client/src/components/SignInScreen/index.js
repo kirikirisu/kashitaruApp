@@ -6,7 +6,6 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './style.css';
 import firebase from '../../firebaseWithConfig';
 import AlreadySignInScreen from './AlreadySignIn';
-import getProfile from '../../utils/getProfile';
 
 class SignInScreen extends React.Component {
   signInWithEmailAndPassword = () => {
@@ -68,7 +67,7 @@ class SignInScreen extends React.Component {
       setCurrentUser,
       setRooms,
       toggleSignIn,
-      ...rest
+      postProfile,
     } = this.props;
     axios
       .post('/users', { userId })
@@ -93,7 +92,7 @@ class SignInScreen extends React.Component {
             setCurrentUser(currentUser);
             setRooms(currentUser.rooms);
 
-            getProfile(id, rest);
+            postProfile(id);
             toggleSignIn(); // ユーザをログイン状態に
           });
       })

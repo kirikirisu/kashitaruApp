@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as types from '../constants/actionTypes';
 
 export const changeProductName = (productName) => ({
@@ -33,16 +34,29 @@ export const initializeShareForm = () => ({
 });
 
 
-export const requestData = () => ({
+const requestData = () => ({
   type: types.REQUEST_DATA,
 });
-export const receiveDataSuccess = (characterArray) => ({
+const receiveDataSuccess = (allShareData) => ({
   type: types.RECEIVE_DATA_SUCCESS,
-  characterArray,
+  allShareData,
 });
-export const receiveDataFailed = () => ({
+const receiveDataFailed = () => ({
   type: types.RECEIVE_DATA_FAILED,
 });
+
+export const getAllShare = () => (dispatch) => {
+  dispatch(requestData());
+  return axios.get('/api/share')
+    .then((response) => {
+      const products = response.data;
+      dispatch(receiveDataSuccess(products));
+    })
+    .catch((err) => {
+      console.error(new Error(err));
+      dispatch(receiveDataFailed());
+    });
+};
 
 export const changePassword = (password) => ({
   type: types.CHANGE_PASSWORD,
@@ -103,24 +117,34 @@ export const setAvatarImg = (avatarImg) => ({
 });
 
 
-export const requestProfileData = () => ({
+const requestProfileData = () => ({
   type: types.REQUEST_PROFILE_DATA,
 });
 
-export const receiveProfileSuccess = (profileData) => {
-  // console.log(`action${profileData}`);
-  return {
-    type: types.RECEIVE_PROFOLE_SUCCESS,
-    payload: {
-      user: profileData.user,
-      product: profileData.product,
-    },
-  };
-};
+const receiveProfileSuccess = (profileData) => ({
+  type: types.RECEIVE_PROFOLE_SUCCESS,
+  payload: {
+    user: profileData.user,
+    product: profileData.product,
+  },
+});
 
-export const receiveProfileFailed = () => ({
+const receiveProfileFailed = () => ({
   type: types.RECEIVE_PROFILE_FAILED,
 });
+
+export const postProfile = (id) => (dispatch) => {
+  dispatch(requestProfileData());
+  return axios.post('/api/postProfileData', { id })
+    .then((response) => {
+      const profileData = response.data;
+      dispatch(receiveProfileSuccess(profileData));
+    })
+    .catch((err) => {
+      console.error(new Error(err));
+      dispatch(receiveProfileFailed());
+    });
+};
 
 
 export const addRoom = (room) => ({

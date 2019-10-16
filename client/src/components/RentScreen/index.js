@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import DetailedCard from './DetailedCard';
 import key from '../../utils/listKeyGenerator';
@@ -15,25 +14,7 @@ const RentScreen = ({
   toggleRedirectChat,
   redirectChat,
   ...rest // connectToRoomとgetProfileのアクションたち
-}) => {
-  const handleFetchData = () => {
-    requestData(); // axios.get()を呼ぶ前にisFetchingをtrueにしておく
-    axios.get('/api/share')
-      .then((response) => { // データ受け取りに成功した場合
-        const products = response.data;
-        receiveDataSuccess(products); // データをstoreに保存するとともにisFetchingをfalseに
-      })
-      .catch((err) => { // データ受け取りに失敗した場合
-        console.error(new Error(err));
-        receiveDataFailed(); // isFetchingをfalseに
-      });
-  };
-
-  useEffect(() => {
-    handleFetchData();
-  }, []);
-
-  return (
+}) => (
     <div>
       {
         isFetching // isFetchingの値で分岐
@@ -70,6 +51,5 @@ const RentScreen = ({
       }
     </div>
   );
-};
 
 export default RentScreen;

@@ -19,7 +19,6 @@ import Chat from '@material-ui/icons/Chat';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import connectToRoom from '../../utils/connectToRoom';
-import getProfile from '../../utils/getProfile';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -119,7 +118,8 @@ const DetailedCard = ({
   };
 
   const goProfilePage = () => {
-    getProfile(eachId, rest);
+    const { postProfile } = rest;
+    postProfile(eachId);
     console.log('done');
   };
 

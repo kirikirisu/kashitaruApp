@@ -1,9 +1,6 @@
 import { connect } from 'react-redux';
 import RentScreen from '../components/RentScreen/index';
 import {
-  requestData,
-  receiveDataSuccess,
-  receiveDataFailed,
   initializeMessage,
   setRooms,
   setRoomUsers,
@@ -12,9 +9,7 @@ import {
   onMessages,
   onPresenceChanged,
   toggleRedirectChat,
-  requestProfileData,
-  receiveProfileSuccess,
-  receiveProfileFailed,
+  postProfile,
 } from '../actions/index';
 
 const mapStateToProps = ({ getShare, chat }) => ({
@@ -26,15 +21,6 @@ const mapStateToProps = ({ getShare, chat }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestData() {
-    dispatch(requestData());
-  },
-  receiveDataSuccess(characterArray) {
-    dispatch(receiveDataSuccess(characterArray));
-  },
-  receiveDataFailed() {
-    dispatch(receiveDataFailed());
-  },
   onMessages(message) {
     dispatch(onMessages(message));
   },
@@ -59,14 +45,8 @@ const mapDispatchToProps = (dispatch) => ({
   toggleRedirectChat(bool) {
     dispatch(toggleRedirectChat(bool));
   },
-  requestProfileData() {
-    dispatch(requestProfileData());
-  },
-  receiveProfileSuccess(profile) {
-    dispatch(receiveProfileSuccess(profile));
-  },
-  receiveProfileFailed() {
-    dispatch(receiveProfileFailed());
+  postProfile(id) {
+    dispatch(postProfile(id));
   },
 });
 

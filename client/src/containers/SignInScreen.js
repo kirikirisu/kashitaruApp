@@ -9,9 +9,7 @@ import {
   addRoom,
   setCurrentUser,
   setRooms,
-  requestProfileData,
-  receiveProfileSuccess,
-  receiveProfileFailed,
+  postProfile,
 } from '../actions/index';
 
 const mapStateToProps = ({ signIn, user, chat }) => ({
@@ -49,14 +47,8 @@ const mapDispatchToProps = (dispatch) => ({
   setRooms(rooms) {
     dispatch(setRooms(rooms));
   },
-  requestProfileData() {
-    dispatch(requestProfileData());
-  },
-  receiveProfileSuccess(profile) {
-    dispatch(receiveProfileSuccess(profile));
-  },
-  receiveProfileFailed() {
-    dispatch(receiveProfileFailed());
+  postProfile(id) {
+    dispatch(postProfile(id));
   },
 });
 
