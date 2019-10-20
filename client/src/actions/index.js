@@ -47,8 +47,9 @@ const receiveDataFailed = () => ({
 
 export const getAllShare = () => (dispatch) => {
   dispatch(requestData());
-  return axios.get('/api/share')
+  return axios.get(`${process.env.REACT_APP_PROXY}/api/share`)
     .then((response) => {
+      console.log(response);
       const products = response.data;
       dispatch(receiveDataSuccess(products));
     })
@@ -135,9 +136,10 @@ const receiveProfileFailed = () => ({
 
 export const postProfile = (id) => (dispatch) => {
   dispatch(requestProfileData());
-  return axios.post('/api/postProfileData', { id })
+  return axios.post(`${process.env.REACT_APP_PROXY}/api/postProfileData`, { id })
     .then((response) => {
       const profileData = response.data;
+      console.log(profileData);
       dispatch(receiveProfileSuccess(profileData));
     })
     .catch((err) => {
@@ -145,7 +147,6 @@ export const postProfile = (id) => (dispatch) => {
       dispatch(receiveProfileFailed());
     });
 };
-
 
 export const addRoom = (room) => ({
   type: types.ADD_ROOM,

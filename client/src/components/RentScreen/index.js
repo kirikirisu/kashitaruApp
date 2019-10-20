@@ -13,7 +13,7 @@ const RentScreen = ({
   rooms,
   toggleRedirectChat,
   redirectChat,
-  ...rest // connectToRoomとgetProfileのアクションたち
+  ...rest // connectToRoomのアクションたち
 }) => (
     <div>
       {

@@ -23,7 +23,7 @@ class ShareScreen extends React.Component {
       id,
     } = this.props;
 
-    axios.post('/api/share', {
+    axios.post(`${process.env.REACT_APP_PROXY}/api/share`, {
       id,
       productName,
       productImgUrl,

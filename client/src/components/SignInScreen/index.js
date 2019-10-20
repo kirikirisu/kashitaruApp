@@ -30,7 +30,7 @@ class SignInScreen extends React.Component {
     const { getUserInformation } = this.props;
     firebase.auth().currentUser.getIdToken(true)
       .then((idToken) => {
-        axios.post('/api/getCurrentUser', {
+        axios.post(`${process.env.REACT_APP_PROXY}/api/getCurrentUser`, {
           idToken, // サーバ側でアクセストークンを元にuidを生成 // uidは現在ログインしているユーザーのユニークキー
         })
           .then((response) => {
@@ -55,7 +55,7 @@ class SignInScreen extends React.Component {
     const { name } = this.props;
 
     if (name === null || name.trim() === '') {
-      window.location.href = '/setting';
+      window.location.href = `${process.env.REACT_APP_PROXY}/setting`;
     }
     this.connectToChatkit(name);
   };
@@ -70,10 +70,10 @@ class SignInScreen extends React.Component {
       postProfile,
     } = this.props;
     axios
-      .post('/users', { userId })
+      .post(`${process.env.REACT_APP_PROXY}/users`, { userId })
       .then(() => {
         const tokenProvider = new Chatkit.TokenProvider({
-          url: '/authenticate',
+          url: `${process.env.REACT_APP_PROXY}/authenticate`,
         });
 
         const chatManager = new Chatkit.ChatManager({
