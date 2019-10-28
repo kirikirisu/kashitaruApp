@@ -17,6 +17,7 @@ describe('<RentScrren />', () => {
     />);
 
     expect(wrapper.find(DetailCard).length).toBe(7);
+    expect(wrapper.debug()).toMatchSnapshot();
   });
 
   it('ロード画面を表示すること', () => {
@@ -31,5 +32,6 @@ describe('<RentScrren />', () => {
     />);
 
     expect(wrapper.find('h2').length).toBe(1);
+    expect(wrapper.debug()).toMatchSnapshot();
   });
 });
