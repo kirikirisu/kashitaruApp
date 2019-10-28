@@ -6,9 +6,6 @@ import key from '../../utils/listKeyGenerator';
 const RentScreen = ({
   isFetching,
   shareInformationsArray,
-  requestData,
-  receiveDataSuccess,
-  receiveDataFailed,
   currentUser,
   rooms,
   toggleRedirectChat,
