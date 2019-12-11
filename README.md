@@ -90,11 +90,9 @@ firebase認証にしていなかった時は名前とメールアドレスの二
 共通化したものを入れていく
 
 ## テスト
-create-react-appでjestとenzymeを使ってテストをする際の環境構築
-[create-react-app公式](https://create-react-app.dev/docs/running-tests)
-そもそものテストの仕方は別で調べる必要がある
-[enzyme公式](https://airbnb.io/enzyme/docs/api/)
-
+- create-react-appでjestとenzymeを使ってテストをする際の環境構築[create-react-app公式](https://create-react-app.dev/docs/running-tests)
+- そもそものテストの仕方は別で調べる必要がある[enzyme公式](https://airbnb.io/enzyme/docs/api/)
+- テストについて適当にまとめた[Qiita](https://qiita.com/arakappa/items/8deb1b328326b712a732)
 ## some
 アクションの名前の付け方を最初から決めておけばよかった
 画面の数や機能を最初にある程度決めておけばよかった

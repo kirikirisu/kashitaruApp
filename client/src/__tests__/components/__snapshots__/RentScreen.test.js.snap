@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RentScrren /> <DetailCard />を表示していること 1`] = `
+"<div>
+  <div>
+    <WithStyles(ForwardRef(Grid)) item={true} xs={12}>
+      <WithStyles(ForwardRef(Grid)) container={true} justify=\\"center\\" spacing={2}>
+        <WithStyles(ForwardRef(Grid)) item={true}>
+          <DetailedCard productName=\\"カッパの尻子玉\\" img=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/Android.png?alt=media&token=aae1f59d-0da8-434a-bb0c-91808835f2e4\\" description=\\"村長のやつです\\" period=\\"８ヶ月\\" shippingArea=\\"荒川区\\" days=\\"３日\\" id={7} name=\\"カッパ\\" avatar=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/20140321122433e1d.jpg?alt=media&token=86086470-f12c-4cb6-869e-9ff8416cd887\\" comment=\\"はい妖怪幻術甲羅はずれてるように見えたの術\\" currentUser={{...}} rooms={{...}} toggleRedirectChat={[Function: mockConstructor]} redirectChat={false} rest={{...}} />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid)) item={true}>
+          <DetailedCard productName=\\"カッパの皿\\" img=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/Go.png?alt=media&token=ff2fe281-1403-4f1b-9584-5501cc388e51\\" description=\\"村長のやつ\\" period=\\"９ヶ月\\" shippingArea=\\"荒川区\\" days=\\"９日\\" id={7} name=\\"カッパ\\" avatar=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/20140321122433e1d.jpg?alt=media&token=86086470-f12c-4cb6-869e-9ff8416cd887\\" comment=\\"はい妖怪幻術甲羅はずれてるように見えたの術\\" currentUser={{...}} rooms={{...}} toggleRedirectChat={[Function: mockConstructor]} redirectChat={false} rest={{...}} />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid)) item={true}>
+          <DetailedCard productName=\\"fsdfsdf\\" img=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/rails2-logo.png?alt=media&token=589c6622-e31e-4499-917b-5af119b55277\\" description=\\"fsdfsdfsdf\\" period=\\"fdsff\\" shippingArea=\\"fdsf\\" days=\\"fsdf\\" id={7} name=\\"カッパ\\" avatar=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/20140321122433e1d.jpg?alt=media&token=86086470-f12c-4cb6-869e-9ff8416cd887\\" comment=\\"はい妖怪幻術甲羅はずれてるように見えたの術\\" currentUser={{...}} rooms={{...}} toggleRedirectChat={[Function: mockConstructor]} redirectChat={false} rest={{...}} />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid)) item={true}>
+          <DetailedCard productName=\\"jhkhkhj\\" img=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/docker.png?alt=media&token=7fe28d4a-f2de-49e2-be42-b05914f5b692\\" description=\\"kkm\\" period=\\"thth\\" shippingArea=\\"gerg\\" days=\\"gerg\\" id={7} name=\\"カッパ\\" avatar=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/20140321122433e1d.jpg?alt=media&token=86086470-f12c-4cb6-869e-9ff8416cd887\\" comment=\\"はい妖怪幻術甲羅はずれてるように見えたの術\\" currentUser={{...}} rooms={{...}} toggleRedirectChat={[Function: mockConstructor]} redirectChat={false} rest={{...}} />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid)) item={true}>
+          <DetailedCard productName=\\"星の被り物\\" img=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/Gitlab.png?alt=media&token=b9d44c7b-5467-4956-a99e-b38c21f3b0ec\\" description=\\"黄色いやつです\\" period=\\"５ヶ月\\" shippingArea=\\"荒川区\\" days=\\"２日\\" id={8} name=\\"ほし\\" avatar=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/7c47b5da.jpg?alt=media&token=c5ca5944-f442-40d5-8587-01ca148c9f17\\" comment=\\"「水着の女の子のいるところ」...それだけで十分なんだよ！！\\" currentUser={{...}} rooms={{...}} toggleRedirectChat={[Function: mockConstructor]} redirectChat={false} rest={{...}} />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid)) item={true}>
+          <DetailedCard productName=\\"hogehoge\\" img=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/VScode.png?alt=media&token=e3a51472-f0f3-4234-8d22-e6975bc68ea9\\" description=\\"hogehogehogehogeghoegjeogheogheog\\" period=\\"gwregrg\\" shippingArea=\\"gererg\\" days=\\"gregerg\\" id={9} name=\\"nino\\" avatar=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/images-3-12.jpg?alt=media&token=5e6c4888-b9e6-4afb-8b82-c5c42ccd3ffc\\" comment=\\"私は金星人だ\\" currentUser={{...}} rooms={{...}} toggleRedirectChat={[Function: mockConstructor]} redirectChat={false} rest={{...}} />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid)) item={true}>
+          <DetailedCard productName=\\"sfew\\" img=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/React.png?alt=media&token=0a1dc8be-29a3-4fd3-b8c7-07c5bf49bbbe\\" description=\\"fewfwe\\" period=\\"fw\\" shippingArea=\\"fwewf\\" days=\\"gweg\\" id={9} name=\\"nino\\" avatar=\\"https://firebasestorage.googleapis.com/v0/b/kashitaru-434fb.appspot.com/o/images-3-12.jpg?alt=media&token=5e6c4888-b9e6-4afb-8b82-c5c42ccd3ffc\\" comment=\\"私は金星人だ\\" currentUser={{...}} rooms={{...}} toggleRedirectChat={[Function: mockConstructor]} redirectChat={false} rest={{...}} />
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </div>
+</div>"
+`;
+
+exports[`<RentScrren /> ロード画面を表示すること 1`] = `
+"<div>
+  <h2>
+    Now Loading...
+  </h2>
+</div>"
+`;

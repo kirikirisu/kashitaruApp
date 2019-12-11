@@ -6,7 +6,6 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './style.css';
 import firebase from '../../firebaseWithConfig';
 import AlreadySignInScreen from './AlreadySignIn';
-import getProfile from '../../utils/getProfile';
 
 class SignInScreen extends React.Component {
   signInWithEmailAndPassword = () => {
@@ -31,7 +30,7 @@ class SignInScreen extends React.Component {
     const { getUserInformation } = this.props;
     firebase.auth().currentUser.getIdToken(true)
       .then((idToken) => {
-        axios.post('/api/getCurrentUser', {
+        axios.post(`${process.env.REACT_APP_PROXY}/api/getCurrentUser`, {
           idToken, // サーバ側でアクセストークンを元にuidを生成 // uidは現在ログインしているユーザーのユニークキー
         })
           .then((response) => {
@@ -56,7 +55,7 @@ class SignInScreen extends React.Component {
     const { name } = this.props;
 
     if (name === null || name.trim() === '') {
-      window.location.href = '/setting';
+      window.location.href = `${process.env.REACT_APP_PROXY}/setting`;
     }
     this.connectToChatkit(name);
   };
@@ -68,13 +67,13 @@ class SignInScreen extends React.Component {
       setCurrentUser,
       setRooms,
       toggleSignIn,
-      ...rest
+      postProfile,
     } = this.props;
     axios
-      .post('/users', { userId })
+      .post(`${process.env.REACT_APP_PROXY}/users`, { userId })
       .then(() => {
         const tokenProvider = new Chatkit.TokenProvider({
-          url: '/authenticate',
+          url: `${process.env.REACT_APP_PROXY}/authenticate`,
         });
 
         const chatManager = new Chatkit.ChatManager({
@@ -93,7 +92,7 @@ class SignInScreen extends React.Component {
             setCurrentUser(currentUser);
             setRooms(currentUser.rooms);
 
-            getProfile(id, rest);
+            postProfile(id);
             toggleSignIn(); // ユーザをログイン状態に
           });
       })

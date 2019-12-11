@@ -24,7 +24,7 @@ const shareInformationsReducer = (state = initialState.shareInformations, action
       return {
         ...state,
         isFetching: false,
-        shareInformationsArray: action.characterArray,
+        shareInformationsArray: action.allShareData,
       };
     case RECEIVE_DATA_FAILED:
       return {

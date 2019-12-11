@@ -17,7 +17,7 @@ class SettingScreen extends React.Component {
 
     firebase.auth().currentUser.getIdToken(true)
       .then((idToken) => {
-        axios.post('/api/updateUser', {
+        axios.post(`${process.env.REACT_APP_PROXY}/api/updateUser`, {
           idToken,                           // サーバ側でアクセストークンを元にuidを生成
           profileName,
           profileComment,
